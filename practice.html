@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Narrow Jumbotron Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <!--<link href="css/bootstrap.min.css" rel="stylesheet">-->
+	<link href="css/bootswatch.min.css" rel="stylesheet">
+	<!--<link href="css/bootswatch-materia.min.css" rel="stylesheet">-->
+	<!--<link href="css/bootstrap-sketchy.min.css" rel="stylesheet">-->
+	<!--<link href="css/bootstrap-lux.min.css" rel="stylesheet">-->
+	<!--<link href="css/bootstrap-sandstone.min.css" rel="stylesheet">-->
+
+    <!-- Custom styles for this template -->
+    <link href="css/narrow-jumbotron.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container">
+    <header class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills float-right">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="practice.html">Practice <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+        </nav>
+        <h3 class="text-muted">CCT</h3>
+    </header>
+
+    <main role="main">
+
+        <div class="col-12">
+
+            <!--
+            Quiz options
+                default options:
+                    10 questions
+                    no timer
+            -->
+            <form id="test-options-form" action="" method="get">
+                <div class="form-group row">
+                    <label class="col-sm-5 col-form-label">Select a number of questions</label>
+                    <div class="col-sm-4 py-sm-2">
+                        <select name="number-of-questions" class="form-control form-control-sm">
+                            <option value="10" selected>10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                            <option value="50">50</option>
+                            <option value="60">60</option>
+                            <option value="70">70</option>
+                            <option value="80">80</option>
+                        </select>
+                    </div>
+                </div>
+                <fieldset class="form-group">
+                    <div class="row">
+                        <label class="col-form-legend col-sm-5">
+                            Do want a timer? <br>
+                            <small class="form-text text-muted">
+                                <span>How does it work?</span> <br>
+                                <span>10 questions = 15 minutes</span> <br>
+                                <span>20 questions = 30 minutes</span> <br>
+                                <span>30 questions = 45 minutes</span> <br>
+                                <span>etc</span>
+                            </small>
+                        </label>
+                        <div class="col-sm-2 py-sm-2">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="radio" name="is-set-timer" value="true">
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="radio" name="is-set-timer" value="false" checked>
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <button type="submit" class="btn btn-primary btn-outline-primary">Start</button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Questions -->
+            <form id="questions-form">
+
+                <ul class="list-group text-left py-sm-2 question-item">
+                    <li class="list-group-item list-group-item-dark text-center">Question 1 of 20</li>
+                    <li class="list-group-item list-group-item-primary active">What is 2*5?</li>
+                    <li class="list-group-item">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="option" value="option1">
+                                3
+                            </label>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="option" value="option2">
+                                5
+                            </label>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="option" value="option3">
+                                8
+                            </label>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="option" value="option4">
+                                10
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+
+                <ul class="list-group text-left py-sm-2 question-item">
+                    <li class="list-group-item list-group-item-dark text-center">Question 1 of 20</li>
+                    <li class="list-group-item list-group-item-primary active">What is 2*5?</li>
+                    <li class="list-group-item">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="option" value="option1">
+                                3
+                            </label>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="option" value="option2">
+                                5
+                            </label>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="option" value="option3">
+                                8
+                            </label>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="option" value="option4">
+                                10
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+
+                <button type="submit" class="btn btn-outline-success">Finish</button>
+            </form>
+
+            <!--
+            SCORES
+                also display the score to pass a sets of question
+                e.g. 20 questions, must have 15 correct to pass
+            -->
+
+            <!--
+            Questions showing incorrect answer and correct one
+                using the same template highlight the correct answer,
+                as well as the user wrong answer
+                use appropriate color for highlighting
+            -->
+
+            <!--
+            Graphs (optional):
+                showing correct and incorrect questions
+            -->
+
+
+
+
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <p>&copy; Company 2017</p>
+    </footer>
+
+</div> <!-- /container -->
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
