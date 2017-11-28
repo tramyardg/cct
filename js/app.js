@@ -1,12 +1,6 @@
 $(document).ready(function () {
   testOptions.onSubmitTestOptions('#test-options-form')
 })
-/**
- * check if timer is set
- * if timer is set then defined
- * the minutes accordingly
- * @type {{}}
- */
 const testOptions = {
   isTimerSet: false,
   minutes: null,
