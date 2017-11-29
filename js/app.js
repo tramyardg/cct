@@ -2,6 +2,7 @@ $(document).ready(function () {
   testOptions.setTestOptionsConstruct('#test-options-form')
   testOptions.onSubmitTestOptions()
   timer.setTimerConstruct('#timer-box', '#seconds-span', '#minutes-span')
+  customModal.setModalElement('#common-modal')
 })
 const MINUTES_CONSTANT = 60
 const INCREMENT_SECONDS_BY_1000 = 1000
@@ -114,5 +115,22 @@ const timer = {
       //
       // }
     }, INCREMENT_SECONDS_BY_1000)
+  }
+}
+const customModal = {
+  type: null,
+  title: null,
+  bodyText: null,
+  modalElement: null,
+  setModalElement (arg) {
+    customModal.modalElement = arg
+  },
+  setConstructor (args) {
+    customModal.type = args.type
+    customModal.title = args.title
+    customModal.bodyText = args.bodyText
+  },
+  createModal () {
+    customModal.modalElement.modal('show')
   }
 }
