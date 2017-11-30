@@ -2,6 +2,7 @@ $(document).ready(function () {
   testOptions.setTestOptionsConstruct('#test-options-form')
   testOptions.onSubmitTestOptions()
   timer.setTimerConstruct('#timer-box', '#seconds-span', '#minutes-span')
+  customAlert.setId('#customAlert')
 })
 const MINUTES_CONSTANT = 60
 const INCREMENT_SECONDS_BY_1000 = 1000
@@ -120,9 +121,30 @@ const timer = {
       }
       if (counter === 0) {
         console.log('time is up')
+        customAlert.displayAlert('warning', 'Time is up!', 'Please submit the test.')
         clearInterval(remainingSeconds)
         clearInterval(remainingMinutes)
       }
     }, INCREMENT_SECONDS_BY_1000)
+  }
+}
+const customAlert = {
+  id: null,
+  setId (alertId) {
+    customAlert.id = alertId
+    customAlert.hideAlert()
+  },
+  displayAlert (type, heading, text) {
+    customAlert.showAlert()
+    $(customAlert.id).addClass('alert-' + type)
+    $(customAlert.id).find('.alert-heading').text(heading)
+    $(customAlert.id).find('#alertBody').text(text)
+    $(customAlert.id).removeClass('hidden')
+  },
+  hideAlert () {
+    $(customAlert.id).css('display', 'none')
+  },
+  showAlert () {
+    $(customAlert.id).css('display', 'block')
   }
 }
