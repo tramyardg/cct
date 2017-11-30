@@ -107,7 +107,7 @@ const timer = {
     timer.seconds = passedMinutes * MINUTES_CONSTANT
   },
   startTimer () { // main
-    let counter = 5
+    let counter = 10
     let remainingMinutes, remainingSeconds
     setInterval(function () {
       counter--
@@ -119,13 +119,22 @@ const timer = {
         $(timer.secondsHTML).text(secondsText)
         $(timer.minutesHTML).text(minutesText)
       }
+      timer.changeBadgeColor(counter)
       if (counter === 0) {
-        console.log('time is up')
         customAlert.displayAlert('warning', 'Time is up!', 'Please submit the test.')
         clearInterval(remainingSeconds)
         clearInterval(remainingMinutes)
       }
     }, INCREMENT_SECONDS_BY_1000)
+  },
+  changeBadgeColor (counter) {
+    if (counter > 30 && counter < 60) {
+      $(timer.secondsHTML).removeClass('badge-secondary').addClass('badge-warning')
+      $(timer.minutesHTML).removeClass('badge-secondary').addClass('badge-warning')
+    } else if (counter < 30) {
+      $(timer.secondsHTML).removeClass('badge-secondary').addClass('badge-danger')
+      $(timer.minutesHTML).removeClass('badge-secondary').addClass('badge-danger')
+    }
   }
 }
 const customAlert = {
