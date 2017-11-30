@@ -6,7 +6,6 @@ $(document).ready(function () {
 })
 const MINUTES_CONSTANT = 60
 const INCREMENT_SECONDS_BY_1000 = 1000
-const HIDE_ELEMENT_CLASS = 'text-hide'
 const testOptions = {
   isTimerSet: false,
   minutes: null,
@@ -16,7 +15,7 @@ const testOptions = {
     testOptions.testOptionsFormHTML = tofHTML
   },
   hideTestOptionsForm () {
-    $(testOptions.testOptionsFormHTML).addClass(HIDE_ELEMENT_CLASS)
+    $(testOptions.testOptionsFormHTML).css('display', 'none')
   },
   setIsTimerSet (cond) {
     if (cond === true || cond === 'true') {
@@ -96,12 +95,13 @@ const timer = {
     timer.timerHTML = timerBox
     timer.secondsHTML = secHTML
     timer.minutesHTML = minHTML
+    timer.hideTimer()
   },
   displayTimer () {
-    $(timer.timerHTML).removeClass(HIDE_ELEMENT_CLASS)
+    $(timer.timerHTML).css('display', 'block')
   },
   hideTimer () {
-    $(timer.timerHTML).addClass(HIDE_ELEMENT_CLASS)
+    $(timer.timerHTML).css('display', 'none')
   },
   setSecondsByMinutes (passedMinutes) {
     timer.seconds = passedMinutes * MINUTES_CONSTANT
