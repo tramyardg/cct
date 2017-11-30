@@ -2,7 +2,6 @@ $(document).ready(function () {
   testOptions.setTestOptionsConstruct('#test-options-form')
   testOptions.onSubmitTestOptions()
   timer.setTimerConstruct('#timer-box', '#seconds-span', '#minutes-span')
-  customModal.setModalElement('#common-modal')
 })
 const MINUTES_CONSTANT = 60
 const INCREMENT_SECONDS_BY_1000 = 1000
@@ -56,7 +55,7 @@ const testOptions = {
   setNumberOfQuestions (num) {
     testOptions.numberOfQuestions = num
   },
-  onSubmitTestOptions: function () {
+  onSubmitTestOptions: function () { // main
     let formId = testOptions.testOptionsFormHTML
     $(formId).submit(function (event) {
       let values = []
@@ -80,6 +79,7 @@ const testOptions = {
     if (testOptions.isTimerSet) {
       timer.displayTimer()
       timer.setSecondsByMinutes(testOptions.minutes)
+      // customModal.showModal('md', 'Hello', 'How are you?')
       timer.startTimer()
     } else {
       timer.hideTimer()
@@ -105,32 +105,24 @@ const timer = {
   setSecondsByMinutes (passedMinutes) {
     timer.seconds = passedMinutes * MINUTES_CONSTANT
   },
-  startTimer () {
-    // let remainingMinutes
-    // let remainingSeconds
-    // let counter = timer.seconds
+  startTimer () { // main
+    let counter = 5
+    let remainingMinutes, remainingSeconds
     setInterval(function () {
-      // counter--
-      // if (counter >= 0) {
-      //
-      // }
+      counter--
+      if (counter >= 0) {
+        remainingMinutes = Math.floor(counter / MINUTES_CONSTANT)
+        remainingSeconds = counter % MINUTES_CONSTANT
+        let secondsText = ((remainingSeconds < 10) ? '0' + remainingSeconds : remainingSeconds)
+        let minutesText = ((remainingMinutes < 10) ? '0' + remainingMinutes : remainingMinutes)
+        $(timer.secondsHTML).text(secondsText)
+        $(timer.minutesHTML).text(minutesText)
+      }
+      if (counter === 0) {
+        console.log('time is up')
+        clearInterval(remainingSeconds)
+        clearInterval(remainingMinutes)
+      }
     }, INCREMENT_SECONDS_BY_1000)
-  }
-}
-const customModal = {
-  type: null,
-  title: null,
-  bodyText: null,
-  modalElement: null,
-  setModalElement (arg) {
-    customModal.modalElement = arg
-  },
-  setConstructor (args) {
-    customModal.type = args.type
-    customModal.title = args.title
-    customModal.bodyText = args.bodyText
-  },
-  createModal () {
-    customModal.modalElement.modal('show')
   }
 }
