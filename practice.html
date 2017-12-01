@@ -11,6 +11,8 @@
     <!-- Bootstrap core CSS -->
     <!--<link href="css/bootstrap.min.css" rel="stylesheet">-->
 	<link href="css/bootswatch.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 	<!--<link href="css/bootswatch-materia.min.css" rel="stylesheet">-->
 	<!--<link href="css/bootstrap-sketchy.min.css" rel="stylesheet">-->
 	<!--<link href="css/bootstrap-lux.min.css" rel="stylesheet">-->
@@ -18,10 +20,21 @@
 
     <!-- Custom styles for this template -->
     <link href="css/narrow-jumbotron.css" rel="stylesheet">
+	<style>
+	  .ui-progressbar {
+		position: relative;
+	  }
+	  .progress-label {
+		position: absolute;
+		left: 45%;
+		top: 4px;
+		font-weight: bold;
+		text-shadow: 1px 1px 0 #fff;
+	  }
+  </style>
 </head>
 
 <body>
-
 <div class="container">
     <header class="header clearfix">
         <nav>
@@ -44,6 +57,7 @@
 
         <div class="col-12">
 
+			<div id="progressbar"><div class="progress-label"></div></div>
             <div class="alert" id="customAlert" role="alert">
                 <h4 class="alert-heading"></h4>
                 <hr>
@@ -221,6 +235,7 @@
 
 </div> <!-- /container -->
 <script src="js/jquery-3.2.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
