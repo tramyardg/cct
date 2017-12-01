@@ -3,6 +3,9 @@ $(document).ready(function () {
   testOptions.onSubmitTestOptions()
   timer.setTimerConstruct('#timer-box', '#seconds-span', '#minutes-span')
   customAlert.setId('#customAlert')
+  loadXMLDoc.load(function (output) {
+    QuestionCatalog.setCatalog(output)
+  })
 })
 const MINUTES_CONSTANT = 60
 const INCREMENT_SECONDS_BY_1000 = 1000
@@ -156,5 +159,27 @@ const customAlert = {
   },
   showAlert () {
     $(customAlert.id).css('display', 'block')
+  }
+}
+const QuestionCatalog = {
+  catalog: null,
+  setCatalog (aCatalog) {
+    QuestionCatalog.catalog = aCatalog
+    // manipulate catalog here
+    console.log(QuestionCatalog.catalog)
+  }
+}
+const loadXMLDoc = {
+  load: function (handleData) {
+    $.ajax({
+      type: 'GET',
+      url: 'questions.xml',
+      dataType: 'xml',
+      success: function (xml) {
+        handleData(xml)
+      },
+      error: function () {
+      }
+    })
   }
 }
