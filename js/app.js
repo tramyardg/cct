@@ -56,6 +56,8 @@ const testOptions = {
     testOptions.numberOfQuestions = num
   },
   onSubmitTestOptions: function () { // main
+    timer.hideTimer()
+    customAlert.hideAlert()
     let formId = testOptions.testOptionsFormHTML
     $(formId).submit(function (event) {
       let values = []
@@ -79,7 +81,6 @@ const testOptions = {
     if (testOptions.isTimerSet) {
       timer.displayTimer()
       timer.setSecondsByMinutes(testOptions.minutes)
-      // customModal.showModal('md', 'Hello', 'How are you?')
       timer.startTimer()
     } else {
       timer.hideTimer()
@@ -128,10 +129,10 @@ const timer = {
     }, INCREMENT_SECONDS_BY_1000)
   },
   changeBadgeColor (counter) {
-    if (counter > 30 && counter < 60) {
+    if (counter > MINUTES_CONSTANT / 2 && counter < MINUTES_CONSTANT) {
       $(timer.secondsHTML).removeClass('badge-secondary').addClass('badge-warning')
       $(timer.minutesHTML).removeClass('badge-secondary').addClass('badge-warning')
-    } else if (counter < 30) {
+    } else if (counter < MINUTES_CONSTANT / 2) {
       $(timer.secondsHTML).removeClass('badge-secondary').addClass('badge-danger')
       $(timer.minutesHTML).removeClass('badge-secondary').addClass('badge-danger')
     }

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QUESTIONS>
+    <ITEM>
+        <QUIZID>AA0064</QUIZID>
+        <REGIONID>AA</REGIONID>
+        <DIAGRAMID>null</DIAGRAMID>
+        <QUESTION>Official awards are called honours, consisting of</QUESTION>
+        <QUESTIONTYPE>null</QUESTIONTYPE>
+        <OPTIONA>orders, honorable coin</OPTIONA>
+        <OPTIONB>medals, hero emblem, good fellow</OPTIONB>
+        <OPTIONC>orders, decorations and medals</OPTIONC>
+        <OPTIOND>orders, decorations,  recognition</OPTIOND>
+        <QUESTION_FR>Les récompenses officielles, ou distinctions honorifiques, sont présentées sous la forme</QUESTION_FR>
+        <OPTIONA_FR>d’ordres, coin memorable</OPTIONA_FR>
+        <OPTIONB_FR>de médailles, d'emblem, bonne samaritan</OPTIONB_FR>
+        <OPTIONC_FR>d’ordres, de décorations et de médailles</OPTIONC_FR>
+        <OPTIOND_FR>d’ordres, de décorations et de recognition</OPTIOND_FR>
+        <ANSWER>2</ANSWER>
+        <REFERRAL>40</REFERRAL>
+        <REFERRAL_FR>40</REFERRAL_FR>
+        <DIAGRAMID>null</DIAGRAMID>
+        <DIAGRAM>null</DIAGRAM>
+    </ITEM>
+    <ITEM>
+        <QUIZID>AA0063</QUIZID>
+        <REGIONID>AA</REGIONID>
+        <DIAGRAMID>null</DIAGRAMID>
+        <QUESTION>Canada national anthem</QUESTION>
+        <QUESTIONTYPE>null</QUESTIONTYPE>
+        <OPTIONA>God Save the Queen</OPTIONA>
+        <OPTIONB>O Canada</OPTIONB>
+        <OPTIONC>Canada Glory Land</OPTIONC>
+        <OPTIOND>Lord Canada</OPTIOND>
+        <QUESTION_FR>L’hymne national du Canada</QUESTION_FR>
+        <OPTIONA_FR>Dieu protège la Reine</OPTIONA_FR>
+        <OPTIONB_FR>Ô Canada</OPTIONB_FR>
+        <OPTIONC_FR>La Terre Canada</OPTIONC_FR>
+        <OPTIOND_FR>Dieu Canada</OPTIOND_FR>
+        <ANSWER>1</ANSWER>
+        <REFERRAL>40</REFERRAL>
+        <REFERRAL_FR>40</REFERRAL_FR>
+        <DIAGRAMID>null</DIAGRAMID>
+        <DIAGRAM>null</DIAGRAM>
+    </ITEM>
+    <ITEM>
+        <QUIZID>AA0054</QUIZID>
+        <REGIONID>AA</REGIONID>
+        <DIAGRAMID>null</DIAGRAMID>
+        <QUESTION>The bill is considered read for the first time and is printed.</QUESTION>
+        <QUESTIONTYPE>null</QUESTIONTYPE>
+        <OPTIONA>First Reading.</OPTIONA>
+        <OPTIONB>Second Reading.</OPTIONB>
+        <OPTIONC>Committee Stage</OPTIONC>
+        <OPTIOND>Third Reading</OPTIOND>
+        <QUESTION_FR>On considère que le projet de loi est lu une première fois et il est imprimé.</QUESTION_FR>
+        <OPTIONA_FR>Première lecture</OPTIONA_FR>
+        <OPTIONB_FR>Deuxième lecture</OPTIONB_FR>
+        <OPTIONC_FR>étape de l’étude en comité</OPTIONC_FR>
+        <OPTIOND_FR>Troisième lecture</OPTIOND_FR>
+        <ANSWER>null</ANSWER>
+        <REFERRAL>29</REFERRAL>
+        <REFERRAL_FR>29</REFERRAL_FR>
+        <DIAGRAMID>null</DIAGRAMID>
+        <DIAGRAM>null</DIAGRAM>
+    </ITEM>
+    <ITEM>
+        <QUIZID>AA0076</QUIZID>
+        <REGIONID>AA</REGIONID>
+        <DIAGRAMID>null</DIAGRAMID>
+        <QUESTION>The most populous Atlantic Province</QUESTION>
+        <QUESTIONTYPE>null</QUESTIONTYPE>
+        <OPTIONA>Ontario</OPTIONA>
+        <OPTIONB>Quebec</OPTIONB>
+        <OPTIONC>Nova Scotia</OPTIONC>
+        <OPTIOND>Nunavut</OPTIOND>
+        <QUESTION_FR>Parmi les provinces de l’Atlantique, c’est la plus grande population.</QUESTION_FR>
+        <OPTIONA_FR>Ontario</OPTIONA_FR>
+        <OPTIONB_FR>Quebec</OPTIONB_FR>
+        <OPTIONC_FR>Nouvelle Ecosse</OPTIONC_FR>
+        <OPTIOND_FR>Nunavut</OPTIOND_FR>
+        <ANSWER>2</ANSWER>
+        <REFERRAL>46</REFERRAL>
+        <REFERRAL_FR>46</REFERRAL_FR>
+        <DIAGRAMID>null</DIAGRAMID>
+        <DIAGRAM>null</DIAGRAM>
+    </ITEM>
+    <ITEM>
+        <QUIZID>AA0037</QUIZID>
+        <REGIONID>AA</REGIONID>
+        <DIAGRAMID>null</DIAGRAMID>
+        <QUESTION>Canadian medical officer Lieutenant-Colonel John McCrae composed the poem “In
+            Flanders Fields” in 1915; it is often recited on Remembrance Day</QUESTION>
+        <QUESTIONTYPE>1</QUESTIONTYPE>
+        <OPTIONA>null</OPTIONA>
+        <OPTIONB>null</OPTIONB>
+        <OPTIONC>null</OPTIONC>
+        <OPTIOND>null</OPTIOND>
+        <QUESTION_FR>Le lieutenant-colonel John McCrae, médecin militaire canadien, a
+            composé en 1915 le poème « In Flanders Fields », souvent récité le jour du Souvenir</QUESTION_FR>
+        <OPTIONA_FR>null</OPTIONA_FR>
+        <OPTIONB_FR>null</OPTIONB_FR>
+        <OPTIONC_FR>null</OPTIONC_FR>
+        <OPTIOND_FR>null</OPTIOND_FR>
+        <ANSWER>null</ANSWER>
+        <REFERRAL>22</REFERRAL>
+        <REFERRAL_FR>22</REFERRAL_FR>
+        <DIAGRAMID>null</DIAGRAMID>
+        <DIAGRAM>null</DIAGRAM>
+    </ITEM>
+    <ITEM>
+        <QUIZID>AA0028</QUIZID>
+        <REGIONID>AA</REGIONID>
+        <DIAGRAMID>null</DIAGRAMID>
+        <QUESTION>By 1814, the American attempt to conquer Canada had failed.</QUESTION>
+        <QUESTIONTYPE>1</QUESTIONTYPE>
+        <OPTIONA>null</OPTIONA>
+        <OPTIONB>null</OPTIONB>
+        <OPTIONC>null</OPTIONC>
+        <OPTIOND>null</OPTIOND>
+        <QUESTION_FR>En 1814, la tentative de conquête du Canada par les Américains est un échec complet.</QUESTION_FR>
+        <OPTIONA_FR>null</OPTIONA_FR>
+        <OPTIONB_FR>null</OPTIONB_FR>
+        <OPTIONC_FR>null</OPTIONC_FR>
+        <OPTIOND_FR>null</OPTIOND_FR>
+        <ANSWER>null</ANSWER>
+        <REFERRAL>17</REFERRAL>
+        <REFERRAL_FR>17</REFERRAL_FR>
+        <DIAGRAMID>null</DIAGRAMID>
+        <DIAGRAM>null</DIAGRAM>
+    </ITEM>
+    <ITEM>
+        <QUIZID>AA0006</QUIZID>
+        <REGIONID>AA</REGIONID>
+        <DIAGRAMID>null</DIAGRAMID>
+        <QUESTION>What is the official languages of Canada?</QUESTION>
+        <QUESTIONTYPE>null</QUESTIONTYPE>
+        <OPTIONA>English and French</OPTIONA>
+        <OPTIONB>English</OPTIONB>
+        <OPTIONC>French</OPTIONC>
+        <OPTIOND>German</OPTIOND>
+        <QUESTION_FR>Qu'est-ce que les langues officielles du Canada?</QUESTION_FR>
+        <OPTIONA_FR>Anglais et français</OPTIONA_FR>
+        <OPTIONB_FR>Anglais</OPTIONB_FR>
+        <OPTIONC_FR>Français</OPTIONC_FR>
+        <OPTIOND_FR>allemand.</OPTIOND_FR>
+        <ANSWER>null</ANSWER>
+        <REFERRAL>6</REFERRAL>
+        <REFERRAL_FR>6</REFERRAL_FR>
+        <DIAGRAMID>null</DIAGRAMID>
+        <DIAGRAM>null</DIAGRAM>
+    </ITEM>
+    <ITEM>
+        <QUIZID>AA0031</QUIZID>
+        <REGIONID>AA</REGIONID>
+        <DIAGRAMID>null</DIAGRAMID>
+        <QUESTION>The Dominion of Canada was officially born on</QUESTION>
+        <QUESTIONTYPE>null</QUESTIONTYPE>
+        <OPTIONA>June 1, 1867.</OPTIONA>
+        <OPTIONB>July 1, 1867.</OPTIONB>
+        <OPTIONC>May 1, 1867.</OPTIONC>
+        <OPTIOND>April 1, 1867</OPTIOND>
+        <QUESTION_FR>Le Dominion du Canada est officiellement créé le</QUESTION_FR>
+        <OPTIONA_FR>1er june, 1867.</OPTIONA_FR>
+        <OPTIONB_FR>1er juillet 1867.</OPTIONB_FR>
+        <OPTIONC_FR>1er mei 1867.</OPTIONC_FR>
+        <OPTIOND_FR>1er avril 1867.</OPTIOND_FR>
+        <ANSWER>1</ANSWER>
+        <REFERRAL>18</REFERRAL>
+        <REFERRAL_FR>18</REFERRAL_FR>
+        <DIAGRAMID>null</DIAGRAMID>
+        <DIAGRAM>null</DIAGRAM>
+    </ITEM>
+    <ITEM>
+        <QUIZID>AA0079</QUIZID>
+        <REGIONID>AA</REGIONID>
+        <DIAGRAMID>null</DIAGRAMID>
+        <QUESTION>Canada’s westernmost province</QUESTION>
+        <QUESTIONTYPE>null</QUESTIONTYPE>
+        <OPTIONA>British Columbia</OPTIONA>
+        <OPTIONB>Ontario</OPTIONB>
+        <OPTIONC>Alberta</OPTIONC>
+        <OPTIOND>Nova Scotia</OPTIOND>
+        <QUESTION_FR>La province canadienne située le plus à l’ouest.</QUESTION_FR>
+        <OPTIONA_FR>La Colombie-Britannique,</OPTIONA_FR>
+        <OPTIONB_FR>l'Ontario</OPTIONB_FR>
+        <OPTIONC_FR>l'Alberta</OPTIONC_FR>
+        <OPTIOND_FR>le Nouvelle Ecosse</OPTIOND_FR>
+        <ANSWER>null</ANSWER>
+        <REFERRAL>49</REFERRAL>
+        <REFERRAL_FR>49</REFERRAL_FR>
+        <DIAGRAMID>null</DIAGRAMID>
+        <DIAGRAM>null</DIAGRAM>
+    </ITEM>
+    <ITEM>
+        <QUIZID>AA0043</QUIZID>
+        <REGIONID>AA</REGIONID>
+        <DIAGRAMID>null</DIAGRAMID>
+        <QUESTION>Basketball was invented by Canadian James Naismith in 1891.</QUESTION>
+        <QUESTIONTYPE>1</QUESTIONTYPE>
+        <OPTIONA>null</OPTIONA>
+        <OPTIONB>null</OPTIONB>
+        <OPTIONC>null</OPTIONC>
+        <OPTIOND>null</OPTIOND>
+        <QUESTION_FR>C’est le Canadien James Naismith qui invente le basket-ball en 1891.</QUESTION_FR>
+        <OPTIONA_FR>null</OPTIONA_FR>
+        <OPTIONB_FR>null</OPTIONB_FR>
+        <OPTIONC_FR>null</OPTIONC_FR>
+        <OPTIOND_FR>null</OPTIOND_FR>
+        <ANSWER>null</ANSWER>
+        <REFERRAL>26</REFERRAL>
+        <REFERRAL_FR>26</REFERRAL_FR>
+        <DIAGRAMID>null</DIAGRAMID>
+        <DIAGRAM>null</DIAGRAM>
+    </ITEM>
+</QUESTIONS>

@@ -2,7 +2,8 @@
   "private": true,
   "scripts": {},
   "dependencies": {
-    "eslint": "^4.12.0"
+    "eslint": "^4.12.0",
+    "xml-js-converter": "^1.0.0"
   },
   "devDependencies": {
     "eslint-config-standard": "^10.2.1",
