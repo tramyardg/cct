@@ -7,22 +7,8 @@ $(document).ready(function () {
   loadXMLDoc.load(function (output) {
     QCatalog.setCatalog(output)
   })
-  let progressbarDiv = $('#progressbar')
-  let progressLabel = $('.progress-label')
-  progressbarDiv.progressbar({
-   value: false,
-   change: function() {
-	 progressLabel.text( progressbarDiv.progressbar('value') + '% complete');
-   },
-   complete: function() {
-	 progressLabel.text('Complete!')
-   }
-  })
-  function progress() {
-	let val = progressbarDiv.progressbar('value') || 0;
-	progressbarDiv.progressbar('value', val + 1 );
-  }
-  progress()
+  testProgress.setTestProgressConstruct('#progressbar', '.progress-label')
+  testProgress.testProgressMain()
 })
 const MINUTES_CONSTANT = 60
 const INCREMENT_SECONDS_BY_1000 = 1000
@@ -212,6 +198,7 @@ const QCatalog = {
     QCatalog.catalog = aCatalog
     let item = $(QCatalog.catalog).find('ITEM')
     QCatalog.catalog.catalogLength = item.length
+    testProgress.totalQuestions = QCatalog.catalogLength
     console.log(QCatalog.catalog)
     let h = ''
     for (let i = 0; i < item.length; i++) {
@@ -237,6 +224,7 @@ const QCatalog = {
     }
     console.log(h)
     $(QCatalog.questionForm).empty()
+    h += `<button type="submit" class="btn btn-outline-success">Finish</button>`
     $(QCatalog.questionForm).append(h)
   }
 }
@@ -252,5 +240,30 @@ const loadXMLDoc = {
       error: function () {
       }
     })
+  }
+}
+const testProgress = {
+  progressBarDivId: null,
+  progressBarLabel: null,
+  currentProgress: null,
+  setTestProgressConstruct (elemId, label) {
+    testProgress.progressBarDivId = elemId
+    testProgress.progressBarLabel = label
+  },
+  testProgressMain () {
+    $(testProgress.progressBarDivId).progressbar({
+      value: false,
+      change: function () {
+        $(testProgress.progressBarLabel).text($(testProgress.progressBarDivId).progressbar('value') + '% complete')
+      },
+      complete: function () {
+        $(testProgress.progressBarLabel).text('Complete!')
+      }
+    })
+    testProgress.progress(0)
+  },
+  progress (currentProgress) {
+    let val = $(testProgress.progressBarDivId).progressbar('value') || 0
+    $(testProgress.progressBarDivId).progressbar('value', val + currentProgress)
   }
 }
