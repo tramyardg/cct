@@ -7,6 +7,22 @@ $(document).ready(function () {
   loadXMLDoc.load(function (output) {
     QCatalog.setCatalog(output)
   })
+  let progressbarDiv = $('#progressbar')
+  let progressLabel = $('.progress-label')
+  progressbarDiv.progressbar({
+   value: false,
+   change: function() {
+	 progressLabel.text( progressbarDiv.progressbar('value') + '% complete');
+   },
+   complete: function() {
+	 progressLabel.text('Complete!')
+   }
+  })
+  function progress() {
+	let val = progressbarDiv.progressbar('value') || 0;
+	progressbarDiv.progressbar('value', val + 1 );
+  }
+  progress()
 })
 const MINUTES_CONSTANT = 60
 const INCREMENT_SECONDS_BY_1000 = 1000
