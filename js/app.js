@@ -76,6 +76,7 @@ const testOptions = {
         QCatalog.setCatalog(output)
       })
       testOptions.runTimer()
+      testOptions.hideTestOptionsForm()
       event.preventDefault()
     })
   },
