@@ -3,8 +3,9 @@ $(document).ready(function () {
   testOptions.onSubmitTestOptions()
   timer.setTimerConstruct('#timer-box', '#seconds-span', '#minutes-span')
   customAlert.setId('#customAlert')
+  QCatalog.setQuestionForm('#questions-form')
   loadXMLDoc.load(function (output) {
-    QuestionCatalog.setCatalog(output)
+    QCatalog.setCatalog(output)
   })
 })
 const MINUTES_CONSTANT = 60
@@ -161,12 +162,66 @@ const customAlert = {
     $(customAlert.id).css('display', 'block')
   }
 }
-const QuestionCatalog = {
+const QCatalog = {
   catalog: null,
+  questionForm: null,
+  catalogLength: null || 0,
+  commonArgs: {
+    questionId: null,
+    regionId: null || 'QC',
+    diagramId: null,
+    type: null || 1,
+    diagram: null
+  },
+  argsEn: {
+    question: null,
+    optionA: null,
+    optionB: null,
+    optionC: null,
+    optionD: null,
+    referralEn: null
+  },
+  argsFr: {
+    questionFr: null,
+    optionAFr: null,
+    optionBFr: null,
+    optionCFr: null,
+    optionDFr: null,
+    referralFr: null
+  },
+  setQuestionForm (form) {
+    QCatalog.questionForm = form
+  },
   setCatalog (aCatalog) {
-    QuestionCatalog.catalog = aCatalog
-    // manipulate catalog here
-    console.log(QuestionCatalog.catalog)
+    QCatalog.catalog = aCatalog
+    let item = $(QCatalog.catalog).find('ITEM')
+    QCatalog.catalog.catalogLength = item.length
+    console.log(QCatalog.catalog)
+    let h = ''
+    for (let i = 0; i < item.length; i++) {
+      QCatalog.commonArgs.questionId = item[i].getElementsByTagName('QUIZID')[0].innerHTML
+      QCatalog.commonArgs.regionId = item[i].getElementsByTagName('REGIONID')[0].innerHTML
+      QCatalog.commonArgs.diagramId = item[i].getElementsByTagName('DIAGRAMID')[0].innerHTML
+      QCatalog.commonArgs.type = item[i].getElementsByTagName('QUESTIONTYPE')[0].innerHTML
+      QCatalog.commonArgs.diagram = item[i].getElementsByTagName('DIAGRAM')[0].innerHTML
+      QCatalog.argsEn.question = item[i].getElementsByTagName('QUESTION')[0].innerHTML
+      QCatalog.argsEn.optionA = item[i].getElementsByTagName('OPTIONA')[0].innerHTML
+      QCatalog.argsEn.optionB = item[i].getElementsByTagName('OPTIONB')[0].innerHTML
+      QCatalog.argsEn.optionC = item[i].getElementsByTagName('OPTIONC')[0].innerHTML
+      QCatalog.argsEn.optionD = item[i].getElementsByTagName('OPTIOND')[0].innerHTML
+      QCatalog.argsEn.referralEn = item[i].getElementsByTagName('REFERRAL')[0].innerHTML
+      h += Templates.openQuestionBody()
+      h += Templates.questionItemBody(i, QCatalog.catalog.catalogLength, QCatalog.commonArgs, QCatalog.argsEn)
+      if (QCatalog.commonArgs.type === '1') {
+        h += Templates.tfQuestion(QCatalog.commonArgs)
+      } else {
+        h += Templates.mcQuestion(QCatalog.commonArgs, QCatalog.argsEn)
+      }
+      h += Templates.closeQuestionBody()
+    }
+    console.log(h)
+    $(QCatalog.questionForm).empty()
+    $(QCatalog.questionForm).append(h)
   }
 }
 const loadXMLDoc = {
