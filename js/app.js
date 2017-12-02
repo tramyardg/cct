@@ -7,8 +7,8 @@ $(document).ready(function () {
   loadXMLDoc.load(function (output) {
     QCatalog.setCatalog(output)
   })
-  testProgress.setTestProgressConstruct('#progressbar', '.progress-label')
-  testProgress.testProgressMain()
+  // testProgress.setTestProgressConstruct('form#questions-form', '#progressbar', '.progress-label')
+  // testProgress.testProgressMain()
 })
 const MINUTES_CONSTANT = 60
 const INCREMENT_SECONDS_BY_1000 = 1000
@@ -198,7 +198,6 @@ const QCatalog = {
     QCatalog.catalog = aCatalog
     let item = $(QCatalog.catalog).find('ITEM')
     QCatalog.catalog.catalogLength = item.length
-    testProgress.totalQuestions = QCatalog.catalogLength
     console.log(QCatalog.catalog)
     let h = ''
     for (let i = 0; i < item.length; i++) {
@@ -237,18 +236,21 @@ const loadXMLDoc = {
       success: function (xml) {
         handleData(xml)
       },
-      error: function () {
-      }
+      error: function () {}
     })
   }
 }
-const testProgress = {
+const testProgress = { // TODO should be real-time
   progressBarDivId: null,
   progressBarLabel: null,
   currentProgress: null,
+  totalQuestions: null,
   setTestProgressConstruct (elemId, label) {
     testProgress.progressBarDivId = elemId
     testProgress.progressBarLabel = label
+  },
+  setTotalNumQuestion (form) {
+    testProgress.totalQuestions = $(form).find('ul').length
   },
   testProgressMain () {
     $(testProgress.progressBarDivId).progressbar({
