@@ -4,14 +4,12 @@ $(document).ready(function () {
   timer.setTimerConstruct('#timer-box', '#seconds-span', '#minutes-span')
   customAlert.setId('#customAlert')
   QCatalog.setQuestionForm('#questions-form')
-  loadXMLDoc.load(function (output) {
-    QCatalog.setCatalog(output)
-  })
   // testProgress.setTestProgressConstruct('form#questions-form', '#progressbar', '.progress-label')
   // testProgress.testProgressMain()
 })
 const MINUTES_CONSTANT = 60
 const INCREMENT_SECONDS_BY_1000 = 1000
+const DEFAULT_REGION_ID = 'AA'
 const testOptions = {
   isTimerSet: false,
   minutes: null,
@@ -74,6 +72,9 @@ const testOptions = {
       testOptions.setIsTimerSet(values[1].value)
       testOptions.setMinutesByNumQuestions(values[0].value)
       testOptions.customToString()
+      loadXMLDoc.load(function (output) {
+        QCatalog.setCatalog(output)
+      })
       testOptions.runTimer()
       event.preventDefault()
     })
@@ -114,7 +115,7 @@ const timer = {
     timer.seconds = passedMinutes * MINUTES_CONSTANT
   },
   startTimer () { // main
-    let counter = 10
+    let counter = timer.seconds
     let remainingMinutes, remainingSeconds
     setInterval(function () {
       counter--
@@ -198,7 +199,7 @@ const QCatalog = {
     QCatalog.catalog = aCatalog
     let item = $(QCatalog.catalog).find('ITEM')
     QCatalog.catalog.catalogLength = item.length
-    console.log(QCatalog.catalog)
+    // console.log(QCatalog.catalog)
     let h = ''
     for (let i = 0; i < item.length; i++) {
       QCatalog.commonArgs.questionId = item[i].getElementsByTagName('QUIZID')[0].innerHTML
@@ -221,17 +222,24 @@ const QCatalog = {
       }
       h += Templates.closeQuestionBody()
     }
-    console.log(h)
+    // console.log(h)
     $(QCatalog.questionForm).empty()
-    h += `<button type="submit" class="btn btn-outline-success">Finish</button>`
+    h += `<button type="submit" class="btn btn-outline-success mb-sm-2">Finish</button>`
     $(QCatalog.questionForm).append(h)
   }
 }
 const loadXMLDoc = {
   load: function (handleData) {
+    let options = {
+      regionId: DEFAULT_REGION_ID,
+      limit: testOptions.numberOfQuestions,
+      dateTime: new Date().getTime(),
+      timer: testOptions.isTimerSet
+    }
     $.ajax({
       type: 'GET',
-      url: 'questions.xml',
+      url: 'model/cct-questions.php',
+      data: options,
       dataType: 'xml',
       success: function (xml) {
         handleData(xml)

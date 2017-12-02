@@ -1,7 +1,7 @@
 let Templates = {
   openQuestionBody () {
     return `
-    <ul class="list-group text-left py-sm-2 question-item">`
+    <ul class="list-group text-left py-sm-2 mt-2 mb-2 question-item">`
   },
   closeQuestionBody () {
     return `
@@ -25,7 +25,8 @@ let Templates = {
   },
   questionImage (commonArgs) {
     if (commonArgs.diagram !== 'null') {
-      return commonArgs.diagram
+      return `<li class="list-group-item"><img src="data:image/png;base64,${commonArgs.diagram}" alt="Card image cap"></li>
+      `
     }
     return ``
   },
@@ -38,7 +39,7 @@ let Templates = {
     }
   },
   mcQuestion (commonArgs, argsEn) {
-    return `<li class="list-group-item question-option">
+    return `<li class="list-group-item list-group-item-action question-option">
           <div class="form-check">
               <label class="form-check-label">
                   <input class="form-check-input" type="radio" value="1" name="${commonArgs.questionId}">
@@ -46,7 +47,7 @@ let Templates = {
               </label>
           </div>
       </li>
-      <li class="list-group-item question-option">
+      <li class="list-group-item list-group-item-action question-option">
           <div class="form-check">
               <label class="form-check-label">
                   <input class="form-check-input" type="radio" value="2" name="${commonArgs.questionId}">
@@ -54,7 +55,7 @@ let Templates = {
               </label>
           </div>
       </li>
-      <li class="list-group-item question-option">
+      <li class="list-group-item list-group-item-action question-option">
           <div class="form-check">
               <label class="form-check-label">
                   <input class="form-check-input" type="radio" value="3" name="${commonArgs.questionId}">
@@ -62,7 +63,7 @@ let Templates = {
               </label>
           </div>
       </li>
-      <li class="list-group-item question-option">
+      <li class="list-group-item list-group-item-action question-option">
           <div class="form-check">
               <label class="form-check-label">
                   <input class="form-check-input" type="radio" value="4" name="${commonArgs.questionId}">
@@ -72,7 +73,7 @@ let Templates = {
       </li>`
   },
   tfQuestion (commonArgs) {
-    return `<li class="list-group-item question-option">
+    return `<li class="list-group-item list-group-item-action question-option">
           <div class="form-check">
               <label class="form-check-label">
                   <input class="form-check-input" type="radio" value="0" name="${commonArgs.questionId}">
@@ -80,7 +81,7 @@ let Templates = {
               </label>
           </div>
       </li>
-      <li class="list-group-item question-option">
+      <li class="list-group-item list-group-item-action question-option">
           <div class="form-check">
               <label class="form-check-label">
                   <input class="form-check-input" type="radio" value="1" name="${commonArgs.questionId}">
