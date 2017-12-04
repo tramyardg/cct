@@ -219,7 +219,7 @@ const QCatalog = {
     $(QCatalog.questionForm).empty()
     h += `<button type="submit" class="btn btn-outline-success mb-sm-2">Finish</button>`
     $(QCatalog.questionForm).append(h)
-    QCatalog.questionTypeCounter()
+    QCatalog.customToString()
   },
   commonArgsMapper (qItem, i) {
     QCatalog.commonArgs.questionId = qItem[i].getElementsByTagName('QUIZID')[0].innerHTML
@@ -236,9 +236,13 @@ const QCatalog = {
     QCatalog.argsEn.optionD = qItem[i].getElementsByTagName('OPTIOND')[0].innerHTML
     QCatalog.argsEn.referralEn = qItem[i].getElementsByTagName('REFERRAL')[0].innerHTML
   },
-  questionTypeCounter () {
+  customToString () { // for debugging purpose
     console.log('num of mc ' + QCatalog.numOfMCs)
     console.log('num of tf ' + QCatalog.numOfTFs)
+    let mcButtons = QCatalog.numOfMCs * 4
+    let tfButtons = QCatalog.numOfTFs * 2
+    let totalButtons = mcButtons + tfButtons
+    console.log('total radio buttons = ' + totalButtons)
   },
   catalogMapper (h, qItem) {
     for (let i = 0; i < qItem.length; i++) {
