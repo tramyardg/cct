@@ -1,7 +1,12 @@
 $(document).ready(function () {
   testOptions.setTestOptionsConstruct('#test-options-form')
   testOptions.onSubmitTestOptions()
-  timer.setTimerConstruct('#timer-box', '#seconds-span', '#minutes-span')
+  timer.setTimerConstruct({
+    timerBox: '#timer-box',
+    secHTML: '#seconds-span',
+    minHTML: '#minutes-span',
+    radioButtons: '.q-option,input[type=radio]'
+  })
   customAlert.setId('#customAlert')
   QCatalog.setQuestionForm('#questions-form')
   // testProgress.setTestProgressConstruct('form#questions-form', '#progressbar', '.progress-label')
@@ -19,7 +24,7 @@ const testOptions = {
     testOptions.testOptionsFormHTML = tofHTML
   },
   hideTestOptionsForm () {
-    $(testOptions.testOptionsFormHTML).css('display', 'none')
+    $(testOptions.testOptionsFormHTML).remove()
   },
   setIsTimerSet (cond) {
     if (cond === true || cond === 'true') {
@@ -100,11 +105,16 @@ const timer = {
   timerHTML: null,
   secondsHTML: null,
   minutesHTML: null,
-  setTimerConstruct (timerBox, secHTML, minHTML) {
-    timer.timerHTML = timerBox
-    timer.secondsHTML = secHTML
-    timer.minutesHTML = minHTML
+  allRadioButtons: null,
+  setTimerConstruct (args) {
+    timer.timerHTML = args.timerBox
+    timer.secondsHTML = args.secHTML
+    timer.minutesHTML = args.minHTML
+    timer.allRadioButtons = args.radioButtons
     timer.hideTimer()
+  },
+  disableAllRadio () {
+    $(timer.allRadioButtons).prop('disabled', true)
   },
   displayTimer () {
     $(timer.timerHTML).css('display', 'block')
@@ -116,7 +126,8 @@ const timer = {
     timer.seconds = passedMinutes * MINUTES_CONSTANT
   },
   startTimer () { // main
-    let counter = timer.seconds
+    // let counter = timer.seconds
+    let counter = 5
     let remainingMinutes, remainingSeconds
     setInterval(function () {
       counter--
@@ -131,6 +142,7 @@ const timer = {
       timer.changeBadgeColor(counter)
       if (counter === 0) {
         customAlert.displayAlert('warning', 'Time is up!', 'Please submit the test.')
+        timer.disableAllRadio()
         clearInterval(remainingSeconds)
         clearInterval(remainingMinutes)
       }
@@ -193,6 +205,8 @@ const QCatalog = {
     optionDFr: null,
     referralFr: null
   },
+  numOfMCs: 0,
+  numOfTFs: 0,
   setQuestionForm (form) {
     QCatalog.questionForm = form
   },
@@ -200,33 +214,48 @@ const QCatalog = {
     QCatalog.catalog = aCatalog
     let item = $(QCatalog.catalog).find('ITEM')
     QCatalog.catalog.catalogLength = item.length
-    // console.log(QCatalog.catalog)
     let h = ''
-    for (let i = 0; i < item.length; i++) {
-      QCatalog.commonArgs.questionId = item[i].getElementsByTagName('QUIZID')[0].innerHTML
-      QCatalog.commonArgs.regionId = item[i].getElementsByTagName('REGIONID')[0].innerHTML
-      QCatalog.commonArgs.diagramId = item[i].getElementsByTagName('DIAGRAMID')[0].innerHTML
-      QCatalog.commonArgs.type = item[i].getElementsByTagName('QUESTIONTYPE')[0].innerHTML
-      QCatalog.commonArgs.diagram = item[i].getElementsByTagName('DIAGRAM')[0].innerHTML
-      QCatalog.argsEn.question = item[i].getElementsByTagName('QUESTION')[0].innerHTML
-      QCatalog.argsEn.optionA = item[i].getElementsByTagName('OPTIONA')[0].innerHTML
-      QCatalog.argsEn.optionB = item[i].getElementsByTagName('OPTIONB')[0].innerHTML
-      QCatalog.argsEn.optionC = item[i].getElementsByTagName('OPTIONC')[0].innerHTML
-      QCatalog.argsEn.optionD = item[i].getElementsByTagName('OPTIOND')[0].innerHTML
-      QCatalog.argsEn.referralEn = item[i].getElementsByTagName('REFERRAL')[0].innerHTML
+    h += QCatalog.catalogMapper(h, item)
+    $(QCatalog.questionForm).empty()
+    h += `<button type="submit" class="btn btn-outline-success mb-sm-2">Finish</button>`
+    $(QCatalog.questionForm).append(h)
+    QCatalog.questionTypeCounter()
+  },
+  commonArgsMapper (qItem, i) {
+    QCatalog.commonArgs.questionId = qItem[i].getElementsByTagName('QUIZID')[0].innerHTML
+    QCatalog.commonArgs.regionId = qItem[i].getElementsByTagName('REGIONID')[0].innerHTML
+    QCatalog.commonArgs.diagramId = qItem[i].getElementsByTagName('DIAGRAMID')[0].innerHTML
+    QCatalog.commonArgs.type = qItem[i].getElementsByTagName('QUESTIONTYPE')[0].innerHTML
+    QCatalog.commonArgs.diagram = qItem[i].getElementsByTagName('DIAGRAM')[0].innerHTML
+  },
+  argsEnMapper (qItem, i) {
+    QCatalog.argsEn.question = qItem[i].getElementsByTagName('QUESTION')[0].innerHTML
+    QCatalog.argsEn.optionA = qItem[i].getElementsByTagName('OPTIONA')[0].innerHTML
+    QCatalog.argsEn.optionB = qItem[i].getElementsByTagName('OPTIONB')[0].innerHTML
+    QCatalog.argsEn.optionC = qItem[i].getElementsByTagName('OPTIONC')[0].innerHTML
+    QCatalog.argsEn.optionD = qItem[i].getElementsByTagName('OPTIOND')[0].innerHTML
+    QCatalog.argsEn.referralEn = qItem[i].getElementsByTagName('REFERRAL')[0].innerHTML
+  },
+  questionTypeCounter () {
+    console.log('num of mc ' + QCatalog.numOfMCs)
+    console.log('num of tf ' + QCatalog.numOfTFs)
+  },
+  catalogMapper (h, qItem) {
+    for (let i = 0; i < qItem.length; i++) {
+      QCatalog.commonArgsMapper(qItem, i)
+      QCatalog.argsEnMapper(qItem, i)
       h += Templates.openQuestionBody()
       h += Templates.questionItemBody(i, QCatalog.catalog.catalogLength, QCatalog.commonArgs, QCatalog.argsEn)
       if (QCatalog.commonArgs.type === '1') {
+        QCatalog.numOfTFs++
         h += Templates.tfQuestion(QCatalog.commonArgs)
       } else {
+        QCatalog.numOfMCs++
         h += Templates.mcQuestion(QCatalog.commonArgs, QCatalog.argsEn)
       }
       h += Templates.closeQuestionBody()
     }
-    // console.log(h)
-    $(QCatalog.questionForm).empty()
-    h += `<button type="submit" class="btn btn-outline-success mb-sm-2">Finish</button>`
-    $(QCatalog.questionForm).append(h)
+    return h
   }
 }
 const loadXMLDoc = {

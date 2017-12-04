@@ -42,7 +42,7 @@ let Templates = {
     return `<li class="list-group-item list-group-item-action question-option">
           <div class="form-check">
               <label class="form-check-label">
-                  <input class="form-check-input" type="radio" value="1" name="${commonArgs.questionId}">
+                  <input class="form-check-input q-option" type="radio" value="1" name="${commonArgs.questionId}">
                   ${argsEn.optionA}
               </label>
           </div>
@@ -50,7 +50,7 @@ let Templates = {
       <li class="list-group-item list-group-item-action question-option">
           <div class="form-check">
               <label class="form-check-label">
-                  <input class="form-check-input" type="radio" value="2" name="${commonArgs.questionId}">
+                  <input class="form-check-input q-option" type="radio" value="2" name="${commonArgs.questionId}">
                   ${argsEn.optionB}
               </label>
           </div>
@@ -58,7 +58,7 @@ let Templates = {
       <li class="list-group-item list-group-item-action question-option">
           <div class="form-check">
               <label class="form-check-label">
-                  <input class="form-check-input" type="radio" value="3" name="${commonArgs.questionId}">
+                  <input class="form-check-input q-option" type="radio" value="3" name="${commonArgs.questionId}">
                   ${argsEn.optionC}
               </label>
           </div>
@@ -66,7 +66,7 @@ let Templates = {
       <li class="list-group-item list-group-item-action question-option">
           <div class="form-check">
               <label class="form-check-label">
-                  <input class="form-check-input" type="radio" value="4" name="${commonArgs.questionId}">
+                  <input class="form-check-input q-option" type="radio" value="4" name="${commonArgs.questionId}">
                   ${argsEn.optionD}
               </label>
           </div>
@@ -76,7 +76,7 @@ let Templates = {
     return `<li class="list-group-item list-group-item-action question-option">
           <div class="form-check">
               <label class="form-check-label">
-                  <input class="form-check-input" type="radio" value="0" name="${commonArgs.questionId}">
+                  <input class="form-check-input q-option" type="radio" value="0" name="${commonArgs.questionId}">
                   True
               </label>
           </div>
@@ -84,7 +84,7 @@ let Templates = {
       <li class="list-group-item list-group-item-action question-option">
           <div class="form-check">
               <label class="form-check-label">
-                  <input class="form-check-input" type="radio" value="1" name="${commonArgs.questionId}">
+                  <input class="form-check-input q-option" type="radio" value="1" name="${commonArgs.questionId}">
                   False
               </label>
           </div>
