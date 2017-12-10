@@ -25,7 +25,10 @@ let Templates = {
   },
   questionImage (commonArgs) {
     if (commonArgs.diagram !== 'null') {
-      return `<li class="list-group-item"><img src="data:image/png;base64,${commonArgs.diagram}" alt="Card image cap"></li>
+      return `
+        <li class="list-group-item">
+        <img src="data:image/png;base64,${commonArgs.diagram}" onclick="enlargeImage.clickToEnlarge(this)" alt="question image">
+        </li>
       `
     }
     return ``

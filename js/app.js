@@ -11,6 +11,10 @@ $(document).ready(function () {
   QCatalog.setQuestionForm('#questions-form')
   // testProgress.setTestProgressConstruct('form#questions-form', '#progressbar', '.progress-label')
   // testProgress.testProgressMain()
+  enlargeImage.setConstruct({
+    imageOverlay: '.image-overlay',
+    imageOverlayClose: 'image-overlay-close'
+  })
 })
 const MINUTES_CONSTANT = 60
 const INCREMENT_SECONDS_BY_1000 = 1000
@@ -309,5 +313,26 @@ const testProgress = { // TODO should be real-time
   progress (currentProgress) {
     let val = $(testProgress.progressBarDivId).progressbar('value') || 0
     $(testProgress.progressBarDivId).progressbar('value', val + currentProgress)
+  }
+}
+const enlargeImage = {
+  imageOverlay: null,
+  imageOverlayClose: null,
+  setConstruct (args) {
+    enlargeImage.imageOverlay = args.imageOverlay
+    enlargeImage.imageOverlayClose = args.imageOverlayClose
+  },
+  clickToEnlarge (ele) {
+    let imageSource = $(ele).attr('src')
+    $(enlargeImage.imageOverlay).find('img').attr('src', imageSource)
+    $(enlargeImage.imageOverlay).fadeIn(100)
+    enlargeImage.closeImageOverlay()
+    $('body').css('overflow', 'hidden')
+  },
+  closeImageOverlay () {
+    $(enlargeImage.imageOverlayClose).click(function () {
+      $(enlargeImage.imageOverlay).fadeOut(100)
+      $('body').css('overflow', 'auto')
+    })
   }
 }
