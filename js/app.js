@@ -13,7 +13,7 @@ $(document).ready(function () {
   // testProgress.testProgressMain()
   enlargeImage.setConstruct({
     imageOverlay: '.image-overlay',
-    imageOverlayClose: 'image-overlay-close'
+    imageOverlayClose: '.image-overlay-close'
   })
 })
 const MINUTES_CONSTANT = 60
@@ -327,12 +327,10 @@ const enlargeImage = {
     $(enlargeImage.imageOverlay).find('img').attr('src', imageSource)
     $(enlargeImage.imageOverlay).fadeIn(100)
     enlargeImage.closeImageOverlay()
-    $('body').css('overflow', 'hidden')
   },
   closeImageOverlay () {
     $(enlargeImage.imageOverlayClose).click(function () {
       $(enlargeImage.imageOverlay).fadeOut(100)
-      $('body').css('overflow', 'auto')
     })
   }
 }
