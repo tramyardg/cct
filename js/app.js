@@ -254,7 +254,7 @@ const QCatalog = {
     console.log('total radio buttons = ' + totalButtons)
   },
   catalogMapper (h, qItem) {
-    h += Templates.paginate(qItem.length)
+    h += Templates.navigateItemByIndex(qItem.length)
     for (let i = 0; i < qItem.length; i++) {
       QCatalog.commonArgsMapper(qItem, i)
       QCatalog.argsEnMapper(qItem, i)
