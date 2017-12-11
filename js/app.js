@@ -1,17 +1,17 @@
 $(document).ready(function () {
-  testOptions.setTestOptionsConstruct('#test-options-form')
-  testOptions.onSubmitTestOptions()
-  timer.setTimerConstruct({
+  TestOptions.setTestOptionsConstruct('#test-options-form')
+  TestOptions.onSubmitTestOptions()
+  Timer.setTimerConstruct({
     timerBox: '#timer-box',
     secHTML: '#seconds-span',
     minHTML: '#minutes-span',
     radioButtons: '.q-option,input[type=radio]'
   })
-  customAlert.setId('#customAlert')
+  CustomAlert.setId('#customAlert')
   QCatalog.setQuestionForm('#questions-form')
   // testProgress.setTestProgressConstruct('form#questions-form', '#progressbar', '.progress-label')
   // testProgress.testProgressMain()
-  enlargeImage.setConstruct({
+  EnlargeImage.setConstruct({
     imageOverlay: '.image-overlay',
     imageOverlayClose: '.image-overlay-close'
   })
@@ -19,118 +19,119 @@ $(document).ready(function () {
 const MINUTES_CONSTANT = 60
 const INCREMENT_SECONDS_BY_1000 = 1000
 const DEFAULT_REGION_ID = 'AA'
-const testOptions = {
+// const ITEM_DIV = '.question-item'
+const TestOptions = {
   isTimerSet: false,
   minutes: null,
   numberOfQuestions: null,
   testOptionsFormHTML: null,
   setTestOptionsConstruct (tofHTML) {
-    testOptions.testOptionsFormHTML = tofHTML
+    TestOptions.testOptionsFormHTML = tofHTML
   },
   hideTestOptionsForm () {
-    $(testOptions.testOptionsFormHTML).remove()
+    $(TestOptions.testOptionsFormHTML).remove()
   },
   setIsTimerSet (cond) {
     if (cond === true || cond === 'true') {
-      testOptions.isTimerSet = true
+      TestOptions.isTimerSet = true
     }
   },
   setMinutesByNumQuestions (num) {
-    if (testOptions.isTimerSet) {
+    if (TestOptions.isTimerSet) {
       switch (parseInt(num)) {
         case 10:
-          testOptions.minutes = 15
+          TestOptions.minutes = 15
           break
         case 20:
-          testOptions.minutes = 30
+          TestOptions.minutes = 30
           break
         case 30:
-          testOptions.minutes = 45
+          TestOptions.minutes = 45
           break
         case 40:
-          testOptions.minutes = 60
+          TestOptions.minutes = 60
           break
         case 50:
-          testOptions.minutes = 75
+          TestOptions.minutes = 75
           break
         case 60:
-          testOptions.minutes = 90
+          TestOptions.minutes = 90
           break
         case 70:
-          testOptions.minutes = 105
+          TestOptions.minutes = 105
           break
         case 80:
-          testOptions.minutes = 120
+          TestOptions.minutes = 120
           break
       }
     }
   },
   setNumberOfQuestions (num) {
-    testOptions.numberOfQuestions = num
+    TestOptions.numberOfQuestions = num
   },
   onSubmitTestOptions: function () { // main
-    timer.hideTimer()
-    customAlert.hideAlert()
-    let formId = testOptions.testOptionsFormHTML
+    Timer.hideTimer()
+    CustomAlert.hideAlert()
+    let formId = TestOptions.testOptionsFormHTML
     $(formId).submit(function (event) {
       let values = []
       $(this).serializeArray().forEach((element) => {
         values.push(element)
       })
-      testOptions.setNumberOfQuestions(values[0].value)
-      testOptions.setIsTimerSet(values[1].value)
-      testOptions.setMinutesByNumQuestions(values[0].value)
-      testOptions.customToString()
-      loadXMLDoc.load(function (output) {
+      TestOptions.setNumberOfQuestions(values[0].value)
+      TestOptions.setIsTimerSet(values[1].value)
+      TestOptions.setMinutesByNumQuestions(values[0].value)
+      TestOptions.customToString()
+      LoadXMLDoc.load(function (output) {
         QCatalog.setCatalog(output)
       })
-      testOptions.runTimer()
-      testOptions.hideTestOptionsForm()
+      TestOptions.runTimer()
+      TestOptions.hideTestOptionsForm()
       event.preventDefault()
     })
   },
   customToString () { // for debugging purposes
-    console.log('is timer set ' + testOptions.isTimerSet)
-    console.log('number of minutes ' + testOptions.minutes)
-    console.log('number of questions ' + testOptions.numberOfQuestions)
+    console.log('is Timer set ' + TestOptions.isTimerSet)
+    console.log('number of minutes ' + TestOptions.minutes)
+    console.log('number of questions ' + TestOptions.numberOfQuestions)
   },
   runTimer () {
-    if (testOptions.isTimerSet) {
-      timer.displayTimer()
-      timer.setSecondsByMinutes(testOptions.minutes)
-      timer.startTimer()
+    if (TestOptions.isTimerSet) {
+      Timer.displayTimer()
+      Timer.setSecondsByMinutes(TestOptions.minutes)
+      Timer.startTimer()
     } else {
-      timer.hideTimer()
+      Timer.hideTimer()
     }
   }
 }
-const timer = {
+const Timer = {
   seconds: null,
   timerHTML: null,
   secondsHTML: null,
   minutesHTML: null,
   allRadioButtons: null,
   setTimerConstruct (args) {
-    timer.timerHTML = args.timerBox
-    timer.secondsHTML = args.secHTML
-    timer.minutesHTML = args.minHTML
-    timer.allRadioButtons = args.radioButtons
-    timer.hideTimer()
+    Timer.timerHTML = args.timerBox
+    Timer.secondsHTML = args.secHTML
+    Timer.minutesHTML = args.minHTML
+    Timer.allRadioButtons = args.radioButtons
+    Timer.hideTimer()
   },
   disableAllRadio () {
-    $(timer.allRadioButtons).prop('disabled', true)
+    $(Timer.allRadioButtons).prop('disabled', true)
   },
   displayTimer () {
-    $(timer.timerHTML).css('display', 'block')
+    $(Timer.timerHTML).css('display', 'block')
   },
   hideTimer () {
-    $(timer.timerHTML).css('display', 'none')
+    $(Timer.timerHTML).css('display', 'none')
   },
   setSecondsByMinutes (passedMinutes) {
-    timer.seconds = passedMinutes * MINUTES_CONSTANT
+    Timer.seconds = passedMinutes * MINUTES_CONSTANT
   },
   startTimer () { // main
-    // let counter = timer.seconds
+    // let counter = Timer.seconds
     let counter = 5
     let remainingMinutes, remainingSeconds
     setInterval(function () {
@@ -140,13 +141,13 @@ const timer = {
         remainingSeconds = counter % MINUTES_CONSTANT
         let secondsText = ((remainingSeconds < 10) ? '0' + remainingSeconds : remainingSeconds)
         let minutesText = ((remainingMinutes < 10) ? '0' + remainingMinutes : remainingMinutes)
-        $(timer.secondsHTML).text(secondsText)
-        $(timer.minutesHTML).text(minutesText)
+        $(Timer.secondsHTML).text(secondsText)
+        $(Timer.minutesHTML).text(minutesText)
       }
-      timer.changeBadgeColor(counter)
+      Timer.changeBadgeColor(counter)
       if (counter === 0) {
-        customAlert.displayAlert('warning', 'Time is up!', 'Please submit the test.')
-        timer.disableAllRadio()
+        CustomAlert.displayAlert('warning', 'Time is up!', 'Please submit the test.')
+        Timer.disableAllRadio()
         clearInterval(remainingSeconds)
         clearInterval(remainingMinutes)
       }
@@ -154,32 +155,32 @@ const timer = {
   },
   changeBadgeColor (counter) {
     if (counter > MINUTES_CONSTANT / 2 && counter < MINUTES_CONSTANT) {
-      $(timer.secondsHTML).removeClass('badge-secondary').addClass('badge-warning')
-      $(timer.minutesHTML).removeClass('badge-secondary').addClass('badge-warning')
+      $(Timer.secondsHTML).removeClass('badge-secondary').addClass('badge-warning')
+      $(Timer.minutesHTML).removeClass('badge-secondary').addClass('badge-warning')
     } else if (counter < MINUTES_CONSTANT / 2) {
-      $(timer.secondsHTML).removeClass('badge-secondary').addClass('badge-danger')
-      $(timer.minutesHTML).removeClass('badge-secondary').addClass('badge-danger')
+      $(Timer.secondsHTML).removeClass('badge-secondary').addClass('badge-danger')
+      $(Timer.minutesHTML).removeClass('badge-secondary').addClass('badge-danger')
     }
   }
 }
-const customAlert = {
+const CustomAlert = {
   id: null,
   setId (alertId) {
-    customAlert.id = alertId
-    customAlert.hideAlert()
+    CustomAlert.id = alertId
+    CustomAlert.hideAlert()
   },
   displayAlert (type, heading, text) {
-    customAlert.showAlert()
-    $(customAlert.id).addClass('alert-' + type)
-    $(customAlert.id).find('.alert-heading').text(heading)
-    $(customAlert.id).find('#alertBody').text(text)
-    $(customAlert.id).removeClass('hidden')
+    CustomAlert.showAlert()
+    $(CustomAlert.id).addClass('alert-' + type)
+    $(CustomAlert.id).find('.alert-heading').text(heading)
+    $(CustomAlert.id).find('#alertBody').text(text)
+    $(CustomAlert.id).removeClass('hidden')
   },
   hideAlert () {
-    $(customAlert.id).css('display', 'none')
+    $(CustomAlert.id).css('display', 'none')
   },
   showAlert () {
-    $(customAlert.id).css('display', 'block')
+    $(CustomAlert.id).css('display', 'block')
   }
 }
 const QCatalog = {
@@ -221,8 +222,12 @@ const QCatalog = {
     let h = ''
     h += QCatalog.catalogMapper(h, item)
     $(QCatalog.questionForm).empty()
-    h += `<button type="submit" class="btn btn-outline-success mb-sm-2">Finish</button>`
+    h += Templates.finishNextPrevButtons()
     $(QCatalog.questionForm).append(h)
+    NextPrevDiv.setConstruct({
+      nextBtn: '#next-button',
+      prevBtn: '#prev-button'
+    })
     QCatalog.customToString()
   },
   commonArgsMapper (qItem, i) {
@@ -249,10 +254,11 @@ const QCatalog = {
     console.log('total radio buttons = ' + totalButtons)
   },
   catalogMapper (h, qItem) {
+    h += Templates.paginate(qItem.length)
     for (let i = 0; i < qItem.length; i++) {
       QCatalog.commonArgsMapper(qItem, i)
       QCatalog.argsEnMapper(qItem, i)
-      h += Templates.openQuestionBody()
+      h += Templates.openQuestionBody(i)
       h += Templates.questionItemBody(i, QCatalog.catalog.catalogLength, QCatalog.commonArgs, QCatalog.argsEn)
       if (QCatalog.commonArgs.type === '1') {
         QCatalog.numOfTFs++
@@ -266,13 +272,13 @@ const QCatalog = {
     return h
   }
 }
-const loadXMLDoc = {
+const LoadXMLDoc = {
   load: function (handleData) {
     let options = {
       regionId: DEFAULT_REGION_ID,
-      limit: testOptions.numberOfQuestions,
+      limit: TestOptions.numberOfQuestions,
       dateTime: new Date().getTime(),
-      timer: testOptions.isTimerSet
+      timer: TestOptions.isTimerSet
     }
     $.ajax({
       type: 'GET',
@@ -315,22 +321,63 @@ const testProgress = { // TODO should be real-time
     $(testProgress.progressBarDivId).progressbar('value', val + currentProgress)
   }
 }
-const enlargeImage = {
+const EnlargeImage = {
   imageOverlay: null,
   imageOverlayClose: null,
   setConstruct (args) {
-    enlargeImage.imageOverlay = args.imageOverlay
-    enlargeImage.imageOverlayClose = args.imageOverlayClose
+    EnlargeImage.imageOverlay = args.imageOverlay
+    EnlargeImage.imageOverlayClose = args.imageOverlayClose
   },
   clickToEnlarge (ele) {
     let imageSource = $(ele).attr('src')
-    $(enlargeImage.imageOverlay).find('img').attr('src', imageSource)
-    $(enlargeImage.imageOverlay).fadeIn(100)
-    enlargeImage.closeImageOverlay()
+    $(EnlargeImage.imageOverlay).find('img').attr('src', imageSource)
+    $(EnlargeImage.imageOverlay).fadeIn(100)
+    EnlargeImage.closeImageOverlay()
   },
   closeImageOverlay () {
-    $(enlargeImage.imageOverlayClose).click(function () {
-      $(enlargeImage.imageOverlay).fadeOut(100)
+    $(EnlargeImage.imageOverlayClose).click(function () {
+      $(EnlargeImage.imageOverlay).fadeOut(100)
+    })
+  }
+}
+const NextPrevDiv = {
+  nextBtn: null,
+  prevBtn: null,
+  hideItemsExceptFirst () {
+    $(QCatalog.questionForm + ' .list-group').each(function (e) {
+      if (e !== 0) {
+        $(this).hide()
+      }
+    })
+  },
+  setConstruct (args) { // call after items are created
+    NextPrevDiv.nextBtn = args.nextBtn
+    NextPrevDiv.prevBtn = args.prevBtn
+    NextPrevDiv.hideItemsExceptFirst()
+    NextPrevDiv.clickNextPrevButton()
+  },
+  clickNextPrevButton () {
+    let itemClass = '.list-group'
+    let visibleItem = ' .list-group:visible'
+    let firstItem = ' .list-group:first'
+    let lastItem = ' .list-group:last'
+    $(NextPrevDiv.nextBtn).click(function () {
+      if ($(QCatalog.questionForm + visibleItem).next(itemClass).length !== 0) {
+        $(QCatalog.questionForm + visibleItem).next(itemClass).show().prev(itemClass).hide()
+      } else {
+        $(QCatalog.questionForm + visibleItem).hide()
+        $(QCatalog.questionForm + firstItem).show()
+      }
+      return false
+    })
+    $(NextPrevDiv.prevBtn).click(function () {
+      if ($(QCatalog.questionForm + visibleItem).prev(itemClass).length !== 0) {
+        $(QCatalog.questionForm + visibleItem).prev(itemClass).show().next(itemClass).hide()
+      } else {
+        $(QCatalog.questionForm + visibleItem).hide()
+        $(QCatalog.questionForm + lastItem).show()
+      }
+      return false
     })
   }
 }
