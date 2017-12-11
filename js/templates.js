@@ -1,7 +1,7 @@
 let Templates = {
-  openQuestionBody () {
+  openQuestionBody (index) {
     return `
-    <ul class="list-group text-left py-sm-2 mt-2 mb-2 question-item">`
+    <ul class="list-group text-left py-sm-2 mt-2 mb-2 question-item-${index}">`
   },
   closeQuestionBody () {
     return `
@@ -27,7 +27,7 @@ let Templates = {
     if (commonArgs.diagram !== 'null') {
       return `
         <li class="list-group-item">
-        <img src="data:image/png;base64,${commonArgs.diagram}" onclick="enlargeImage.clickToEnlarge(this)" alt="question image">
+        <img src="data:image/png;base64,${commonArgs.diagram}" onclick="EnlargeImage.clickToEnlarge(this)" alt="question image">
         </li>
       `
     }
@@ -92,5 +92,25 @@ let Templates = {
               </label>
           </div>
       </li>`
+  },
+  finishNextPrevButtons () {
+    return `<div class="float-right" id="next-prev-div">
+                <button type="button" class="btn btn-dark" id="prev-button">Prev</button>
+                <button type="button" class="btn btn-dark" id="next-button">Next</button>
+            </div>
+            <button type="submit" class="btn btn-outline-success mb-sm-2">Finish</button>`
+  },
+  paginate (length) {
+    let h = `<div class="row">`
+    for (let i = 0; i < length; i++) {
+      let num = (i + 1)
+      h += `<div class="col mt-2"><button type="button" class="btn btn-secondary">`
+      if (num < 10) {
+        num = '0' + (i + 1)
+      }
+      h += `${num}</button></div>`
+    }
+    h += `</div>`
+    return h
   }
 }
