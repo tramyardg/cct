@@ -100,11 +100,13 @@ let Templates = {
             </div>
             <button type="submit" class="btn btn-outline-success mb-sm-2">Finish</button>`
   },
-  navigateItemByIndex (length) {
+  navigateItemsWithButton (length) {
     let h = `<div class="row">`
     for (let i = 0; i < length; i++) {
       let num = (i + 1)
-      h += `<div class="col mt-2"><button type="button" class="btn btn-secondary">`
+      h += `<div class="col mt-2">
+        <button type="button" class="btn btn-secondary btn-item btn-navigator-${i}"
+        onclick="NavigateItemByIndex.onclickButtonWithIndex(${i})">`
       if (num < 10) {
         num = '0' + (i + 1)
       }
