@@ -95,8 +95,8 @@ let Templates = {
   },
   finishNextPrevButtons () {
     return `<div class="float-right" id="next-prev-div">
-                <button type="button" class="btn btn-dark" id="prev-button">Prev</button>
-                <button type="button" class="btn btn-dark ml-2" id="next-button">Next</button>
+                <button type="button" class="btn btn-primary" id="prev-button">Prev</button>
+                <button type="button" class="btn btn-primary ml-2" id="next-button">Next</button>
             </div>
             <button type="submit" class="btn btn-success mb-sm-2">Finish</button>`
   },
@@ -105,7 +105,7 @@ let Templates = {
     for (let i = 0; i < length; i++) {
       let num = (i + 1)
       h += `<div class="col mt-2">
-        <button type="button" class="btn btn-outline-dark btn-item btn-navigator-${num}"
+        <button type="button" class="btn btn-outline-primary btn-item btn-navigator-${num}"
         onclick="NavigateItemByIndex.onclickButtonWithIndex(${num})">`
       if (num < 10) {
         num = '0' + (i + 1)
