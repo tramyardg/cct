@@ -224,6 +224,7 @@ const QCatalog = {
     $(QCatalog.questionForm).empty()
     h += Templates.finishNextPrevButtons()
     $(QCatalog.questionForm).append(h)
+    ShowHideItems.hideItemsExcept(0)
     NextPrevDiv.setConstruct({
       nextBtn: '#next-button',
       prevBtn: '#prev-button'
@@ -254,7 +255,7 @@ const QCatalog = {
     console.log('total radio buttons = ' + totalButtons)
   },
   catalogMapper (h, qItem) {
-    h += Templates.navigateItemByIndex(qItem.length)
+    h += Templates.navigateItemsWithButton(qItem.length)
     for (let i = 0; i < qItem.length; i++) {
       QCatalog.commonArgsMapper(qItem, i)
       QCatalog.argsEnMapper(qItem, i)
@@ -340,20 +341,34 @@ const EnlargeImage = {
     })
   }
 }
-const NextPrevDiv = {
-  nextBtn: null,
-  prevBtn: null,
-  hideItemsExceptFirst () {
-    $(QCatalog.questionForm + ' .list-group').each(function (e) {
-      if (e !== 0) {
+const NavigateItemByIndex = {
+  onclickButtonWithIndex (index) {
+    ShowHideItems.showItemByItemIndex(index)
+    $('.btn-item').removeClass('active')
+    $('.btn-navigator-' + index).addClass('active')
+  }
+}
+const ShowHideItems = {
+  hideItemsExcept (index) {
+    $(QCatalog.questionForm + ' .list-group').each(function (item) {
+      if (item !== null && item !== index) {
         $(this).hide()
       }
     })
   },
+  showItemByItemIndex (index) {
+    if (index !== null) {
+      $('.question-item-' + index).show()
+      ShowHideItems.hideItemsExcept(index)
+    }
+  }
+}
+const NextPrevDiv = {
+  nextBtn: null,
+  prevBtn: null,
   setConstruct (args) { // call after items are created
     NextPrevDiv.nextBtn = args.nextBtn
     NextPrevDiv.prevBtn = args.prevBtn
-    NextPrevDiv.hideItemsExceptFirst()
     NextPrevDiv.clickNextPrevButton()
   },
   clickNextPrevButton () {
