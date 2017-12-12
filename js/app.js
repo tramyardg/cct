@@ -224,7 +224,7 @@ const QCatalog = {
     $(QCatalog.questionForm).empty()
     h += Templates.finishNextPrevButtons()
     $(QCatalog.questionForm).append(h)
-    ShowHideItems.hideItemsExcept(0)
+    ShowHideItems.hideItemsExcept(1)
     NextPrevDiv.setConstruct({
       nextBtn: '#next-button',
       prevBtn: '#prev-button'
@@ -259,7 +259,7 @@ const QCatalog = {
     for (let i = 0; i < qItem.length; i++) {
       QCatalog.commonArgsMapper(qItem, i)
       QCatalog.argsEnMapper(qItem, i)
-      h += Templates.openQuestionBody(i)
+      h += Templates.openQuestionBody((i + 1))
       h += Templates.questionItemBody(i, QCatalog.catalog.catalogLength, QCatalog.commonArgs, QCatalog.argsEn)
       if (QCatalog.commonArgs.type === '1') {
         QCatalog.numOfTFs++
@@ -343,23 +343,26 @@ const EnlargeImage = {
 }
 const NavigateItemByIndex = {
   onclickButtonWithIndex (index) {
-    ShowHideItems.showItemByItemIndex(index)
-    $('.btn-item').removeClass('active')
-    $('.btn-navigator-' + index).addClass('active')
+    ShowHideItems.showItemByItemIndex(index) // show the item with the index
+    NavigateItemByIndex.setItemButtonToActive(index) // and make the corresponding button active
+  },
+  setItemButtonToActive (index) {
+    $('.btn-item').removeClass('active') // remove all active class
+    $('.btn-navigator-' + index).addClass('active') // and make this one active
   }
 }
 const ShowHideItems = {
   hideItemsExcept (index) {
     $(QCatalog.questionForm + ' .list-group').each(function (item) {
-      if (item !== null && item !== index) {
+      if (item !== null && item !== (index - 1)) { // each function index starts at 0
         $(this).hide()
       }
     })
   },
   showItemByItemIndex (index) {
     if (index !== null) {
-      $('.question-item-' + index).show()
-      ShowHideItems.hideItemsExcept(index)
+      $('.question-item-' + index).show() // show the item with the index
+      ShowHideItems.hideItemsExcept(index) // hide all the items except this item with index number
     }
   }
 }
@@ -379,18 +382,22 @@ const NextPrevDiv = {
     $(NextPrevDiv.nextBtn).click(function () {
       if ($(QCatalog.questionForm + visibleItem).next(itemClass).length !== 0) {
         $(QCatalog.questionForm + visibleItem).next(itemClass).show().prev(itemClass).hide()
+        NavigateItemByIndex.setItemButtonToActive($(QCatalog.questionForm + visibleItem).attr('data-number'))
       } else {
         $(QCatalog.questionForm + visibleItem).hide()
         $(QCatalog.questionForm + firstItem).show()
+        NavigateItemByIndex.setItemButtonToActive($(QCatalog.questionForm + firstItem).attr('data-number'))
       }
       return false
     })
     $(NextPrevDiv.prevBtn).click(function () {
       if ($(QCatalog.questionForm + visibleItem).prev(itemClass).length !== 0) {
         $(QCatalog.questionForm + visibleItem).prev(itemClass).show().next(itemClass).hide()
+        NavigateItemByIndex.setItemButtonToActive($(QCatalog.questionForm + visibleItem).attr('data-number'))
       } else {
         $(QCatalog.questionForm + visibleItem).hide()
         $(QCatalog.questionForm + lastItem).show()
+        NavigateItemByIndex.setItemButtonToActive($(QCatalog.questionForm + lastItem).attr('data-number'))
       }
       return false
     })
