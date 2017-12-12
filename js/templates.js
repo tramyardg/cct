@@ -1,7 +1,7 @@
 let Templates = {
   openQuestionBody (index) {
     return `
-    <ul class="list-group text-left py-sm-2 mt-2 mb-2 question-item-${index}">`
+    <ul class="list-group text-left py-sm-2 mt-2 mb-2 question-item-${index}" data-number="${index}">`
   },
   closeQuestionBody () {
     return `
@@ -98,15 +98,15 @@ let Templates = {
                 <button type="button" class="btn btn-dark" id="prev-button">Prev</button>
                 <button type="button" class="btn btn-dark ml-2" id="next-button">Next</button>
             </div>
-            <button type="submit" class="btn btn-outline-success mb-sm-2">Finish</button>`
+            <button type="submit" class="btn btn-success mb-sm-2">Finish</button>`
   },
   navigateItemsWithButton (length) {
     let h = `<div class="row">`
     for (let i = 0; i < length; i++) {
       let num = (i + 1)
       h += `<div class="col mt-2">
-        <button type="button" class="btn btn-secondary btn-item btn-navigator-${i}"
-        onclick="NavigateItemByIndex.onclickButtonWithIndex(${i})">`
+        <button type="button" class="btn btn-outline-dark btn-item btn-navigator-${num}"
+        onclick="NavigateItemByIndex.onclickButtonWithIndex(${num})">`
       if (num < 10) {
         num = '0' + (i + 1)
       }
