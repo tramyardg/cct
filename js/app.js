@@ -17,7 +17,6 @@ $(document).ready(function () {
 const MINUTES_CONSTANT = 60
 const INCREMENT_SECONDS_BY_1000 = 1000
 const DEFAULT_REGION_ID = 'AA'
-// const ITEM_DIV = '.question-item'
 const TestOptions = {
   isTimerSet: false,
   minutes: null,
@@ -247,9 +246,7 @@ const QCatalog = {
   customToString () { // for debugging purpose
     console.log('num of mc ' + QCatalog.numOfMCs)
     console.log('num of tf ' + QCatalog.numOfTFs)
-    let mcButtons = QCatalog.numOfMCs * 4
-    let tfButtons = QCatalog.numOfTFs * 2
-    let totalButtons = mcButtons + tfButtons
+    let totalButtons = (QCatalog.numOfMCs * 4) + (QCatalog.numOfTFs * 2)
     console.log('total radio buttons = ' + totalButtons)
   },
   catalogMapper (h, qItem) {

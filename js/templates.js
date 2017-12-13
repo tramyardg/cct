@@ -4,18 +4,9 @@ let Templates = {
     <ul class="list-group text-left py-sm-2 mt-2 mb-2 question-item-${index}" data-number="${index}">`
   },
   closeQuestionBody () {
-    return `${Templates.progressBarItem()}
+    return `
     </ul>
     `
-  },
-  progressBarItem () {
-    return `<li class="list-group-item list-group-item-secondary">
-    <div class="progress">
-      <div class="progress-bar bg-primary" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-      25% Complete
-      </div>
-    </div>
-    </li>`
   },
   questionItemBody (index, totalQuestions, commonArgs, argsEn) {
     return `
