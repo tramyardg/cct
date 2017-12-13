@@ -117,3 +117,11 @@ body {
     -o-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
+.progress {
+    height: 0.7rem !important;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.list-group-item:last-child {
+    padding: 0 !important;
+}
