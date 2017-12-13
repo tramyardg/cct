@@ -9,8 +9,6 @@ $(document).ready(function () {
   })
   CustomAlert.setId('#customAlert')
   QCatalog.setQuestionForm('#questions-form')
-  // testProgress.setTestProgressConstruct('form#questions-form', '#progressbar', '.progress-label')
-  // testProgress.testProgressMain()
   EnlargeImage.setConstruct({
     imageOverlay: '.image-overlay',
     imageOverlayClose: '.image-overlay-close'
@@ -293,35 +291,6 @@ const LoadXMLDoc = {
     })
   }
 }
-const testProgress = { // TODO should be real-time
-  progressBarDivId: null,
-  progressBarLabel: null,
-  currentProgress: null,
-  totalQuestions: null,
-  setTestProgressConstruct (elemId, label) {
-    testProgress.progressBarDivId = elemId
-    testProgress.progressBarLabel = label
-  },
-  setTotalNumQuestion (form) {
-    testProgress.totalQuestions = $(form).find('ul').length
-  },
-  testProgressMain () {
-    $(testProgress.progressBarDivId).progressbar({
-      value: false,
-      change: function () {
-        $(testProgress.progressBarLabel).text($(testProgress.progressBarDivId).progressbar('value') + '% complete')
-      },
-      complete: function () {
-        $(testProgress.progressBarLabel).text('Complete!')
-      }
-    })
-    testProgress.progress(0)
-  },
-  progress (currentProgress) {
-    let val = $(testProgress.progressBarDivId).progressbar('value') || 0
-    $(testProgress.progressBarDivId).progressbar('value', val + currentProgress)
-  }
-}
 const EnlargeImage = {
   imageOverlay: null,
   imageOverlayClose: null,
@@ -369,16 +338,22 @@ const ShowHideItems = {
 const NextPrevDiv = {
   nextBtn: null,
   prevBtn: null,
+  listGroup: {
+    main: '.list-group',
+    first: ' .list-group:first',
+    last: ' .list-group:last',
+    visible: ' .list-group:visible'
+  },
   setConstruct (args) { // call after items are created
     NextPrevDiv.nextBtn = args.nextBtn
     NextPrevDiv.prevBtn = args.prevBtn
-    NextPrevDiv.clickNextPrevButton()
+    NextPrevDiv.clickNextButton()
+    NextPrevDiv.clickPrevButton()
   },
-  clickNextPrevButton () {
-    let itemClass = '.list-group'
-    let visibleItem = ' .list-group:visible'
-    let firstItem = ' .list-group:first'
-    let lastItem = ' .list-group:last'
+  clickNextButton () {
+    let itemClass = NextPrevDiv.listGroup.main
+    let visibleItem = NextPrevDiv.listGroup.visible
+    let firstItem = NextPrevDiv.listGroup.first
     $(NextPrevDiv.nextBtn).click(function () {
       if ($(QCatalog.questionForm + visibleItem).next(itemClass).length !== 0) {
         $(QCatalog.questionForm + visibleItem).next(itemClass).show().prev(itemClass).hide()
@@ -390,6 +365,11 @@ const NextPrevDiv = {
       }
       return false
     })
+  },
+  clickPrevButton () {
+    let itemClass = NextPrevDiv.listGroup.main
+    let visibleItem = NextPrevDiv.listGroup.visible
+    let lastItem = NextPrevDiv.listGroup.last
     $(NextPrevDiv.prevBtn).click(function () {
       if ($(QCatalog.questionForm + visibleItem).prev(itemClass).length !== 0) {
         $(QCatalog.questionForm + visibleItem).prev(itemClass).show().next(itemClass).hide()
