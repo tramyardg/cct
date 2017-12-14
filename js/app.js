@@ -407,7 +407,7 @@ const QuizSubmission = {
       console.log(countChecked)
       console.log(checkedItemArray)
       CustomAlert.displayAlert(
-        'info',
+        'warning',
         'There are questions left unanswered.',
         'Question(s) answered so far: ' + checkedItemArray.join(', ')
       )
