@@ -418,3 +418,4 @@ const QuizSubmission = {
     })
   }
 }
+// TODO add quit button maybe if the user wants to quit the quiz
