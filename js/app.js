@@ -83,6 +83,7 @@ const TestOptions = {
       TestOptions.setIsTimerSet(values[1].value)
       TestOptions.setMinutesByNumQuestions(values[0].value)
       TestOptions.customToString()
+      QuizSubmission.setConstruct({isTimerSet: TestOptions.isTimerSet})
       LoadXMLDoc.load(function (output) {
         QCatalog.setCatalog(output)
       })
@@ -388,29 +389,30 @@ const NextPrevDiv = {
 const QuizSubmission = {
   formId: null,
   quizIds: [], // array of quiz ids
+  isTimerSet: null,
   setConstruct (args) {
     QuizSubmission.formId = args.formId
+    QuizSubmission.isTimerSet = args.isTimerSet
   },
   onSubmitQuiz () {
     $(QuizSubmission.formId).submit(function (event) {
       console.log(QuizSubmission.quizIds)
-      let countChecked = null
       let checkedItemArray = []
       QuizSubmission.quizIds.forEach((element) => {
         $('input[type=radio][name=' + element + ']').each(function () {
           if ($(this)[0].checked) {
-            countChecked++
             checkedItemArray.push($(this).parentsUntil('ul').parent().first().attr('data-number'))
           }
         })
       })
-      console.log(countChecked)
       console.log(checkedItemArray)
-      CustomAlert.displayAlert(
-        'warning',
-        'There are questions left unanswered.',
-        'Question(s) answered so far: ' + checkedItemArray.join(', ')
-      )
+      if (!QuizSubmission.isTimerSet) {
+        CustomAlert.displayAlert(
+          'warning',
+          'There are questions left unanswered.',
+          'Question(s) answered so far: ' + checkedItemArray.join(', ')
+        )
+      }
       event.preventDefault()
       return false
     })
