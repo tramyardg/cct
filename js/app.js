@@ -16,7 +16,6 @@ $(document).ready(function () {
   QuizSubmission.setConstruct({
     formId: '#questions-form'
   })
-  Timer.setFinishButton($(QuizSubmission.formId))
   QuizSubmission.onSubmitQuiz()
 })
 const MINUTES_CONSTANT = 60
@@ -115,13 +114,11 @@ const Timer = {
   minutesHTML: null,
   allRadioButtons: null,
   isNoMoreTime: false,
-  finishBtn: null,
   setTimerConstruct (args) {
     Timer.timerHTML = args.timerBox
     Timer.secondsHTML = args.secHTML
     Timer.minutesHTML = args.minHTML
     Timer.allRadioButtons = args.radioButtons
-    Timer.finishBtn = null
     Timer.hideTimer()
   },
   disableAllRadio () {
@@ -150,7 +147,6 @@ const Timer = {
         let minutesText = ((remainingMinutes < 10) ? '0' + remainingMinutes : remainingMinutes)
         $(Timer.secondsHTML).text(secondsText)
         $(Timer.minutesHTML).text(minutesText)
-        // $(Timer.finishBtn).find('#finish-quiz').addClass('disabled')
       }
       Timer.changeBadgeColor(counter)
       if (counter === 0) {
@@ -170,9 +166,6 @@ const Timer = {
       $(Timer.secondsHTML).removeClass('badge-secondary').addClass('badge-danger')
       $(Timer.minutesHTML).removeClass('badge-secondary').addClass('badge-danger')
     }
-  },
-  setFinishButton (ele) {
-    Timer.finishBtn = ele
   }
 }
 const CustomAlert = {
@@ -444,4 +437,3 @@ const QuizSubmission = {
   }
 }
 // TODO add quit button maybe if the user wants to quit (skips and evaluates only the answered questions)
-// consider disabling finish button when there are questions left unanswered
