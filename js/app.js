@@ -429,10 +429,11 @@ const QuizSubmission = {
     }
   },
   displayAlertMessage (itemsArray) {
+    let num = (itemsArray.length > 0 ? itemsArray.join(', ') : 'none')
     return CustomAlert.displayAlert(
       'warning',
       'There are questions left unanswered.',
-      'Question(s) answered so far: ' + itemsArray.join(', ')
+      'Question(s) answered so far: ' + num
     )
   }
 }
