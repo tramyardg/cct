@@ -397,7 +397,6 @@ const QuizSubmission = {
   },
   onSubmitQuiz () {
     $(QuizSubmission.formId).submit(function (event) {
-      console.log(QuizSubmission.quizIds)
       let checkedItemArray = []
       let countCheckedItems = null
       QuizSubmission.quizIds.forEach((element) => {
@@ -408,15 +407,12 @@ const QuizSubmission = {
           }
         })
       })
-      console.log(checkedItemArray)
       QuizSubmission.getCheckedItemsArray(checkedItemArray, countCheckedItems)
       event.preventDefault()
       return false
     })
   },
   getCheckedItemsArray (itemsArray, numCheckedItems) {
-    console.log('Timer.isNoMoreTime=' + Timer.isNoMoreTime)
-    console.log('TestOptions.isTimerSet=' + TestOptions.isTimerSet)
     // display when:
     // 1) the timer is set, there still more time, and there still unanswered item(s)
     // 2) the timer is not set, and there still unanswered item(s)
