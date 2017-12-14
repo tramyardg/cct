@@ -16,6 +16,7 @@ $(document).ready(function () {
   QuizSubmission.setConstruct({
     formId: '#questions-form'
   })
+  Timer.setFinishButton($(QuizSubmission.formId))
   QuizSubmission.onSubmitQuiz()
 })
 const MINUTES_CONSTANT = 60
@@ -83,11 +84,11 @@ const TestOptions = {
       TestOptions.setIsTimerSet(values[1].value)
       TestOptions.setMinutesByNumQuestions(values[0].value)
       TestOptions.customToString()
-      QuizSubmission.setConstruct({isTimerSet: TestOptions.isTimerSet})
       LoadXMLDoc.load(function (output) {
         QCatalog.setCatalog(output)
       })
       TestOptions.runTimer()
+      QuizSubmission.setConstruct({isTimerSet: TestOptions.isTimerSet})
       TestOptions.hideTestOptionsForm()
       event.preventDefault()
     })
@@ -113,11 +114,14 @@ const Timer = {
   secondsHTML: null,
   minutesHTML: null,
   allRadioButtons: null,
+  isNoMoreTime: false,
+  finishBtn: null,
   setTimerConstruct (args) {
     Timer.timerHTML = args.timerBox
     Timer.secondsHTML = args.secHTML
     Timer.minutesHTML = args.minHTML
     Timer.allRadioButtons = args.radioButtons
+    Timer.finishBtn = null
     Timer.hideTimer()
   },
   disableAllRadio () {
@@ -134,7 +138,8 @@ const Timer = {
   },
   startTimer () { // main
     // let counter = Timer.seconds
-    let counter = 5
+    // TODO remove hard coded seconds, use above line
+    let counter = 30
     let remainingMinutes, remainingSeconds
     setInterval(function () {
       counter--
@@ -145,9 +150,11 @@ const Timer = {
         let minutesText = ((remainingMinutes < 10) ? '0' + remainingMinutes : remainingMinutes)
         $(Timer.secondsHTML).text(secondsText)
         $(Timer.minutesHTML).text(minutesText)
+        // $(Timer.finishBtn).find('#finish-quiz').addClass('disabled')
       }
       Timer.changeBadgeColor(counter)
       if (counter === 0) {
+        Timer.isNoMoreTime = true
         CustomAlert.displayAlert('warning', 'Time is up!', 'Please submit the test.')
         Timer.disableAllRadio()
         clearInterval(remainingSeconds)
@@ -163,6 +170,9 @@ const Timer = {
       $(Timer.secondsHTML).removeClass('badge-secondary').addClass('badge-danger')
       $(Timer.minutesHTML).removeClass('badge-secondary').addClass('badge-danger')
     }
+  },
+  setFinishButton (ele) {
+    Timer.finishBtn = ele
   }
 }
 const CustomAlert = {
@@ -389,33 +399,49 @@ const NextPrevDiv = {
 const QuizSubmission = {
   formId: null,
   quizIds: [], // array of quiz ids
-  isTimerSet: null,
   setConstruct (args) {
     QuizSubmission.formId = args.formId
-    QuizSubmission.isTimerSet = args.isTimerSet
   },
   onSubmitQuiz () {
     $(QuizSubmission.formId).submit(function (event) {
       console.log(QuizSubmission.quizIds)
       let checkedItemArray = []
+      let countCheckedItems = null
       QuizSubmission.quizIds.forEach((element) => {
         $('input[type=radio][name=' + element + ']').each(function () {
           if ($(this)[0].checked) {
+            countCheckedItems++
             checkedItemArray.push($(this).parentsUntil('ul').parent().first().attr('data-number'))
           }
         })
       })
       console.log(checkedItemArray)
-      if (!QuizSubmission.isTimerSet) {
-        CustomAlert.displayAlert(
-          'warning',
-          'There are questions left unanswered.',
-          'Question(s) answered so far: ' + checkedItemArray.join(', ')
-        )
-      }
+      QuizSubmission.getCheckedItemsArray(checkedItemArray, countCheckedItems)
       event.preventDefault()
       return false
     })
+  },
+  getCheckedItemsArray (itemsArray, numCheckedItems) {
+    console.log('Timer.isNoMoreTime=' + Timer.isNoMoreTime)
+    console.log('TestOptions.isTimerSet=' + TestOptions.isTimerSet)
+    // display when:
+    // 1) the timer is set, there still more time, and there still unanswered item(s)
+    // 2) the timer is not set, and there still unanswered item(s)
+    if (TestOptions.isTimerSet && !Timer.isNoMoreTime && numCheckedItems !== QuizSubmission.quizIds.length) {
+      QuizSubmission.displayAlertMessage(itemsArray)
+    } else if (!TestOptions.isTimerSet && numCheckedItems !== QuizSubmission.quizIds.length) {
+      QuizSubmission.displayAlertMessage(itemsArray)
+    } else {
+      CustomAlert.hideAlert()
+    }
+  },
+  displayAlertMessage (itemsArray) {
+    return CustomAlert.displayAlert(
+      'warning',
+      'There are questions left unanswered.',
+      'Question(s) answered so far: ' + itemsArray.join(', ')
+    )
   }
 }
-// TODO add quit button maybe if the user wants to quit the quiz
+// TODO add quit button maybe if the user wants to quit (skips and evaluates only the answered questions)
+// consider disabling finish button when there are questions left unanswered
