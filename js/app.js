@@ -13,6 +13,10 @@ $(document).ready(function () {
     imageOverlay: '.image-overlay',
     imageOverlayClose: '.image-overlay-close'
   })
+  QuizSubmission.setConstruct({
+    formId: '#questions-form'
+  })
+  QuizSubmission.onSubmitQuiz()
 })
 const MINUTES_CONSTANT = 60
 const INCREMENT_SECONDS_BY_1000 = 1000
@@ -221,12 +225,12 @@ const QCatalog = {
     $(QCatalog.questionForm).empty()
     h += Templates.finishNextPrevButtons()
     $(QCatalog.questionForm).append(h)
-    ShowHideItems.hideItemsExcept(1)
-    NextPrevDiv.setConstruct({
+    QCatalog.customToString()
+    ShowHideItems.hideItemsExcept(1) // hide items except the first one
+    NextPrevDiv.setConstruct({ // initialize previous and next button here
       nextBtn: '#next-button',
       prevBtn: '#prev-button'
     })
-    QCatalog.customToString()
   },
   commonArgsMapper (qItem, i) {
     QCatalog.commonArgs.questionId = qItem[i].getElementsByTagName('QUIZID')[0].innerHTML
@@ -254,6 +258,7 @@ const QCatalog = {
     for (let i = 0; i < qItem.length; i++) {
       QCatalog.commonArgsMapper(qItem, i)
       QCatalog.argsEnMapper(qItem, i)
+      QuizSubmission.quizIds.push(qItem[i].getElementsByTagName('QUIZID')[0].innerHTML)
       h += Templates.openQuestionBody((i + 1))
       h += Templates.questionItemBody(i, QCatalog.catalog.catalogLength, QCatalog.commonArgs, QCatalog.argsEn)
       if (QCatalog.commonArgs.type === '1') {
@@ -380,5 +385,34 @@ const NextPrevDiv = {
     })
   }
 }
-// TODO on submit warn user for unanswered question(s)
-// hint quiz id used by radio buttons
+const QuizSubmission = {
+  formId: null,
+  quizIds: [], // array of quiz ids
+  setConstruct (args) {
+    QuizSubmission.formId = args.formId
+  },
+  onSubmitQuiz () {
+    $(QuizSubmission.formId).submit(function (event) {
+      console.log(QuizSubmission.quizIds)
+      let countChecked = null
+      let checkedItemArray = []
+      QuizSubmission.quizIds.forEach((element) => {
+        $('input[type=radio][name=' + element + ']').each(function () {
+          if ($(this)[0].checked) {
+            countChecked++
+            checkedItemArray.push($(this).parentsUntil('ul').parent().first().attr('data-number'))
+          }
+        })
+      })
+      console.log(countChecked)
+      console.log(checkedItemArray)
+      CustomAlert.displayAlert(
+        'info',
+        'There are questions left unanswered.',
+        'Question(s) answered so far: ' + checkedItemArray.join(', ')
+      )
+      event.preventDefault()
+      return false
+    })
+  }
+}

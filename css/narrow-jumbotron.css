@@ -117,3 +117,6 @@ body {
     -o-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
+.form-check {
+    margin-bottom: 0 !important;
+}
