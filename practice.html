@@ -39,80 +39,151 @@
         <h3 class="text-muted">CCT</h3>
     </header>
     <main role="main">
-        <div class="col-12">
-			<div id="progressbar"><div class="progress-label"></div></div>
-            <div class="alert" id="customAlert" role="alert">
-                <h4 class="alert-heading"></h4>
-                <p class="mb-0" id="alertBody"></p>
+        <div class="alert" id="customAlert" role="alert">
+            <h4 class="alert-heading"></h4>
+            <p class="mb-0" id="alertBody"></p>
+        </div>
+        <div class="card mb-sm-2">
+            <div class="card-header">
+                Quiz Options
             </div>
-            <form id="test-options-form" action="" method="get" class="">
-                <div class="form-group row">
-                    <label class="col-sm-5 col-form-label">Select a number of questions</label>
-                    <div class="col-sm-4 py-sm-2">
-                        <select name="number-of-questions" class="form-control form-control-sm">
-                            <option value="10" selected>10</option>
-                            <option value="20">20</option>
-                            <option value="30">30</option>
-                            <option value="40">40</option>
-                            <option value="50">50</option>
-                            <option value="60">60</option>
-                            <option value="70">70</option>
-                            <option value="80">80</option>
-                        </select>
-                    </div>
-                </div>
-                <fieldset class="form-group">
-                    <div class="row">
-                        <label class="col-form-legend col-sm-5">
-                            Do want a timer? <br>
-                            <small class="form-text text-muted">
-                                <span>How does it work?</span> <br>
-                                <span>10 questions = 15 minutes</span> <br>
-                                <span>20 questions = 30 minutes</span> <br>
-                                <span>30 questions = 45 minutes</span> <br>
-                                <span>etc</span>
-                            </small>
-                        </label>
-                        <div class="col-sm-2 py-sm-2">
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input class="form-check-input" type="radio" name="is-set-timer" value="true">
-                                    Yes
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input class="form-check-input" type="radio" name="is-set-timer" value="false" checked>
-                                    No
-                                </label>
-                            </div>
+            <div class="card-body">
+                <form id="test-options-form" action="" method="get" class="">
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Select a number of questions</label>
+                        <div class="col-sm-4 py-sm-2">
+                            <select name="number-of-questions" class="form-control form-control-sm">
+                                <option value="10" selected>10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                                <option value="50">50</option>
+                                <option value="60">60</option>
+                                <option value="70">70</option>
+                                <option value="80">80</option>
+                            </select>
                         </div>
                     </div>
-                </fieldset>
-                <div class="form-group row">
-                    <div class="col-sm-10">
-                        <button type="submit" class="btn btn-success">Start</button>
+                    <fieldset class="form-group">
+                        <div class="row">
+                            <label class="col-form-legend col-sm-5">
+                                Do want a timer? <br>
+                                <small class="form-text text-muted">
+                                    <span>How does it work?</span> <br>
+                                    <span>10 questions = 15 minutes</span> <br>
+                                    <span>20 questions = 30 minutes</span> <br>
+                                    <span>30 questions = 45 minutes</span> <br>
+                                    <span>etc</span>
+                                </small>
+                            </label>
+                            <div class="col-sm-2 py-sm-2">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="radio" name="is-set-timer" value="true">
+                                        Yes
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="radio" name="is-set-timer" value="false" checked>
+                                        No
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <button type="submit" class="btn btn-success">Start</button>
+                        </div>
                     </div>
-                </div>
-            </form>
-            <form id="questions-form">
-            </form>
-            <div id="timer-box" class="mb-sm-2">Time remaining:
-                <span id="minutes-span" class="badge badge-secondary">00</span>
-                <span>minutes</span>
-                <span id="seconds-span" class="badge badge-secondary">00</span>
-                <span>seconds</span>
+                </form>
             </div>
+        </div>
+        <form id="questions-form">
+        </form>
+        <div id="timer-box" class="mb-sm-2">Time remaining:
+            <span id="minutes-span" class="badge badge-secondary">00</span>
+            <span>minutes</span>
+            <span id="seconds-span" class="badge badge-secondary">00</span>
+            <span>seconds</span>
         </div>
         <div class="image-overlay">
             <span class="image-overlay-close">x</span>
             <img id="question-img-src" alt="image-question">
         </div>
+        <div class="card text-center">
+            <div class="card-header">
+                Quiz Results
+            </div>
+            <div class="card-body">
+                <ul class="list-group pb-sm-2">
+                    <li class="list-group-item border-0">
+                        <div class="col-5 result-item border-0">Correct Answers:</div>
+                        <div class="col-5 result-item">{correct-questions}</div>
+                    </li>
+                    <li class="list-group-item border-0">
+                        <div class="col-5 result-item">Number of Questions:</div>
+                        <div class="col-5 result-item">{total-questions}</div>
+                    </li>
+                    <li class="list-group-item border-0">
+                        <div class="col-5 result-item">Accuracy:</div>
+                        <div class="col-5 result-item">{percent}</div>
+                    </li>
+                    <li class="list-group-item border-0">
+                        <div class="col-5 result-item">Time taken:</div>
+                        <div class="col-5 result-item">{time}</div>
+                    </li>
+                </ul>
+                <div id="result-chart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    Review Answers
+                </button>
+                <div class="collapse pt-2" id="collapseExample">
+                    <ul class="list-group text-left py-sm-2 mt-2 mb-2 question-item-1" data-number="1">
+                        <li class="list-group-item list-group-item-dark text-center question-indexer">Question 1 of 10</li>
+                        <li class="list-group-item question-text">Federal Responsibilities</li>
+
+                        <li class="list-group-item question-option list-group-item-danger">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input q-option" type="radio" value="1" name="AA0059">
+                                    National Defence, Foreign Policy, education
+                                </label>
+                            </div>
+                        </li>
+                        <li class="list-group-item question-option">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input q-option" type="radio" value="2" name="AA0059">
+                                    Foreign Policy, Citizenship, Social and Community Health
+                                </label>
+                            </div>
+                        </li>
+                        <li class="list-group-item question-option list-group-item-success">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input q-option" type="radio" value="3" name="AA0059">
+                                    National Defence, Foreign Policy, Citizenship
+                                </label>
+                            </div>
+                        </li>
+                        <li class="list-group-item question-option">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input q-option" type="radio" value="4" name="AA0059">
+                                    National Defence, Transportation and Utilities
+                                </label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </main>
     <footer class="footer">
         <p>&copy; Company 2017</p>
     </footer>
-
 </div>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/popper.min.js"></script>
@@ -120,5 +191,8 @@
 <script src="js/util.js"></script>
 <script src="js/templates.js"></script>
 <script src="js/app.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="js/highcharts.js"></script>
 </body>
 </html>

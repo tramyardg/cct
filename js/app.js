@@ -27,7 +27,7 @@ const TestOptions = {
     TestOptions.testOptionsFormHTML = tofHTML
   },
   hideTestOptionsForm () {
-    $(TestOptions.testOptionsFormHTML).remove()
+    $(TestOptions.testOptionsFormHTML).parentsUntil('.card').parent().remove()
   },
   setIsTimerSet (cond) {
     if (cond === true || cond === 'true') {
@@ -148,6 +148,7 @@ const Timer = {
       if (counter === 0) {
         Timer.isNoMoreTime = true
         CustomAlert.displayAlert('warning', 'Time is up!', 'Please submit the test.')
+        $(QuizSubmission.formId).find('button#finish-quiz').addClass('disabled')
         Timer.disableAllRadio()
         clearInterval(remainingSeconds)
         clearInterval(remainingMinutes)

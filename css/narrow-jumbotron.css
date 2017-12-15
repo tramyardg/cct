@@ -120,3 +120,15 @@ body {
 .form-check {
     margin-bottom: 0 !important;
 }
+.result-item {
+    display: inline-block;
+}
+.result-item:first-child {
+    text-align: right;
+}
+.result-item:last-child {
+    text-align: left;
+}
+.btn {
+    text-transform: none !important;
+}
