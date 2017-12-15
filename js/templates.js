@@ -116,5 +116,8 @@ let Templates = {
     }
     h += `</div>`
     return h
+  },
+  numericalResults () {
+    // a template for scores
   }
 }

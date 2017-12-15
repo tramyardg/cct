@@ -397,6 +397,14 @@ const QuizSubmission = {
   onClickSubmitButton () {
     $(QuizSubmission.formId).find('button#submit-quiz').click(function (event) {
       console.log('asd')
+      // get answered questions with ids and answers
+      //    with these ids, get the corresponding html elements and store them as object
+      //    these html elements are needed for displaying result later (items)
+      // with these ids and answers make a request to evaluate the answers
+      //    the return data determines if the answer is correct by using a flag 1 and 0
+      //    new: also the return data must include the answers
+      //    use the template to display the numerical result
+      //    use the data to style the html above to be displayed as result
       event.preventDefault()
       return false
     })
@@ -422,4 +430,3 @@ const QuizSubmission = {
     )
   }
 }
-// group items that are need to be initialize after test options submission
