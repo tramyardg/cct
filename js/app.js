@@ -377,19 +377,25 @@ const QuizSubmission = {
   setConstruct (args) {
     QuizSubmission.formId = args.formId
   },
+  getDoneQuestionsById () {
+    let checkedItemsArray = []
+    let countCheckedItems = null
+    QuizSubmission.quizIds.forEach((element) => {
+      $('input[type=radio][name=' + element + ']').each(function () {
+        if ($(this)[0].checked) {
+          countCheckedItems++
+          checkedItemsArray.push($(this).parentsUntil('ul').parent().first().attr('data-number'))
+        }
+      })
+    })
+    return {numOfCheckedItems: countCheckedItems, indexOfCheckedItems: checkedItemsArray}
+  },
   onClickDoneButton () {
     $(QuizSubmission.formId).find('button#finish-quiz').click(function (event) {
-      let checkedItemArray = []
-      let countCheckedItems = null
-      QuizSubmission.quizIds.forEach((element) => {
-        $('input[type=radio][name=' + element + ']').each(function () {
-          if ($(this)[0].checked) {
-            countCheckedItems++
-            checkedItemArray.push($(this).parentsUntil('ul').parent().first().attr('data-number'))
-          }
-        })
-      })
-      QuizSubmission.getCheckedItemsArray(checkedItemArray, countCheckedItems)
+      QuizSubmission.displayNotDoneMessage(
+        QuizSubmission.getDoneQuestionsById().indexOfCheckedItems,
+        QuizSubmission.getDoneQuestionsById().numOfCheckedItems
+      )
       event.preventDefault()
       return false
     })
@@ -409,19 +415,19 @@ const QuizSubmission = {
       return false
     })
   },
-  getCheckedItemsArray (itemsArray, numCheckedItems) {
+  displayNotDoneMessage (itemsArray, numCheckedItems) {
     // display when:
     // 1) the timer is set, there still more time, and there still unanswered item(s)
     // 2) the timer is not set, and there still unanswered item(s)
     if (TestOptions.isTimerSet && !Timer.isNoMoreTime && numCheckedItems !== QuizSubmission.quizIds.length) {
-      QuizSubmission.displayAlertMessage(itemsArray)
+      QuizSubmission.notDoneAlertMessage(itemsArray)
     } else if (!TestOptions.isTimerSet && numCheckedItems !== QuizSubmission.quizIds.length) {
-      QuizSubmission.displayAlertMessage(itemsArray)
+      QuizSubmission.notDoneAlertMessage(itemsArray)
     } else {
       CustomAlert.hideAlert()
     }
   },
-  displayAlertMessage (itemsArray) {
+  notDoneAlertMessage (itemsArray) {
     let num = (itemsArray.length > 0 ? itemsArray.join(', ') : 'none')
     return CustomAlert.displayAlert(
       'warning',
