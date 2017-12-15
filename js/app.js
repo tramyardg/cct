@@ -207,7 +207,7 @@ const QCatalog = {
     $(QCatalog.questionForm).append(h)
     QCatalog.customToString()
     ShowHideItems.hideItemsExcept(1) // hide items except the first one
-    // INITIALIZE elements here (only js generated elem not pre-built via html)
+    // INITIALIZE elements here (only js generated elem and not pre-built via html)
     NextPrevDiv.setConstruct({ // initialize previous and next button here
       nextBtn: '#next-button',
       prevBtn: '#prev-button'
@@ -216,7 +216,7 @@ const QCatalog = {
       formId: '#questions-form'
     })
     QuizSubmission.onClickDoneButton()
-    QuizSubmission.onClickSubmitButton('button#submit-quiz')
+    QuizSubmission.onClickSubmitButton()
   },
   commonArgsMapper (qItem, i) {
     QCatalog.commonArgs.questionId = qItem[i].getElementsByTagName('QUIZID')[0].innerHTML
@@ -378,8 +378,7 @@ const QuizSubmission = {
     QuizSubmission.formId = args.formId
   },
   onClickDoneButton () {
-    console.log($(QuizSubmission.formId))
-    $(QuizSubmission.formId).submit(function (event) {
+    $(QuizSubmission.formId).find('button#finish-quiz').click(function (event) {
       let checkedItemArray = []
       let countCheckedItems = null
       QuizSubmission.quizIds.forEach((element) => {
@@ -391,6 +390,13 @@ const QuizSubmission = {
         })
       })
       QuizSubmission.getCheckedItemsArray(checkedItemArray, countCheckedItems)
+      event.preventDefault()
+      return false
+    })
+  },
+  onClickSubmitButton () {
+    $(QuizSubmission.formId).find('button#submit-quiz').click(function (event) {
+      console.log('asd')
       event.preventDefault()
       return false
     })
@@ -414,10 +420,6 @@ const QuizSubmission = {
       'There are questions left unanswered.',
       'Question(s) answered so far: ' + num
     )
-  },
-  onClickSubmitButton (ele) {
-    console.log($(ele))
   }
 }
-// TODO add quit button maybe if the user wants to quit (skips and evaluates only the answered questions)
 // group items that are need to be initialize after test options submission
