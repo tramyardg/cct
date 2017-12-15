@@ -13,10 +13,7 @@ $(document).ready(function () {
     imageOverlay: '.image-overlay',
     imageOverlayClose: '.image-overlay-close'
   })
-  QuizSubmission.setConstruct({
-    formId: '#questions-form'
-  })
-  QuizSubmission.onSubmitQuiz()
+  $('[data-toggle="tooltip"]').tooltip()
 })
 const MINUTES_CONSTANT = 60
 const INCREMENT_SECONDS_BY_1000 = 1000
@@ -87,7 +84,6 @@ const TestOptions = {
         QCatalog.setCatalog(output)
       })
       TestOptions.runTimer()
-      QuizSubmission.setConstruct({isTimerSet: TestOptions.isTimerSet})
       TestOptions.hideTestOptionsForm()
       event.preventDefault()
     })
@@ -231,10 +227,16 @@ const QCatalog = {
     $(QCatalog.questionForm).append(h)
     QCatalog.customToString()
     ShowHideItems.hideItemsExcept(1) // hide items except the first one
+    // INITIALIZE elements here (only js generated elem not pre-built via html)
     NextPrevDiv.setConstruct({ // initialize previous and next button here
       nextBtn: '#next-button',
       prevBtn: '#prev-button'
     })
+    QuizSubmission.setConstruct({
+      formId: '#questions-form'
+    })
+    QuizSubmission.onClickDoneButton()
+    QuizSubmission.onClickSubmitButton('button#submit-quiz')
   },
   commonArgsMapper (qItem, i) {
     QCatalog.commonArgs.questionId = qItem[i].getElementsByTagName('QUIZID')[0].innerHTML
@@ -395,7 +397,8 @@ const QuizSubmission = {
   setConstruct (args) {
     QuizSubmission.formId = args.formId
   },
-  onSubmitQuiz () {
+  onClickDoneButton () {
+    console.log($(QuizSubmission.formId))
     $(QuizSubmission.formId).submit(function (event) {
       let checkedItemArray = []
       let countCheckedItems = null
@@ -431,6 +434,10 @@ const QuizSubmission = {
       'There are questions left unanswered.',
       'Question(s) answered so far: ' + num
     )
+  },
+  onClickSubmitButton (ele) {
+    console.log($(ele))
   }
 }
 // TODO add quit button maybe if the user wants to quit (skips and evaluates only the answered questions)
+// group items that are need to be initialize after test options submission

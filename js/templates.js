@@ -98,7 +98,9 @@ let Templates = {
                 <button type="button" class="btn btn-primary" id="prev-button">Prev</button>
                 <button type="button" class="btn btn-primary ml-2" id="next-button">Next</button>
             </div>
-            <button type="submit" id="finish-quiz" class="btn btn-success mb-sm-2">Finish</button>`
+            <button id="submit-quiz" class="btn btn-success mb-sm-2">Submit</button>
+            <button id="finish-quiz" class="btn btn-success mb-sm-2" data-toggle="tooltip" 
+            data-placement="right" title="Submit all and finish">Done</button>`
   },
   navigateItemsWithButton (length) {
     let h = `<div class="row">`
