@@ -132,3 +132,6 @@ body {
 .btn {
     text-transform: none !important;
 }
+#timer-box, .test-result {
+    display: none;
+}
