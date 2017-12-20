@@ -412,6 +412,8 @@ const QuizSubmission = {
       //    new: also the return data must include the answers
       //    use the template to display the numerical result
       //    use the data to style the html above to be displayed as result
+      let userAnswers = {answers: $(QuizSubmission.formId).serialize()}
+      console.log(userAnswers)
       event.preventDefault()
       return false
     })
