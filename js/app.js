@@ -69,7 +69,7 @@ const TestOptions = {
   },
   onSubmitTestOptions: function () { // main
     Timer.hideTimer()
-    CustomAlert.hideAlert()
+    // CustomAlert.hideAlert()
     let formId = TestOptions.testOptionsFormHTML
     $(formId).submit(function (event) {
       let values = []
@@ -147,7 +147,12 @@ const Timer = {
       Timer.changeBadgeColor(counter)
       if (counter === 0) {
         Timer.isNoMoreTime = true
-        CustomAlert.displayAlert('warning', 'Time is up!', 'Please submit the test.')
+        CustomAlert.displayAlert(
+          'warning',
+          'Time is up!',
+          'Please submit the test.',
+          60
+        )
         $(QuizSubmission.formId).find('button#finish-quiz').addClass('disabled')
         Timer.disableAllRadio()
         clearInterval(remainingSeconds)
@@ -397,7 +402,12 @@ const QuizSubmission = {
       if (userAnswers.ans !== '' || userAnswers.ans.indexOf('=') !== -1 || userAnswers.ans.indexOf('&') !== -1) {
         console.log(userAnswers)
       } else {
-        CustomAlert.displayAlert('info', 'No questions answered', 'Please answer some question before submitting.')
+        CustomAlert.displayAlert(
+          'info',
+          'No questions answered',
+          'Please answer some question before submitting the quiz.',
+          10
+        )
       }
       event.preventDefault()
       return false
@@ -411,8 +421,6 @@ const QuizSubmission = {
       QuizSubmission.notDoneAlertMessage(itemsArray)
     } else if (!TestOptions.isTimerSet && numCheckedItems !== QuizSubmission.quizIds.length) {
       QuizSubmission.notDoneAlertMessage(itemsArray)
-    } else {
-      CustomAlert.hideAlert()
     }
   },
   notDoneAlertMessage (itemsArray) {
@@ -420,7 +428,8 @@ const QuizSubmission = {
     return CustomAlert.displayAlert(
       'warning',
       'There are questions left unanswered.',
-      'Question(s) answered so far: ' + num
+      'Question(s) answered so far: ' + num,
+      20
     )
   }
 }

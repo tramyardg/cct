@@ -132,7 +132,7 @@ body {
 .btn {
     text-transform: none !important;
 }
-#timer-box {
+#timer-box, #customAlert {
     display: none;
 }
 .test-result {
