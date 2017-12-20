@@ -359,7 +359,7 @@ const QuizSubmission = {
   setConstruct (args) {
     QuizSubmission.formId = args.formId
   },
-  getDoneQuestionsById () {
+  getDoneQuestionsById () { // id from data attribute data-number
     let checkedItemsArray = []
     let countCheckedItems = null
     QuizSubmission.quizIds.forEach((element) => {
@@ -384,8 +384,7 @@ const QuizSubmission = {
   },
   onClickSubmitButton () {
     $(QuizSubmission.formId).find('button#submit-quiz').click(function (event) {
-      console.log('asd')
-      console.log(QuizSubmission.getDoneQuestionsById().indexOfCheckedItems)
+      // console.log(QuizSubmission.getDoneQuestionsById().indexOfCheckedItems)
       // get answered questions with ids and answers
       //    with these ids, get the corresponding html elements and store them as object
       //    these html elements are needed for displaying result later (items)
@@ -394,8 +393,12 @@ const QuizSubmission = {
       //    new: also the return data must include the answers
       //    use the template to display the numerical result
       //    use the data to style the html above to be displayed as result
-      let userAnswers = {answers: $(QuizSubmission.formId).serialize()}
-      console.log(userAnswers)
+      let userAnswers = {ans: $(QuizSubmission.formId).serialize()}
+      if (userAnswers.ans !== '' || userAnswers.ans.indexOf('=') !== -1 || userAnswers.ans.indexOf('&') !== -1) {
+        console.log(userAnswers)
+      } else {
+        CustomAlert.displayAlert('info', 'No questions answered', 'Please answer some question before submitting.')
+      }
       event.preventDefault()
       return false
     })

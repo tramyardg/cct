@@ -132,6 +132,9 @@ body {
 .btn {
     text-transform: none !important;
 }
-#timer-box, .test-result {
+#timer-box {
+    display: none;
+}
+.test-result {
     /*display: none;*/
 }
