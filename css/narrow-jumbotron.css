@@ -133,5 +133,5 @@ body {
     text-transform: none !important;
 }
 #timer-box, .test-result {
-    display: none;
+    /*display: none;*/
 }

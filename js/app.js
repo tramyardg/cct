@@ -280,25 +280,6 @@ const LoadXMLDoc = {
     })
   }
 }
-const EnlargeImage = {
-  imageOverlay: null,
-  imageOverlayClose: null,
-  setConstruct (args) {
-    EnlargeImage.imageOverlay = args.imageOverlay
-    EnlargeImage.imageOverlayClose = args.imageOverlayClose
-  },
-  clickToEnlarge (ele) {
-    let imageSource = $(ele).attr('src')
-    $(EnlargeImage.imageOverlay).find('img').attr('src', imageSource)
-    $(EnlargeImage.imageOverlay).fadeIn(100)
-    EnlargeImage.closeImageOverlay()
-  },
-  closeImageOverlay () {
-    $(EnlargeImage.imageOverlayClose).click(function () {
-      $(EnlargeImage.imageOverlay).fadeOut(100)
-    })
-  }
-}
 const NavigateItemByIndex = {
   onclickButtonWithIndex (index) {
     ShowHideItems.showItemByItemIndex(index) // show the item with the index
@@ -404,6 +385,7 @@ const QuizSubmission = {
   onClickSubmitButton () {
     $(QuizSubmission.formId).find('button#submit-quiz').click(function (event) {
       console.log('asd')
+      console.log(QuizSubmission.getDoneQuestionsById().indexOfCheckedItems)
       // get answered questions with ids and answers
       //    with these ids, get the corresponding html elements and store them as object
       //    these html elements are needed for displaying result later (items)
