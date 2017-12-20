@@ -389,7 +389,6 @@ const QuizSubmission = {
   },
   onClickSubmitButton () {
     $(QuizSubmission.formId).find('button#submit-quiz').click(function (event) {
-      // console.log(QuizSubmission.getDoneQuestionsById().indexOfCheckedItems)
       // get answered questions with ids and answers
       //    with these ids, get the corresponding html elements and store them as object
       //    these html elements are needed for displaying result later (items)
@@ -401,6 +400,18 @@ const QuizSubmission = {
       let userAnswers = {ans: $(QuizSubmission.formId).serialize()}
       if (userAnswers.ans !== '' || userAnswers.ans.indexOf('=') !== -1 || userAnswers.ans.indexOf('&') !== -1) {
         console.log(userAnswers)
+        // console.log($(QuizSubmission.formId).serializeArray())
+        let elemAttrVal = $(QuizSubmission.formId).serializeArray()
+        let answeredItem = null
+        elemAttrVal.forEach((element) => {
+          console.log(element)
+          let listGroups = $('.list-group > .list-group-item input[name=' + element.name + ']')
+          let itemSel = listGroups.parentsUntil('ul').parent()
+          let ulItems = itemSel.first()
+          // answeredItem.push(ulItems.clone())
+          console.log(ulItems.eq(0).clone())
+        })
+        console.log(answeredItem)
       } else {
         CustomAlert.displayAlert(
           'info',
