@@ -443,3 +443,16 @@ const QuizSubmission = {
     )
   }
 }
+const QuizResultNum = {
+  numCorrectAnswers: null,
+  numOfQuestions: null,
+  accuracyPercent: null,
+  calcAccuracy () {
+    return (QuizResultNum.numCorrectAnswers / QuizResultNum.numOfQuestions) * 100
+  },
+  setConstruct (args) {
+    QuizResultNum.numCorrectAnswers = args.numCorrectAnswers
+    QuizResultNum.numOfQuestions = TestOptions.numberOfQuestions
+    QuizResultNum.accuracyPercent = QuizResultNum.calcAccuracy()
+  }
+}

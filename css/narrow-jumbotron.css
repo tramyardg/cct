@@ -138,3 +138,8 @@ body {
 .test-result {
     /*display: none;*/
 }
+#result-chart {
+    min-width: 310px;
+    height: 400px;
+    margin: 0 auto;
+}
