@@ -106,9 +106,14 @@ let Templates = {
     let h = `<div class="row">`
     for (let i = 0; i < length; i++) {
       let num = (i + 1)
-      h += `<div class="col mt-2">
-        <button type="button" class="btn btn-outline-primary btn-item btn-navigator-${num}"
+      h += `<div class="col mt-2">`
+      if (i === 0) {
+        h += `<button type="button" class="btn btn-outline-primary btn-item active btn-navigator-${num}"
         onclick="NavigateItemByIndex.onclickButtonWithIndex(${num})">`
+      } else {
+        h += `<button type="button" class="btn btn-outline-primary btn-item btn-navigator-${num}"
+        onclick="NavigateItemByIndex.onclickButtonWithIndex(${num})">`
+      }
       if (num < 10) {
         num = '0' + (i + 1)
       }

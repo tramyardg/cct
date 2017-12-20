@@ -13,7 +13,6 @@ $(document).ready(function () {
     imageOverlay: '.image-overlay',
     imageOverlayClose: '.image-overlay-close'
   })
-  $('[data-toggle="tooltip"]').tooltip()
 })
 const MINUTES_CONSTANT = 60
 const INCREMENT_SECONDS_BY_1000 = 1000
@@ -153,6 +152,7 @@ const Timer = {
           'Please submit the test.',
           60
         )
+        // disabled Done button
         $(QuizSubmission.formId).find('button#finish-quiz').addClass('disabled')
         Timer.disableAllRadio()
         clearInterval(remainingSeconds)
