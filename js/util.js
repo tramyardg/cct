@@ -18,6 +18,12 @@ const CustomAlert = {
     }, duration * 1000) // 1000 for 1 second
   },
   showAlert () {
+    $(CustomAlert.id).removeClass(
+      'alert-warning',
+      'alert-info',
+      'alert-success',
+      'alert-danger'
+    )
     $(CustomAlert.id).css('display', 'block')
   }
 }

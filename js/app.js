@@ -421,6 +421,16 @@ const QuizSubmission = {
       QuizSubmission.notDoneAlertMessage(itemsArray)
     } else if (!TestOptions.isTimerSet && numCheckedItems !== QuizSubmission.quizIds.length) {
       QuizSubmission.notDoneAlertMessage(itemsArray)
+    } else {
+      CustomAlert.displayAlert(
+        'success',
+        'This quiz has been submitted.',
+        'The result will be displayed in a moment. Please wait.',
+        60
+      )
+      // disabled Done and Submit buttons
+      $(QuizSubmission.formId).find('button#finish-quiz').addClass('disabled')
+      $(QuizSubmission.formId).find('button#submit-quiz').addClass('disabled')
     }
   },
   notDoneAlertMessage (itemsArray) {
@@ -429,7 +439,7 @@ const QuizSubmission = {
       'warning',
       'There are questions left unanswered.',
       'Question(s) answered so far: ' + num,
-      20
+      5
     )
   }
 }
