@@ -28,6 +28,22 @@ const CustomAlert = { // utility not dependent on other module outside this file
       'alert-danger'
     )
     $(CustomAlert.id).css('display', 'block')
+  },
+  getQuizSubmittedAlert () {
+    return CustomAlert.displayAlert(
+      'success',
+      'This quiz has been submitted.',
+      'The result will be displayed in a moment. Please wait.',
+      60
+    )
+  },
+  getTimeIsUpAlert () {
+    return CustomAlert.displayAlert(
+      'warning',
+      'Time is up!',
+      'Please submit the test.',
+      60
+    )
   }
 }
 const EnlargeImage = {

@@ -127,12 +127,7 @@ const Timer = {
       Timer.changeBadgeColor(counter)
       if (counter === 0) {
         Timer.isNoMoreTime = true
-        CustomAlert.displayAlert(
-          'warning',
-          'Time is up!',
-          'Please submit the test.',
-          60
-        )
+        CustomAlert.getTimeIsUpAlert()
         // disabled Done button
         $(QuizSubmission.formId).find('button#finish-quiz').addClass('disabled')
         Timer.disableAllRadio()
@@ -398,12 +393,7 @@ const QuizSubmission = {
     } else if (!TestOptions.isTimerSet && numCheckedItems !== QuizSubmission.quizIds.length) {
       QuizSubmission.notDoneAlertMessage(itemsArray)
     } else {
-      CustomAlert.displayAlert(
-        'success',
-        'This quiz has been submitted.',
-        'The result will be displayed in a moment. Please wait.',
-        60
-      )
+      CustomAlert.getQuizSubmittedAlert()
       // disabled Done and Submit buttons
       $(QuizSubmission.formId).find('button#finish-quiz').addClass('disabled')
       $(QuizSubmission.formId).find('button#submit-quiz').addClass('disabled')
