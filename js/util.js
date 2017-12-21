@@ -1,4 +1,7 @@
-const CustomAlert = {
+const MINUTES_CONSTANT = 60
+const INCREMENT_SECONDS_BY_1000 = 1000
+const DEFAULT_REGION_ID = 'AA'
+const CustomAlert = { // utility not dependent on other module outside this file
   id: null,
   setId (alertId) {
     CustomAlert.id = alertId
@@ -15,7 +18,7 @@ const CustomAlert = {
   hideAlert (duration) {
     setTimeout(function () {
       $(CustomAlert.id).css('display', 'none')
-    }, duration * 1000) // 1000 for 1 second
+    }, duration * INCREMENT_SECONDS_BY_1000) // 1000 for 1 second
   },
   showAlert () {
     $(CustomAlert.id).removeClass(

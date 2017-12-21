@@ -1,22 +1,3 @@
-$(document).ready(function () {
-  TestOptions.setTestOptionsConstruct('#test-options-form')
-  TestOptions.onSubmitTestOptions()
-  Timer.setTimerConstruct({
-    timerBox: '#timer-box',
-    secHTML: '#seconds-span',
-    minHTML: '#minutes-span',
-    radioButtons: '.q-option,input[type=radio]'
-  })
-  CustomAlert.setId('#customAlert')
-  QCatalog.setQuestionForm('#questions-form')
-  EnlargeImage.setConstruct({
-    imageOverlay: '.image-overlay',
-    imageOverlayClose: '.image-overlay-close'
-  })
-})
-const MINUTES_CONSTANT = 60
-const INCREMENT_SECONDS_BY_1000 = 1000
-const DEFAULT_REGION_ID = 'AA'
 const TestOptions = {
   isTimerSet: false,
   minutes: null,
@@ -265,26 +246,6 @@ const QCatalog = {
     return h
   }
 }
-const LoadXMLDoc = {
-  load: function (handleData) {
-    let options = {
-      regionId: DEFAULT_REGION_ID,
-      limit: TestOptions.numberOfQuestions,
-      dateTime: new Date().getTime(),
-      timer: TestOptions.isTimerSet
-    }
-    $.ajax({
-      type: 'GET',
-      url: 'model/cct-questions.php',
-      data: options,
-      dataType: 'xml',
-      success: function (xml) {
-        handleData(xml)
-      },
-      error: function () {}
-    })
-  }
-}
 const NavigateItemByIndex = {
   onclickButtonWithIndex (index) {
     ShowHideItems.showItemByItemIndex(index) // show the item with the index
@@ -360,7 +321,7 @@ const NextPrevDiv = {
 }
 const QuizSubmission = {
   formId: null,
-  quizIds: [], // array of quiz ids
+  quizIds: [],
   answeredItems: [],
   setConstruct (args) {
     QuizSubmission.formId = args.formId
@@ -384,6 +345,7 @@ const QuizSubmission = {
         QuizSubmission.getDoneQuestionsById().indexOfCheckedItems,
         QuizSubmission.getDoneQuestionsById().numOfCheckedItems
       )
+      // works similarly as onClickSubmitButton
       event.preventDefault()
       return false
     })
@@ -424,7 +386,7 @@ const QuizSubmission = {
     answeredItem.forEach((element) => {
       $('#collapseAnsweredQuestions').append(element)
       let index = $(element).index() + 1
-      $('.question-item-' + index).show()
+      $('.question-item-' + index).show() // still does not say something (no styling)
     })
   },
   displayNotDoneMessage (itemsArray, numCheckedItems) {
