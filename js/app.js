@@ -361,21 +361,22 @@ const NextPrevDiv = {
 const QuizSubmission = {
   formId: null,
   quizIds: [], // array of quiz ids
+  answeredItems: [],
   setConstruct (args) {
     QuizSubmission.formId = args.formId
   },
   getDoneQuestionsById () { // id from data attribute data-number
-    let checkedItemsArray = []
+    let checkedItemsDataNum = []
     let countCheckedItems = null
     QuizSubmission.quizIds.forEach((element) => {
       $('input[type=radio][name=' + element + ']').each(function () {
         if ($(this)[0].checked) {
           countCheckedItems++
-          checkedItemsArray.push($(this).parentsUntil('ul').parent().first().attr('data-number'))
+          checkedItemsDataNum.push($(this).parentsUntil('ul').parent().first().attr('data-number'))
         }
       })
     })
-    return {numOfCheckedItems: countCheckedItems, indexOfCheckedItems: checkedItemsArray}
+    return {numOfCheckedItems: countCheckedItems, indexOfCheckedItems: checkedItemsDataNum}
   },
   onClickDoneButton () {
     $(QuizSubmission.formId).find('button#finish-quiz').click(function (event) {
@@ -399,19 +400,7 @@ const QuizSubmission = {
       //    use the data to style the html above to be displayed as result
       let userAnswers = {ans: $(QuizSubmission.formId).serialize()}
       if (userAnswers.ans !== '' || userAnswers.ans.indexOf('=') !== -1 || userAnswers.ans.indexOf('&') !== -1) {
-        console.log(userAnswers)
-        // console.log($(QuizSubmission.formId).serializeArray())
-        let elemAttrVal = $(QuizSubmission.formId).serializeArray()
-        let answeredItem = null
-        elemAttrVal.forEach((element) => {
-          console.log(element)
-          let listGroups = $('.list-group > .list-group-item input[name=' + element.name + ']')
-          let itemSel = listGroups.parentsUntil('ul').parent()
-          let ulItems = itemSel.first()
-          // answeredItem.push(ulItems.clone())
-          console.log(ulItems.eq(0).clone())
-        })
-        console.log(answeredItem)
+        QuizSubmission.setAnsweredItems($(QuizSubmission.formId).serializeArray())
       } else {
         CustomAlert.displayAlert(
           'info',
@@ -422,6 +411,20 @@ const QuizSubmission = {
       }
       event.preventDefault()
       return false
+    })
+  },
+  setAnsweredItems (itemsSubmitted) {
+    let answeredItem = []
+    itemsSubmitted.forEach((element) => {
+      let listGroups = $('.list-group .list-group-item input[name=' + element.name + ']')
+      let itemSel = listGroups.parentsUntil('ul').parent()
+      answeredItem.push(itemSel.first()[0])
+    })
+    $('#collapseAnsweredQuestions').empty()
+    answeredItem.forEach((element) => {
+      $('#collapseAnsweredQuestions').append(element)
+      let index = $(element).index() + 1
+      $('.question-item-' + index).show()
     })
   },
   displayNotDoneMessage (itemsArray, numCheckedItems) {
