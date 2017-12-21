@@ -379,9 +379,9 @@ const QuizSubmission = {
     })
     $('#collapseAnsweredQuestions').empty()
     answeredItem.forEach((element) => {
-      $('#collapseAnsweredQuestions').append(element)
-      let index = $(element).index() + 1
-      $('.question-item-' + index).show() // still does not say something (no styling)
+      $('#collapseAnsweredQuestions').append($(element).clone())
+      // let index = $(element).index() + 1
+      // $('.question-item-' + index).show() // still does not say something (no styling)
     })
   },
   displayNotDoneMessage (itemsArray, numCheckedItems) {
