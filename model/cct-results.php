@@ -2,7 +2,7 @@
 
 require_once 'connection.php';
 
-if($_GET['user_answers']) {
+if($_GET['ans']) {
     $user_answers_str = $_GET['ans'];
     $user_arr = explode("&", $user_answers_str);
     $ansLen = count($user_arr);
@@ -13,6 +13,7 @@ if($_GET['user_answers']) {
             . " AND answer = ".substr($user_arr[$i], strpos($user_arr[$i], '=')+1).") \n"
             . " AS ".substr($user_arr[$i], 0, strpos($user_arr[$i], '=')).",(\n";
     }
+    echo "<script>console.log('".$sql."');</script>\n";
     $clean_sql = substr($sql, 0, -3);
     $dbh = Db::getInstance();
     $stmt = $dbh->prepare($clean_sql);
