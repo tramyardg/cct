@@ -380,7 +380,7 @@ const QuizSubmission = {
     $('#collapseAnsweredQuestions').empty()
     answeredItem.forEach((element) => {
       $('#collapseAnsweredQuestions').append($(element))
-      let questionDataNum = $(element).attr('data-number')
+      let questionDataNum = $(element).attr('data-number') // display by block
       $('.question-item-' + questionDataNum).removeAttr('style') // still does not say something (no styling)
     })
   },

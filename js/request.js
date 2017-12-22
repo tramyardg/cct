@@ -18,3 +18,17 @@ const LoadQuestionItems = {
     })
   }
 }
+const LoadResults = {
+  load: function (handleData) {
+    $.ajax({
+      type: 'GET',
+      url: 'model/cct-results.php',
+      data: options,
+      dataType: 'xml',
+      success: function (xml) {
+        handleData(xml)
+      },
+      error: function () {}
+    })
+  }
+}
