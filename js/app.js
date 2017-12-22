@@ -60,7 +60,7 @@ const TestOptions = {
       TestOptions.setIsTimerSet(values[1].value)
       TestOptions.setMinutesByNumQuestions(values[0].value)
       TestOptions.customToString()
-      LoadXMLDoc.load(function (output) {
+      LoadQuestionItems.load(function (output) {
         QCatalog.setCatalog(output)
       })
       TestOptions.runTimer()

@@ -1,4 +1,4 @@
-const LoadXMLDoc = {
+const LoadQuestionItems = {
   load: function (handleData) {
     let options = {
       regionId: DEFAULT_REGION_ID,
