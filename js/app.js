@@ -49,7 +49,6 @@ const TestOptions = {
   },
   onSubmitTestOptions: function () { // main
     Timer.hideTimer()
-    // CustomAlert.hideAlert()
     let formId = TestOptions.testOptionsFormHTML
     $(formId).submit(function (event) {
       let values = []
@@ -358,6 +357,10 @@ const QuizSubmission = {
       let userAnswers = {ans: $(QuizSubmission.formId).serialize()}
       if (userAnswers.ans !== '' || userAnswers.ans.indexOf('=') !== -1 || userAnswers.ans.indexOf('&') !== -1) {
         QuizSubmission.setAnsweredItems($(QuizSubmission.formId).serializeArray())
+        LoadResults.setQueryString(userAnswers)
+        LoadResults.load(function (data) {
+          console.log(data)
+        })
       } else {
         CustomAlert.displayAlert(
           'info',

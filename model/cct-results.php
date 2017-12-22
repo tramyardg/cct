@@ -3,7 +3,7 @@
 require_once 'connection.php';
 
 if($_GET['user_answers']) {
-    $user_answers_str = $_GET['user_answers'];
+    $user_answers_str = $_GET['ans'];
     $user_arr = explode("&", $user_answers_str);
     $ansLen = count($user_arr);
     $sql = "SELECT (\n";

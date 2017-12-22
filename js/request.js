@@ -19,12 +19,15 @@ const LoadQuestionItems = {
   }
 }
 const LoadResults = {
+  queryString: null,
+  setQueryString (userAnswers) {
+    LoadResults.queryString = userAnswers
+  },
   load: function (handleData) {
     $.ajax({
       type: 'GET',
       url: 'model/cct-results.php',
-      data: options,
-      dataType: 'xml',
+      data: LoadResults.queryString,
       success: function (xml) {
         handleData(xml)
       },
