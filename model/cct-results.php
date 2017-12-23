@@ -2,6 +2,10 @@
 
 require_once 'connection.php';
 
+/**
+ * isCorrect returns 0 (if correct) or 1 (if incorrect)
+ * @return array|null
+ */
 function getResultByQuizId()
 {
     $result_arr = null;
