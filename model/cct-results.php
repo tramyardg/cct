@@ -13,7 +13,6 @@ if($_GET['ans']) {
             . " AND answer = ".substr($user_arr[$i], strpos($user_arr[$i], '=')+1).") \n"
             . " AS ".substr($user_arr[$i], 0, strpos($user_arr[$i], '=')).",(\n";
     }
-    echo "<script>console.log('".$sql."');</script>\n";
     $clean_sql = substr($sql, 0, -3);
     $dbh = Db::getInstance();
     $stmt = $dbh->prepare($clean_sql);
