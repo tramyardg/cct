@@ -2,26 +2,32 @@
 
 require_once 'connection.php';
 
-if($_GET['ans']) {
-    $user_answers_str = $_GET['ans'];
-    $user_arr = explode("&", $user_answers_str);
-    $ansLen = count($user_arr);
-    $sql = "SELECT (\n";
-    for($i = 0; $i < $ansLen; $i++) {
-        $sql .= " SELECT COUNT(*) FROM `quizquestion` \n"
-            . " WHERE `quizId` = \"" . substr($user_arr[$i], 0, strpos($user_arr[$i], '=')) . "\" \n"
-            . " AND answer = ".substr($user_arr[$i], strpos($user_arr[$i], '=')+1).") \n"
-            . " AS ".substr($user_arr[$i], 0, strpos($user_arr[$i], '=')).",(\n";
+function getResultByQuizId()
+{
+    $result_arr = null;
+    if ($_GET['itemsWithAnswer']) {
+        $user_answers_str = $_GET['itemsWithAnswer'];
+        $user_arr = explode("&", $user_answers_str); // since using serialize() not serializeArray()
+        $sql = "";
+        for ($i = 0; $i < count($user_arr); $i++) {
+            $sql .= "(SELECT\n"
+                . " \"" . substr($user_arr[$i], 0, strpos($user_arr[$i], '=')) . "\" AS quizId,\n"
+                . " (SELECT COUNT(*) FROM `quizquestion`\n"
+                . "  WHERE `quizId` = \"" . substr($user_arr[$i], 0, strpos($user_arr[$i], '=')) . "\"\n"
+                . "  AND answer = " . substr($user_arr[$i], strpos($user_arr[$i], '=') + 1) . ")\n"
+                . " AS isCorrect, answer\n"
+                . " AS correctAnswer\n"
+                . " FROM `quizquestion`\n"
+                . " WHERE `quizId` = \"" . substr($user_arr[$i], 0, strpos($user_arr[$i], '=')) . "\")\n";
+            if ($i < count($user_arr) - 1) {
+                $sql .= "UNION ALL\n";
+            }
+        }
+        $dbh = Db::getInstance();
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute();
+        $result_arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    $clean_sql = substr($sql, 0, -3);
-    $dbh = Db::getInstance();
-    $stmt = $dbh->prepare($clean_sql);
-    $stmt->execute();
-    $result_arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    // print_r: to see the structure of the result array
-    // it turns out your associative array starts at 0
-    foreach ($result_arr[0] as $x => $x_value) {
-        echo $x . '&' . $x_value . ',';
-    }
+    return $result_arr;
 }
+echo json_encode(getResultByQuizId());

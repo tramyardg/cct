@@ -68,6 +68,7 @@ const TestOptions = {
     })
   },
   customToString () { // for debugging purposes
+    // TODO remove before release
     console.log('is Timer set ' + TestOptions.isTimerSet)
     console.log('number of minutes ' + TestOptions.minutes)
     console.log('number of questions ' + TestOptions.numberOfQuestions)
@@ -215,6 +216,7 @@ const QCatalog = {
     QCatalog.argsEn.referralEn = qItem[i].getElementsByTagName('REFERRAL')[0].innerHTML
   },
   customToString () { // for debugging purpose
+    // TODO remove before release
     console.log('num of mc ' + QCatalog.numOfMCs)
     console.log('num of tf ' + QCatalog.numOfTFs)
     let totalButtons = (QCatalog.numOfMCs * 4) + (QCatalog.numOfTFs * 2)
@@ -354,8 +356,9 @@ const QuizSubmission = {
       //    new: also the return data must include the answers
       //    use the template to display the numerical result
       //    use the data to style the html above to be displayed as result
-      let userAnswers = {ans: $(QuizSubmission.formId).serialize()}
-      if (userAnswers.ans !== '' || userAnswers.ans.indexOf('=') !== -1 || userAnswers.ans.indexOf('&') !== -1) {
+      let userAnswers = {itemsWithAnswer: $(QuizSubmission.formId).serialize()}
+      if (userAnswers.itemsWithAnswer !== '' || userAnswers.itemsWithAnswer.indexOf('=') !== -1 ||
+        userAnswers.itemsWithAnswer.indexOf('&') !== -1) {
         QuizSubmission.setAnsweredItems($(QuizSubmission.formId).serializeArray())
         LoadResults.setQueryString(userAnswers)
         LoadResults.load(function (data) {
