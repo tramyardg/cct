@@ -1,3 +1,5 @@
 /node_modules
 /.idea
+model/
+sql/
 package-lock.json
