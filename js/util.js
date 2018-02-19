@@ -31,17 +31,17 @@ const CustomAlert = { // utility not dependent on other module outside this file
   },
   getQuizSubmittedAlert () {
     return CustomAlert.displayAlert(
-      'success',
-      'This quiz has been submitted.',
-      'The result will be displayed in a moment. Please wait.',
+      Str.success,
+      Str.submitted,
+      Str.resultDisplayed,
       60
     )
   },
   getTimeIsUpAlert () {
     return CustomAlert.displayAlert(
-      'warning',
-      'Time is up!',
-      'Please submit the test.',
+      Str.warning,
+      Str.timeIsUp,
+      Str.pleaseSubmitMsg,
       60
     )
   }
@@ -64,4 +64,33 @@ const EnlargeImage = {
       $(EnlargeImage.imageOverlay).fadeOut(100)
     })
   }
+}
+const Str = {
+  timeIsUp: 'Time is up!',
+  pleaseSubmitMsg: 'Please submit the test!',
+  info: 'info',
+  warning: 'warning',
+  danger: 'danger',
+  success: 'success',
+  submitted: 'This quiz has been submitted.',
+  resultDisplayed: 'The result will be displayed in a moment. Please wait.',
+  noAnswered: 'No questions answered',
+  display: 'display',
+  block: 'block',
+  disabled: 'disabled',
+  none: 'none'
+}
+const Duration = {
+  five: 5,
+  ten: 10,
+  fifteen: 15,
+  twenty: [20, 25],
+  thirty: [30, 35],
+  forty: [40, 45],
+  fifty: [50, 55],
+  sixty: [60, 65],
+  seventy: [70, 75],
+  eighty: [80, 85],
+  ninety: [90, 95],
+  hundred: [100, 105]
 }

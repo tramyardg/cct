@@ -55,10 +55,12 @@ const TestOptions = {
       $(this).serializeArray().forEach((element) => {
         values.push(element)
       })
+      // user selections
       TestOptions.setNumberOfQuestions(values[0].value)
       TestOptions.setIsTimerSet(values[1].value)
       TestOptions.setMinutesByNumQuestions(values[0].value)
       TestOptions.customToString()
+      // pass user selection
       LoadQuestionItems.load(function (output) {
         QCatalog.setCatalog(output)
       })
@@ -179,6 +181,7 @@ const QCatalog = {
     QCatalog.questionForm = form
   },
   setCatalog (aCatalog) {
+    ///////////////////////////////////////
     QCatalog.catalog = aCatalog
     let item = $(QCatalog.catalog).find('ITEM')
     QCatalog.catalog.catalogLength = item.length
@@ -187,6 +190,7 @@ const QCatalog = {
     $(QCatalog.questionForm).empty()
     h += Templates.finishNextPrevButtons()
     $(QCatalog.questionForm).append(h)
+    ///////////////////////////////////////
     QCatalog.customToString()
     ShowHideItems.hideItemsExcept(1) // hide items except the first one
     // INITIALIZE elements here (only js generated elem and not pre-built via html)
@@ -348,14 +352,6 @@ const QuizSubmission = {
   },
   onClickSubmitButton () {
     $(QuizSubmission.formId).find('button#submit-quiz').click(function (event) {
-      // get answered questions with ids and answers
-      //    with these ids, get the corresponding html elements and store them as object
-      //    these html elements are needed for displaying result later (items)
-      // with these ids and answers make a request to evaluate the answers
-      //    the return data determines if the answer is correct by using a flag 1 and 0
-      //    new: also the return data must include the answers
-      //    use the template to display the numerical result
-      //    use the data to style the html above to be displayed as result
       let userAnswers = {itemsWithAnswer: $(QuizSubmission.formId).serialize()}
       if (userAnswers.itemsWithAnswer !== '' || userAnswers.itemsWithAnswer.indexOf('=') !== -1 ||
         userAnswers.itemsWithAnswer.indexOf('&') !== -1) {
@@ -365,9 +361,7 @@ const QuizSubmission = {
           console.log(data)
         })
       } else {
-        CustomAlert.displayAlert(
-          'info',
-          'No questions answered',
+        CustomAlert.displayAlert(Str.info, Str.noAnswered,
           'Please answer some question before submitting the quiz.',
           10
         )
@@ -391,15 +385,12 @@ const QuizSubmission = {
     })
   },
   displayNotDoneMessage (itemsArray, numCheckedItems) {
-    // display when:
-    // 1) the timer is set, there still more time, and there still unanswered item(s)
-    // 2) the timer is not set, and there still unanswered item(s)
     if (TestOptions.isTimerSet && !Timer.isNoMoreTime && numCheckedItems !== QuizSubmission.quizIds.length) {
       QuizSubmission.notDoneAlertMessage(itemsArray)
     } else if (!TestOptions.isTimerSet && numCheckedItems !== QuizSubmission.quizIds.length) {
       QuizSubmission.notDoneAlertMessage(itemsArray)
     } else {
-      CustomAlert.getQuizSubmittedAlert()
+      // CustomAlert.getQuizSubmittedAlert()
       // disabled Done and Submit buttons
       $(QuizSubmission.formId).find('button#finish-quiz').addClass('disabled')
       $(QuizSubmission.formId).find('button#submit-quiz').addClass('disabled')
@@ -408,7 +399,7 @@ const QuizSubmission = {
   notDoneAlertMessage (itemsArray) {
     let num = (itemsArray.length > 0 ? itemsArray.join(', ') : 'none')
     return CustomAlert.displayAlert(
-      'warning',
+      Str.warning,
       'There are questions left unanswered.',
       'Question(s) answered so far: ' + num,
       5
