@@ -259,16 +259,18 @@ const QuizSubmission = {
   },
   setAnsweredItems (itemsSubmitted) {
     let answeredItem = [] // holds answered items to be displayed in result view
+    let answeredItemsContainer = $('#collapseAnsweredQuestions');
     itemsSubmitted.forEach((element) => {
       let listGroups = $('.list-group .list-group-item input[name=' + element.name + ']')
       let itemSel = listGroups.parentsUntil('ul').parent()
       answeredItem.push(itemSel.first()[0])
     })
-    $('#collapseAnsweredQuestions').empty()
+    answeredItemsContainer.empty()
     answeredItem.forEach((element) => {
-      $('#collapseAnsweredQuestions').append($(element))
+      answeredItemsContainer.append($(element))
       let questionDataNum = $(element).attr('data-number') // display by block
       $('.question-item-' + questionDataNum).removeAttr('style') // still does not say something (no styling)
+      answeredItemsContainer.find('input[type=radio]').attr('disabled', true);
     })
   },
   displayNotDoneMessage (itemsArray, numCheckedItems) {
