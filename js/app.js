@@ -1,8 +1,5 @@
 const TestOptions = {
-  isTimerSet: false,
-  minutes: null,
-  numberOfQuestions: null,
-  testOptionsFormHTML: null,
+  isTimerSet: false, minutes: null, numberOfQuestions: null, testOptionsFormHTML: null,
   setTestOptionsConstruct (tofHTML) {
     TestOptions.testOptionsFormHTML = tofHTML
   },
@@ -53,16 +50,18 @@ const TestOptions = {
     $(formId).submit(function (event) {
       let values = []
       $(this).serializeArray().forEach((element) => {
-        values.push(element)
+        values.push(element) // store form fields values
       })
       // user selections
       TestOptions.setNumberOfQuestions(values[0].value)
       TestOptions.setIsTimerSet(values[1].value)
       TestOptions.setMinutesByNumQuestions(values[0].value)
+      // prints current session specs
       TestOptions.customToString()
       // pass user selection
       LoadQuestionItems.load(function (output) {
         QCatalog.setCatalog(output)
+        console.log(output)
       })
       TestOptions.runTimer()
       TestOptions.hideTestOptionsForm()
@@ -70,7 +69,6 @@ const TestOptions = {
     })
   },
   customToString () { // for debugging purposes
-    // TODO remove before release
     console.log('is Timer set ' + TestOptions.isTimerSet)
     console.log('number of minutes ' + TestOptions.minutes)
     console.log('number of questions ' + TestOptions.numberOfQuestions)
@@ -85,70 +83,7 @@ const TestOptions = {
     }
   }
 }
-const Timer = {
-  seconds: null,
-  timerHTML: null,
-  secondsHTML: null,
-  minutesHTML: null,
-  allRadioButtons: null,
-  isNoMoreTime: false,
-  setTimerConstruct (args) {
-    Timer.timerHTML = args.timerBox
-    Timer.secondsHTML = args.secHTML
-    Timer.minutesHTML = args.minHTML
-    Timer.allRadioButtons = args.radioButtons
-    Timer.hideTimer()
-  },
-  disableAllRadio () {
-    $(Timer.allRadioButtons).prop('disabled', true)
-  },
-  displayTimer () {
-    $(Timer.timerHTML).css('display', 'block')
-  },
-  hideTimer () {
-    $(Timer.timerHTML).css('display', 'none')
-  },
-  setSecondsByMinutes (passedMinutes) {
-    Timer.seconds = passedMinutes * MINUTES_CONSTANT
-  },
-  startTimer () { // main
-    // let counter = Timer.seconds
-    // TODO remove hard coded seconds, use above line
-    let counter = 30
-    let remainingMinutes, remainingSeconds
-    setInterval(function () {
-      counter--
-      if (counter >= 0) {
-        remainingMinutes = Math.floor(counter / MINUTES_CONSTANT)
-        remainingSeconds = counter % MINUTES_CONSTANT
-        let secondsText = ((remainingSeconds < 10) ? '0' + remainingSeconds : remainingSeconds)
-        let minutesText = ((remainingMinutes < 10) ? '0' + remainingMinutes : remainingMinutes)
-        $(Timer.secondsHTML).text(secondsText)
-        $(Timer.minutesHTML).text(minutesText)
-      }
-      Timer.changeBadgeColor(counter)
-      if (counter === 0) {
-        Timer.isNoMoreTime = true
-        CustomAlert.getTimeIsUpAlert()
-        // disabled Done button
-        $(QuizSubmission.formId).find('button#finish-quiz').addClass('disabled')
-        Timer.disableAllRadio()
-        clearInterval(remainingSeconds)
-        clearInterval(remainingMinutes)
-      }
-    }, INCREMENT_SECONDS_BY_1000)
-  },
-  changeBadgeColor (counter) {
-    if (counter > MINUTES_CONSTANT / 2 && counter < MINUTES_CONSTANT) {
-      $(Timer.secondsHTML).removeClass('badge-secondary').addClass('badge-warning')
-      $(Timer.minutesHTML).removeClass('badge-secondary').addClass('badge-warning')
-    } else if (counter < MINUTES_CONSTANT / 2) {
-      $(Timer.secondsHTML).removeClass('badge-secondary').addClass('badge-danger')
-      $(Timer.minutesHTML).removeClass('badge-secondary').addClass('badge-danger')
-    }
-  }
-}
-const QCatalog = {
+const QCatalog = { // creates and displays the questions
   catalog: null,
   questionForm: null,
   catalogLength: null || 0,
@@ -271,54 +206,6 @@ const ShowHideItems = {
     }
   }
 }
-const NextPrevDiv = {
-  nextBtn: null,
-  prevBtn: null,
-  listGroup: {
-    main: '.list-group',
-    first: ' .list-group:first',
-    last: ' .list-group:last',
-    visible: ' .list-group:visible'
-  },
-  setConstruct (args) { // call after items are created
-    NextPrevDiv.nextBtn = args.nextBtn
-    NextPrevDiv.prevBtn = args.prevBtn
-    NextPrevDiv.clickNextButton()
-    NextPrevDiv.clickPrevButton()
-  },
-  clickNextButton () {
-    let itemClass = NextPrevDiv.listGroup.main
-    let visibleItem = NextPrevDiv.listGroup.visible
-    let firstItem = NextPrevDiv.listGroup.first
-    $(NextPrevDiv.nextBtn).click(function () {
-      if ($(QCatalog.questionForm + visibleItem).next(itemClass).length !== 0) {
-        $(QCatalog.questionForm + visibleItem).next(itemClass).show().prev(itemClass).hide()
-        NavigateItemByIndex.setItemButtonToActive($(QCatalog.questionForm + visibleItem).attr('data-number'))
-      } else {
-        $(QCatalog.questionForm + visibleItem).hide()
-        $(QCatalog.questionForm + firstItem).show()
-        NavigateItemByIndex.setItemButtonToActive($(QCatalog.questionForm + firstItem).attr('data-number'))
-      }
-      return false
-    })
-  },
-  clickPrevButton () {
-    let itemClass = NextPrevDiv.listGroup.main
-    let visibleItem = NextPrevDiv.listGroup.visible
-    let lastItem = NextPrevDiv.listGroup.last
-    $(NextPrevDiv.prevBtn).click(function () {
-      if ($(QCatalog.questionForm + visibleItem).prev(itemClass).length !== 0) {
-        $(QCatalog.questionForm + visibleItem).prev(itemClass).show().next(itemClass).hide()
-        NavigateItemByIndex.setItemButtonToActive($(QCatalog.questionForm + visibleItem).attr('data-number'))
-      } else {
-        $(QCatalog.questionForm + visibleItem).hide()
-        $(QCatalog.questionForm + lastItem).show()
-        NavigateItemByIndex.setItemButtonToActive($(QCatalog.questionForm + lastItem).attr('data-number'))
-      }
-      return false
-    })
-  }
-}
 const QuizSubmission = {
   formId: null,
   quizIds: [],
@@ -371,7 +258,7 @@ const QuizSubmission = {
     })
   },
   setAnsweredItems (itemsSubmitted) {
-    let answeredItem = []
+    let answeredItem = [] // holds answered items to be displayed in result view
     itemsSubmitted.forEach((element) => {
       let listGroups = $('.list-group .list-group-item input[name=' + element.name + ']')
       let itemSel = listGroups.parentsUntil('ul').parent()
