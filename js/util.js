@@ -78,7 +78,10 @@ const Str = {
   display: 'display',
   block: 'block',
   disabled: 'disabled',
-  none: 'none'
+  none: 'none',
+  pleaseAnswerSome: 'Please answer some question before submitting the quiz',
+  answeredSoFar: 'Question(s) answered so far: ',
+  currentSessionIncomplete: 'The current quiz session is not completed.'
 }
 const Duration = {
   five: 5,

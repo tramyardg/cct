@@ -248,10 +248,7 @@ const QuizSubmission = {
           console.log(data)
         })
       } else {
-        CustomAlert.displayAlert(Str.info, Str.noAnswered,
-          'Please answer some question before submitting the quiz.',
-          10
-        )
+        CustomAlert.displayAlert(Str.info, Str.noAnswered, Str.pleaseAnswerSome, Duration.ten)
       }
       event.preventDefault()
       return false
@@ -287,12 +284,7 @@ const QuizSubmission = {
   },
   notDoneAlertMessage (itemsArray) {
     let num = (itemsArray.length > 0 ? itemsArray.join(', ') : 'none')
-    return CustomAlert.displayAlert(
-      Str.warning,
-      'The current quiz session is not completed.',
-      'Question(s) answered so far: ' + num,
-      5
-    )
+    return CustomAlert.displayAlert(Str.warning, Str.currentSessionIncomplete, Str.answeredSoFar + num, Duration.five)
   }
 }
 const QuizResultNum = {
