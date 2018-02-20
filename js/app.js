@@ -287,7 +287,7 @@ const QuizSubmission = {
     let num = (itemsArray.length > 0 ? itemsArray.join(', ') : 'none')
     return CustomAlert.displayAlert(
       Str.warning,
-      'There are questions left unanswered.',
+      'The current quiz session is not completed.',
       'Question(s) answered so far: ' + num,
       5
     )
