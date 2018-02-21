@@ -240,13 +240,14 @@ const QuizSubmission = {
   },
   onClickSubmitButton () {
     $(QuizSubmission.formId).find('button#submit-quiz').click(function (event) {
+      // prints -> {itemsWithAnswer: "AA0032=1&AA0006=1&AA0076=1"}
       let userAnswers = {itemsWithAnswer: $(QuizSubmission.formId).serialize()}
       if (userAnswers.itemsWithAnswer !== '' || userAnswers.itemsWithAnswer.indexOf('=') !== -1 ||
         userAnswers.itemsWithAnswer.indexOf('&') !== -1) {
-        QuizSubmission.setAnsweredItems($(QuizSubmission.formId).serializeArray())
         LoadResults.setQueryString(userAnswers)
         LoadResults.load(function (data) {
-          console.log(data)
+          let quizResult = $.parseJSON(data)
+          QuizSubmission.setAnsweredItems($(QuizSubmission.formId).serializeArray(), quizResult)
         })
       } else {
         CustomAlert.displayAlert(Str.info, Str.noAnswered, Str.pleaseAnswerSome, Duration.ten)
@@ -255,21 +256,37 @@ const QuizSubmission = {
       return false
     })
   },
-  setAnsweredItems (itemsSubmitted) {
-    let answeredItem = [] // holds answered items to be displayed in result view
-    let answeredItemsContainer = $('#collapseAnsweredQuestions');
+  setAnsweredItems (itemsSubmitted, quizResult) {
+    let answeredItem = [] // holds answered items to be displayed in result view (unordered list)
+    let answeredItemsContainer = $('#collapseAnsweredQuestions')
+    answeredItemsContainer.empty()
     itemsSubmitted.forEach((element) => {
       let listGroups = $('.list-group .list-group-item input[name=' + element.name + ']')
       let itemSel = listGroups.parentsUntil('ul').parent()
       answeredItem.push(itemSel.first()[0])
     })
-    answeredItemsContainer.empty()
+    QuizSubmission.mappingAnsweredItemsWithResult(answeredItem, quizResult)
     answeredItem.forEach((element) => {
       answeredItemsContainer.append($(element))
       let questionDataNum = $(element).attr('data-number') // display by block
       $('.question-item-' + questionDataNum).removeAttr('style') // still does not say something (no styling)
-      answeredItemsContainer.find('input[type=radio]').attr('disabled', true);
+      answeredItemsContainer.find('input[type=radio]').attr('disabled', true)
     })
+  },
+  mappingAnsweredItemsWithResult (answeredItem, quizResult) {
+    answeredItem.forEach((item) => {
+      console.log(item)
+      quizResult.forEach((result) => {
+        // {quizId: "AA0077", isCorrect: "0", correctAnswer: "3"}
+        if($(item).attr('question-id') === result.quizId) {
+          console.log(result)
+          // offset by 2 (not including question label `li` and question `li`)
+          let rightAnswer = parseInt(result.correctAnswer) + 2
+          $(item).find('li').eq(rightAnswer).addClass('list-group-item-success')
+        }
+      });
+    })
+    console.log(quizResult)
   },
   displayNotDoneMessage (itemsArray, numCheckedItems) {
     if (TestOptions.isTimerSet && !Timer.isNoMoreTime && numCheckedItems !== QuizSubmission.quizIds.length) {
