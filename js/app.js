@@ -275,14 +275,20 @@ const QuizSubmission = {
   },
   mappingAnsweredItemsWithResult (answeredItem, quizResult) {
     answeredItem.forEach((item) => {
-      console.log(item)
       quizResult.forEach((result) => {
-        // {quizId: "AA0077", isCorrect: "0", correctAnswer: "3"}
-        if($(item).attr('question-id') === result.quizId) {
-          console.log(result)
-          // offset by 2 (not including question label `li` and question `li`)
-          let rightAnswer = parseInt(result.correctAnswer) + 2
+        let offset = 2
+        let rightAnswer = null
+        if($(item).find('li').length === 7) {
+          offset = 3 // li image is present
+        }
+        $(item).find('li').removeClass('list-group-item-action') // remove on hover effect
+        if ($(item).attr('question-id') === result.quizId) {
+          rightAnswer = parseInt(result.correctAnswer) + offset
           $(item).find('li').eq(rightAnswer).addClass('list-group-item-success')
+          let selectedItemChecked = $(item).find('li input[type=radio]:checked')
+          if (!$(selectedItemChecked.parentsUntil('ul')[2]).hasClass('list-group-item-success')) {
+            $(selectedItemChecked.parentsUntil('ul')[2]).addClass('list-group-item-danger')
+          }
         }
       });
     })
