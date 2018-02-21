@@ -166,8 +166,9 @@ const QCatalog = { // creates and displays the questions
     for (let i = 0; i < qItem.length; i++) {
       QCatalog.commonArgsMapper(qItem, i)
       QCatalog.argsEnMapper(qItem, i)
-      QuizSubmission.quizIds.push(qItem[i].getElementsByTagName('QUIZID')[0].innerHTML)
-      h += Templates.openQuestionBody((i + 1))
+      let questionIDs = qItem[i].getElementsByTagName('QUIZID')[0].innerHTML;
+      QuizSubmission.quizIds.push(questionIDs)
+      h += Templates.openQuestionBody((i + 1), questionIDs)
       h += Templates.questionItemBody(i, QCatalog.catalog.catalogLength, QCatalog.commonArgs, QCatalog.argsEn)
       if (QCatalog.commonArgs.type === '1') {
         QCatalog.numOfTFs++

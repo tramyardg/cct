@@ -1,7 +1,7 @@
 let Templates = {
-  openQuestionBody (index) {
+  openQuestionBody (index, questionIDs) {
     return `
-    <ul class="list-group text-left py-sm-2 mt-2 mb-2 question-item-${index}" data-number="${index}">`
+    <ul class="list-group text-left py-sm-2 mt-2 mb-2 question-item-${index}" data-number="${index}" question-id="${questionIDs}">`
   },
   closeQuestionBody () {
     return `
