@@ -1,88 +1,100 @@
+const GetDataFor = {
+  forQCatalog: null,
+  setQCatalogConstruct(data) {
+    GetDataFor.forQCatalog = data
+  }
+}
 const TestOptions = {
-  isTimerSet: false, minutes: null, numberOfQuestions: null, testOptionsFormHTML: null,
-  setTestOptionsConstruct (tofHTML) {
-    TestOptions.testOptionsFormHTML = tofHTML
+  isTimerSet: false,
+  minutes: null,
+  numberOfQuestions: null,
+  testOptionsFormHTML: null,
+  setTestOptionsConstruct(tofHTML) {
+    TestOptions.testOptionsFormHTML = tofHTML;
   },
-  hideTestOptionsForm () {
-    $(TestOptions.testOptionsFormHTML).parentsUntil('.card').parent().remove()
+  hideTestOptionsForm() {
+    $(TestOptions.testOptionsFormHTML).parentsUntil('.card').parent().remove();
   },
-  setIsTimerSet (cond) {
+  setIsTimerSet(cond) {
     if (cond === true || cond === 'true') {
-      TestOptions.isTimerSet = true
+      TestOptions.isTimerSet = true;
     }
   },
-  setMinutesByNumQuestions (num) {
+  setMinutesByNumQuestions(num) {
     if (TestOptions.isTimerSet) {
-      switch (parseInt(num)) {
-        case 10:
-          TestOptions.minutes = 15
-          break
-        case 20:
-          TestOptions.minutes = 30
-          break
-        case 30:
-          TestOptions.minutes = 45
-          break
-        case 40:
-          TestOptions.minutes = 60
-          break
-        case 50:
-          TestOptions.minutes = 75
-          break
-        case 60:
-          TestOptions.minutes = 90
-          break
-        case 70:
-          TestOptions.minutes = 105
-          break
-        case 80:
-          TestOptions.minutes = 120
-          break
+      switch (parseInt(num, 10)) {
+      case 10:
+        TestOptions.minutes = 15;
+        break;
+      case 20:
+        TestOptions.minutes = 30;
+        break;
+      case 30:
+        TestOptions.minutes = 45;
+        break;
+      case 40:
+        TestOptions.minutes = 60;
+        break;
+      case 50:
+        TestOptions.minutes = 75;
+        break;
+      case 60:
+        TestOptions.minutes = 90;
+        break;
+      case 70:
+        TestOptions.minutes = 105;
+        break;
+      case 80:
+        TestOptions.minutes = 120;
+        break;
+      default:
+        break;
       }
     }
   },
-  setNumberOfQuestions (num) {
-    TestOptions.numberOfQuestions = num
+  setNumberOfQuestions(num) {
+    TestOptions.numberOfQuestions = num;
   },
-  onSubmitTestOptions: function () { // main
-    Timer.hideTimer()
-    let formId = TestOptions.testOptionsFormHTML
+  onSubmitTestOptions() { // main
+    Timer.hideTimer();
+    const formId = TestOptions.testOptionsFormHTML;
     $(formId).submit(function (event) {
-      let values = []
+      const values = [];
       $(this).serializeArray().forEach((element) => {
-        values.push(element) // store form fields values
-      })
+        values.push(element); // store form fields values
+      });
       // user selections
-      TestOptions.setNumberOfQuestions(values[0].value)
-      TestOptions.setIsTimerSet(values[1].value)
-      TestOptions.setMinutesByNumQuestions(values[0].value)
+      TestOptions.setNumberOfQuestions(values[0].value);
+      TestOptions.setIsTimerSet(values[1].value);
+      TestOptions.setMinutesByNumQuestions(values[0].value);
       // prints current session specs
-      TestOptions.customToString()
+      TestOptions.customToString();
       // pass user selection
-      LoadQuestionItems.load(function (output) {
-        QCatalog.setCatalog(output)
-        console.log(output)
-      })
-      TestOptions.runTimer()
-      TestOptions.hideTestOptionsForm()
-      event.preventDefault()
-    })
+      LoadQuestionItems.load((output) => {
+        QCatalog.setCatalog(output);
+        GetDataFor.setQCatalogConstruct(output);
+        console.log(output);
+      });
+      TestOptions.runTimer();
+      TestOptions.hideTestOptionsForm();
+      event.preventDefault();
+    });
   },
-  customToString () { // for debugging purposes
-    console.log('is Timer set ' + TestOptions.isTimerSet)
-    console.log('number of minutes ' + TestOptions.minutes)
-    console.log('number of questions ' + TestOptions.numberOfQuestions)
+  customToString() { // for debugging purposes
+    console.log(`is Timer set ${TestOptions.isTimerSet}`);
+    console.log(`number of minutes ${TestOptions.minutes}`);
+    console.log(`number of questions ${TestOptions.numberOfQuestions}`);
   },
-  runTimer () {
+  runTimer() {
     if (TestOptions.isTimerSet) {
-      Timer.displayTimer()
-      Timer.setSecondsByMinutes(TestOptions.minutes)
-      Timer.startTimer()
+      Timer.displayTimer();
+      Timer.setSecondsByMinutes(TestOptions.minutes);
+      Timer.startTimer();
     } else {
-      Timer.hideTimer()
+      Timer.hideTimer();
     }
-  }
-}
+  },
+};
 const QCatalog = { // creates and displays the questions
   catalog: null,
   questionForm: null,
@@ -92,7 +104,7 @@ const QCatalog = { // creates and displays the questions
     regionId: null || 'QC',
     diagramId: null,
     type: null || 1,
-    diagram: null
+    diagram: null,
   },
   argsEn: {
     question: null,
@@ -100,7 +112,7 @@ const QCatalog = { // creates and displays the questions
     optionB: null,
     optionC: null,
     optionD: null,
-    referralEn: null
+    referralEn: null,
   },
   argsFr: {
     questionFr: null,
@@ -108,219 +120,219 @@ const QCatalog = { // creates and displays the questions
     optionBFr: null,
     optionCFr: null,
     optionDFr: null,
-    referralFr: null
+    referralFr: null,
   },
   numOfMCs: 0,
   numOfTFs: 0,
-  setQuestionForm (form) {
-    QCatalog.questionForm = form
+  setQuestionForm(form) {
+    QCatalog.questionForm = form;
   },
-  setCatalog (aCatalog) {
-    ///////////////////////////////////////
-    QCatalog.catalog = aCatalog
-    let item = $(QCatalog.catalog).find('ITEM')
-    QCatalog.catalog.catalogLength = item.length
-    let h = ''
-    h += QCatalog.catalogMapper(h, item)
-    $(QCatalog.questionForm).empty()
-    h += Templates.finishNextPrevButtons()
-    $(QCatalog.questionForm).append(h)
-    ///////////////////////////////////////
-    QCatalog.customToString()
-    ShowHideItems.hideItemsExcept(1) // hide items except the first one
+  setCatalog(aCatalog) {
+    // /////////////////////////////////////
+    QCatalog.catalog = aCatalog;
+    const item = $(QCatalog.catalog).find('ITEM');
+    QCatalog.catalog.catalogLength = item.length;
+    let h = '';
+    h += QCatalog.catalogMapper(h, item);
+    $(QCatalog.questionForm).empty();
+    h += Templates.finishNextPrevButtons();
+    $(QCatalog.questionForm).append(h);
+    // /////////////////////////////////////
+    QCatalog.customToString();
+    ShowHideItems.hideItemsExcept(1); // hide items except the first one
     // INITIALIZE elements here (only js generated elem and not pre-built via html)
     NextPrevDiv.setConstruct({ // initialize previous and next button here
       nextBtn: '#next-button',
-      prevBtn: '#prev-button'
-    })
+      prevBtn: '#prev-button',
+    });
     QuizSubmission.setConstruct({
-      formId: '#questions-form'
-    })
-    QuizSubmission.onClickDoneButton()
-    QuizSubmission.onClickSubmitButton()
+      formId: '#questions-form',
+    });
+    QuizSubmission.onClickDoneButton();
+    QuizSubmission.onClickSubmitButton();
   },
-  commonArgsMapper (qItem, i) {
-    QCatalog.commonArgs.questionId = qItem[i].getElementsByTagName('QUIZID')[0].innerHTML
-    QCatalog.commonArgs.regionId = qItem[i].getElementsByTagName('REGIONID')[0].innerHTML
-    QCatalog.commonArgs.diagramId = qItem[i].getElementsByTagName('DIAGRAMID')[0].innerHTML
-    QCatalog.commonArgs.type = qItem[i].getElementsByTagName('QUESTIONTYPE')[0].innerHTML
-    QCatalog.commonArgs.diagram = qItem[i].getElementsByTagName('DIAGRAM')[0].innerHTML
+  commonArgsMapper(qItem, i) {
+    QCatalog.commonArgs.questionId = qItem[i].getElementsByTagName('QUIZID')[0].innerHTML;
+    QCatalog.commonArgs.regionId = qItem[i].getElementsByTagName('REGIONID')[0].innerHTML;
+    QCatalog.commonArgs.diagramId = qItem[i].getElementsByTagName('DIAGRAMID')[0].innerHTML;
+    QCatalog.commonArgs.type = qItem[i].getElementsByTagName('QUESTIONTYPE')[0].innerHTML;
+    QCatalog.commonArgs.diagram = qItem[i].getElementsByTagName('DIAGRAM')[0].innerHTML;
   },
-  argsEnMapper (qItem, i) {
-    QCatalog.argsEn.question = qItem[i].getElementsByTagName('QUESTION')[0].innerHTML
-    QCatalog.argsEn.optionA = qItem[i].getElementsByTagName('OPTIONA')[0].innerHTML
-    QCatalog.argsEn.optionB = qItem[i].getElementsByTagName('OPTIONB')[0].innerHTML
-    QCatalog.argsEn.optionC = qItem[i].getElementsByTagName('OPTIONC')[0].innerHTML
-    QCatalog.argsEn.optionD = qItem[i].getElementsByTagName('OPTIOND')[0].innerHTML
-    QCatalog.argsEn.referralEn = qItem[i].getElementsByTagName('REFERRAL')[0].innerHTML
+  argsEnMapper(qItem, i) {
+    QCatalog.argsEn.question = qItem[i].getElementsByTagName('QUESTION')[0].innerHTML;
+    QCatalog.argsEn.optionA = qItem[i].getElementsByTagName('OPTIONA')[0].innerHTML;
+    QCatalog.argsEn.optionB = qItem[i].getElementsByTagName('OPTIONB')[0].innerHTML;
+    QCatalog.argsEn.optionC = qItem[i].getElementsByTagName('OPTIONC')[0].innerHTML;
+    QCatalog.argsEn.optionD = qItem[i].getElementsByTagName('OPTIOND')[0].innerHTML;
+    QCatalog.argsEn.referralEn = qItem[i].getElementsByTagName('REFERRAL')[0].innerHTML;
   },
-  customToString () { // for debugging purpose
+  customToString() { // for debugging purpose
     // TODO remove before release
-    console.log('num of mc ' + QCatalog.numOfMCs)
-    console.log('num of tf ' + QCatalog.numOfTFs)
-    let totalButtons = (QCatalog.numOfMCs * 4) + (QCatalog.numOfTFs * 2)
-    console.log('total radio buttons = ' + totalButtons)
+    console.log(`num of mc ${QCatalog.numOfMCs}`);
+    console.log(`num of tf ${QCatalog.numOfTFs}`);
+    const totalButtons = (QCatalog.numOfMCs * 4) + (QCatalog.numOfTFs * 2);
+    console.log(`total radio buttons = ${totalButtons}`);
   },
-  catalogMapper (h, qItem) {
-    h += Templates.navigateItemsWithButton(qItem.length)
+  catalogMapper(h, qItem) {
+    h += Templates.navigateItemsWithButton(qItem.length);
     for (let i = 0; i < qItem.length; i++) {
-      QCatalog.commonArgsMapper(qItem, i)
-      QCatalog.argsEnMapper(qItem, i)
-      let questionIDs = qItem[i].getElementsByTagName('QUIZID')[0].innerHTML;
-      QuizSubmission.quizIds.push(questionIDs)
-      h += Templates.openQuestionBody((i + 1), questionIDs)
-      h += Templates.questionItemBody(i, QCatalog.catalog.catalogLength, QCatalog.commonArgs, QCatalog.argsEn)
+      QCatalog.commonArgsMapper(qItem, i);
+      QCatalog.argsEnMapper(qItem, i);
+      const questionIDs = qItem[i].getElementsByTagName('QUIZID')[0].innerHTML;
+      QuizSubmission.quizIds.push(questionIDs);
+      h += Templates.openQuestionBody((i + 1), questionIDs);
+      h += Templates.questionItemBody(i, QCatalog.catalog.catalogLength, QCatalog.commonArgs, QCatalog.argsEn);
       if (QCatalog.commonArgs.type === '1') {
-        QCatalog.numOfTFs++
-        h += Templates.tfQuestion(QCatalog.commonArgs)
+        QCatalog.numOfTFs++;
+        h += Templates.tfQuestion(QCatalog.commonArgs);
       } else {
-        QCatalog.numOfMCs++
-        h += Templates.mcQuestion(QCatalog.commonArgs, QCatalog.argsEn)
+        QCatalog.numOfMCs++;
+        h += Templates.mcQuestion(QCatalog.commonArgs, QCatalog.argsEn);
       }
-      h += Templates.closeQuestionBody()
+      h += Templates.closeQuestionBody();
     }
-    return h
-  }
-}
-const NavigateItemByIndex = {
-  onclickButtonWithIndex (index) {
-    ShowHideItems.showItemByItemIndex(index) // show the item with the index
-    NavigateItemByIndex.setItemButtonToActive(index) // and make the corresponding button active
+    return h;
   },
-  setItemButtonToActive (index) {
-    $('.btn-item').removeClass('active') // remove all active class
-    $('.btn-navigator-' + index).addClass('active') // and make this one active
-  }
-}
-const ShowHideItems = {
-  hideItemsExcept (index) {
-    $(QCatalog.questionForm + ' .list-group').each(function (item) {
-      if (item !== null && item !== (index - 1)) { // each function index starts at 0
-        $(this).hide()
-      }
-    })
-  },
-  showItemByItemIndex (index) {
-    if (index !== null) {
-      $('.question-item-' + index).show() // show the item with the index
-      ShowHideItems.hideItemsExcept(index) // hide all the items except this item with index number
-    }
-  }
-}
+};
 const QuizSubmission = {
   formId: null,
   quizIds: [],
   answeredItems: [],
-  setConstruct (args) {
-    QuizSubmission.formId = args.formId
+  setConstruct(args) {
+    QuizSubmission.formId = args.formId;
   },
-  getDoneQuestionsById () { // id from data attribute data-number
-    let checkedItemsDataNum = []
-    let countCheckedItems = null
+  getDoneQuestionsById() { // id from data attribute data-number
+    const checkedItemsDataNum = [];
+    let countCheckedItems = null;
     QuizSubmission.quizIds.forEach((element) => {
-      $('input[type=radio][name=' + element + ']').each(function () {
+      $(`input[type=radio][name=${element}]`).each(function () {
         if ($(this)[0].checked) {
-          countCheckedItems++
-          checkedItemsDataNum.push($(this).parentsUntil('ul').parent().first().attr('data-number'))
+          countCheckedItems++;
+          checkedItemsDataNum.push($(this).parentsUntil('ul').parent().first()
+            .attr('data-number'));
         }
-      })
-    })
-    return {numOfCheckedItems: countCheckedItems, indexOfCheckedItems: checkedItemsDataNum}
+      });
+    });
+    return { numOfCheckedItems: countCheckedItems, indexOfCheckedItems: checkedItemsDataNum };
   },
-  onClickDoneButton () {
-    $(QuizSubmission.formId).find('button#finish-quiz').click(function (event) {
+  onClickDoneButton() {
+    $(QuizSubmission.formId).find('button#finish-quiz').click((event) => {
       QuizSubmission.displayNotDoneMessage(
         QuizSubmission.getDoneQuestionsById().indexOfCheckedItems,
-        QuizSubmission.getDoneQuestionsById().numOfCheckedItems
-      )
+        QuizSubmission.getDoneQuestionsById().numOfCheckedItems,
+      );
       // works similarly as onClickSubmitButton
-      event.preventDefault()
-      return false
-    })
+      event.preventDefault();
+      return false;
+    });
   },
-  onClickSubmitButton () {
-    $(QuizSubmission.formId).find('button#submit-quiz').click(function (event) {
+  onClickSubmitButton() {
+    $(QuizSubmission.formId).find('button#submit-quiz').click((event) => {
       // prints -> {itemsWithAnswer: "AA0032=1&AA0006=1&AA0076=1"}
-      let userAnswers = {itemsWithAnswer: $(QuizSubmission.formId).serialize()}
+      const userAnswers = { itemsWithAnswer: $(QuizSubmission.formId).serialize() };
       if (userAnswers.itemsWithAnswer !== '' || userAnswers.itemsWithAnswer.indexOf('=') !== -1 ||
         userAnswers.itemsWithAnswer.indexOf('&') !== -1) {
-        LoadResults.setQueryString(userAnswers)
-        LoadResults.load(function (data) {
-          let quizResult = $.parseJSON(data)
-          QuizSubmission.setAnsweredItems($(QuizSubmission.formId).serializeArray(), quizResult)
-        })
+        LoadResults.setQueryString(userAnswers);
+        LoadResults.load((data) => {
+          const quizResult = $.parseJSON(data);
+          QuizSubmission.setAnsweredItems($(QuizSubmission.formId).serializeArray(), quizResult);
+        });
       } else {
-        CustomAlert.displayAlert(Str.info, Str.noAnswered, Str.pleaseAnswerSome, Duration.ten)
+        CustomAlert.displayAlert(Str.info, Str.noAnswered, Str.pleaseAnswerSome, Duration.ten);
       }
-      event.preventDefault()
-      return false
-    })
+      event.preventDefault();
+      return false;
+    });
   },
-  setAnsweredItems (itemsSubmitted, quizResult) {
-    let answeredItem = [] // holds answered items to be displayed in result view (unordered list)
-    let answeredItemsContainer = $('#collapseAnsweredQuestions')
-    answeredItemsContainer.empty()
+  setAnsweredItems(itemsSubmitted, quizResult) {
+    const answeredItem = []; // holds answered items to be displayed in result view (unordered list)
+    const answeredItemsContainer = $('#collapseAnsweredQuestions');
+    answeredItemsContainer.empty();
     itemsSubmitted.forEach((element) => {
-      let listGroups = $('.list-group .list-group-item input[name=' + element.name + ']')
-      let itemSel = listGroups.parentsUntil('ul').parent()
-      answeredItem.push(itemSel.first()[0])
-    })
-    QuizSubmission.mappingAnsweredItemsWithResult(answeredItem, quizResult)
+      const listGroups = $(`.list-group .list-group-item input[name=${element.name}]`);
+      const itemSel = listGroups.parentsUntil('ul').parent();
+      answeredItem.push(itemSel.first()[0]);
+    });
+    QuizSubmission.mappingAnsweredItemsWithResult(answeredItem, quizResult);
     answeredItem.forEach((element) => {
-      answeredItemsContainer.append($(element))
-      let questionDataNum = $(element).attr('data-number') // display by block
-      $('.question-item-' + questionDataNum).removeAttr('style') // still does not say something (no styling)
-      answeredItemsContainer.find('input[type=radio]').attr('disabled', true)
-    })
+      answeredItemsContainer.append($(element));
+      const questionDataNum = $(element).attr('data-number'); // display by block
+      $(`.question-item-${questionDataNum}`).removeAttr('style'); // still does not say something (no styling)
+      answeredItemsContainer.find('input[type=radio]').attr('disabled', true);
+    });
   },
-  mappingAnsweredItemsWithResult (answeredItem, quizResult) {
+  mappingAnsweredItemsWithResult(answeredItem, quizResult) {
     answeredItem.forEach((item) => {
       quizResult.forEach((result) => {
-        let offset = 2
-        let rightAnswer = null
-        if($(item).find('li').length === 7) {
-          offset = 3 // li image is present
+        let offset = 2;
+        let rightAnswer = null;
+        if ($(item).find('li').length === 7) {
+          offset = 3; // li image is present
         }
-        $(item).find('li').removeClass('list-group-item-action') // remove on hover effect
+        $(item).find('li').removeClass('list-group-item-action'); // remove on hover effect
         if ($(item).attr('question-id') === result.quizId) {
-          rightAnswer = parseInt(result.correctAnswer) + offset
-          $(item).find('li').eq(rightAnswer).addClass('list-group-item-success')
-          let selectedItemChecked = $(item).find('li input[type=radio]:checked')
+          rightAnswer = parseInt(result.correctAnswer, 10) + offset;
+          $(item).find('li').eq(rightAnswer).addClass('list-group-item-success');
+          const selectedItemChecked = $(item).find('li input[type=radio]:checked');
           if (!$(selectedItemChecked.parentsUntil('ul')[2]).hasClass('list-group-item-success')) {
-            $(selectedItemChecked.parentsUntil('ul')[2]).addClass('list-group-item-danger')
+            $(selectedItemChecked.parentsUntil('ul')[2]).addClass('list-group-item-danger');
           }
         }
       });
-    })
-    console.log(quizResult)
+    });
   },
-  displayNotDoneMessage (itemsArray, numCheckedItems) {
+  displayNotDoneMessage(itemsArray, numCheckedItems) {
     if (TestOptions.isTimerSet && !Timer.isNoMoreTime && numCheckedItems !== QuizSubmission.quizIds.length) {
-      QuizSubmission.notDoneAlertMessage(itemsArray)
+      QuizSubmission.notDoneAlertMessage(itemsArray);
     } else if (!TestOptions.isTimerSet && numCheckedItems !== QuizSubmission.quizIds.length) {
-      QuizSubmission.notDoneAlertMessage(itemsArray)
+      QuizSubmission.notDoneAlertMessage(itemsArray);
     } else {
       // CustomAlert.getQuizSubmittedAlert()
       // disabled Done and Submit buttons
-      $(QuizSubmission.formId).find('button#finish-quiz').addClass('disabled')
-      $(QuizSubmission.formId).find('button#submit-quiz').addClass('disabled')
+      $(QuizSubmission.formId).find('button#finish-quiz').addClass('disabled');
+      $(QuizSubmission.formId).find('button#submit-quiz').addClass('disabled');
     }
   },
-  notDoneAlertMessage (itemsArray) {
-    let num = (itemsArray.length > 0 ? itemsArray.join(', ') : 'none')
-    return CustomAlert.displayAlert(Str.warning, Str.currentSessionIncomplete, Str.answeredSoFar + num, Duration.five)
-  }
-}
+  notDoneAlertMessage(itemsArray) {
+    const num = (itemsArray.length > 0 ? itemsArray.join(', ') : 'none');
+    return CustomAlert.displayAlert(Str.warning, Str.currentSessionIncomplete, Str.answeredSoFar + num, Duration.five);
+  },
+};
+const NavigateItemByIndex = {
+  onclickButtonWithIndex(index) {
+    ShowHideItems.showItemByItemIndex(index); // show the item with the index
+    NavigateItemByIndex.setItemButtonToActive(index); // and make the corresponding button active
+  },
+  setItemButtonToActive(index) {
+    $('.btn-item').removeClass('active'); // remove all active class
+    $(`.btn-navigator-${index}`).addClass('active'); // and make this one active
+  },
+};
+const ShowHideItems = {
+  hideItemsExcept(index) {
+    $(`${QCatalog.questionForm} .list-group`).each(function (item) {
+      if (item !== null && item !== (index - 1)) { // each function index starts at 0
+        $(this).hide();
+      }
+    });
+  },
+  showItemByItemIndex(index) {
+    if (index !== null) {
+      $(`.question-item-${index}`).show(); // show the item with the index
+      ShowHideItems.hideItemsExcept(index); // hide all the items except this item with index number
+    }
+  },
+};
 const QuizResultNum = {
   numCorrectAnswers: null,
   numOfQuestions: null,
   accuracyPercent: null,
-  calcAccuracy () {
-    return (QuizResultNum.numCorrectAnswers / QuizResultNum.numOfQuestions) * 100
+  calcAccuracy() {
+    return (QuizResultNum.numCorrectAnswers / QuizResultNum.numOfQuestions) * 100;
   },
-  setConstruct (args) {
-    QuizResultNum.numCorrectAnswers = args.numCorrectAnswers
-    QuizResultNum.numOfQuestions = TestOptions.numberOfQuestions
-    QuizResultNum.accuracyPercent = QuizResultNum.calcAccuracy()
-  }
-}
+  setConstruct(args) {
+    QuizResultNum.numCorrectAnswers = args.numCorrectAnswers;
+    QuizResultNum.numOfQuestions = TestOptions.numberOfQuestions;
+    QuizResultNum.accuracyPercent = QuizResultNum.calcAccuracy();
+  },
+};
