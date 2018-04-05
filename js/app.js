@@ -136,7 +136,6 @@ const QCatalog = { // creates and displays the questions
     QuizSubmission.setConstruct({
       formId: '#questions-form'
     })
-    QuizSubmission.onClickDoneButton()
     QuizSubmission.onClickSubmitButton()
   },
   commonArgsMapper (qItem, i) {
@@ -215,30 +214,6 @@ const QuizSubmission = {
   setConstruct (args) {
     QuizSubmission.formId = args.formId
   },
-  getDoneQuestionsById () { // id from data attribute data-number
-    let checkedItemsDataNum = []
-    let countCheckedItems = null
-    QuizSubmission.quizIds.forEach((element) => {
-      $('input[type=radio][name=' + element + ']').each(function () {
-        if ($(this)[0].checked) {
-          countCheckedItems++
-          checkedItemsDataNum.push($(this).parentsUntil('ul').parent().first().attr('data-number'))
-        }
-      })
-    })
-    return {numOfCheckedItems: countCheckedItems, indexOfCheckedItems: checkedItemsDataNum}
-  },
-  onClickDoneButton () {
-    $(QuizSubmission.formId).find('button#finish-quiz').click(function (event) {
-      QuizSubmission.displayNotDoneMessage(
-        QuizSubmission.getDoneQuestionsById().indexOfCheckedItems,
-        QuizSubmission.getDoneQuestionsById().numOfCheckedItems
-      )
-      // works similarly as onClickSubmitButton
-      event.preventDefault()
-      return false
-    })
-  },
   onClickSubmitButton () {
     $(QuizSubmission.formId).find('button#submit-quiz').click(function (event) {
       // prints -> {itemsWithAnswer: "AA0032=1&AA0006=1&AA0076=1"}
@@ -296,22 +271,6 @@ const QuizSubmission = {
       });
     })
     console.log(quizResult)
-  },
-  displayNotDoneMessage (itemsArray, numCheckedItems) {
-    if (TestOptions.isTimerSet && !Timer.isNoMoreTime && numCheckedItems !== QuizSubmission.quizIds.length) {
-      QuizSubmission.notDoneAlertMessage(itemsArray)
-    } else if (!TestOptions.isTimerSet && numCheckedItems !== QuizSubmission.quizIds.length) {
-      QuizSubmission.notDoneAlertMessage(itemsArray)
-    } else {
-      // CustomAlert.getQuizSubmittedAlert()
-      // disabled Done and Submit buttons
-      $(QuizSubmission.formId).find('button#finish-quiz').addClass('disabled')
-      $(QuizSubmission.formId).find('button#submit-quiz').addClass('disabled')
-    }
-  },
-  notDoneAlertMessage (itemsArray) {
-    let num = (itemsArray.length > 0 ? itemsArray.join(', ') : 'none')
-    return CustomAlert.displayAlert(Str.warning, Str.currentSessionIncomplete, Str.answeredSoFar + num, Duration.five)
   }
 }
 const QuizResultNum = {
