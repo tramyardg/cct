@@ -167,6 +167,7 @@ const QCatalog = { // creates and displays the questions
       QCatalog.commonArgsMapper(qItem, i)
       QCatalog.argsEnMapper(qItem, i)
       let questionIDs = qItem[i].getElementsByTagName('QUIZID')[0].innerHTML;
+      console.log(questionIDs)
       QuizSubmission.quizIds.push(questionIDs)
       h += Templates.openQuestionBody((i + 1), questionIDs)
       h += Templates.questionItemBody(i, QCatalog.catalog.catalogLength, QCatalog.commonArgs, QCatalog.argsEn)
@@ -242,12 +243,14 @@ const QuizSubmission = {
     $(QuizSubmission.formId).find('button#submit-quiz').click(function (event) {
       // prints -> {itemsWithAnswer: "AA0032=1&AA0006=1&AA0076=1"}
       let userAnswers = {itemsWithAnswer: $(QuizSubmission.formId).serialize()}
-      if (userAnswers.itemsWithAnswer !== '' || userAnswers.itemsWithAnswer.indexOf('=') !== -1 ||
+      if (userAnswers.itemsWithAnswer !== '' ||
+        userAnswers.itemsWithAnswer.indexOf('=') !== -1 ||
         userAnswers.itemsWithAnswer.indexOf('&') !== -1) {
         LoadResults.setQueryString(userAnswers)
         LoadResults.load(function (data) {
           let quizResult = $.parseJSON(data)
-          QuizSubmission.setAnsweredItems($(QuizSubmission.formId).serializeArray(), quizResult)
+          let itemSubmitted = $(QuizSubmission.formId).serializeArray()
+          QuizSubmission.setAnsweredItems(itemSubmitted, quizResult)
         })
       } else {
         CustomAlert.displayAlert(Str.info, Str.noAnswered, Str.pleaseAnswerSome, Duration.ten)
