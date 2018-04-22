@@ -10,11 +10,9 @@ const LoadQuestionItems = {
       type: 'GET',
       url: 'model/cct-questions.php',
       data: options,
-      dataType: 'xml',
-      success: function (xml) {
-        handleData(xml)
-      },
-      error: function () {}
+      dataType: 'xml'
+    }).done(function (response) {
+      handleData(response)
     })
   }
 }
@@ -27,11 +25,9 @@ const LoadResults = {
     $.ajax({
       type: 'GET',
       url: 'model/cct-results.php',
-      data: LoadResults.queryString,
-      success: function (xml) {
-        handleData(xml)
-      },
-      error: function () {}
+      data: LoadResults.queryString
+    }).done(function (response) {
+      handleData(response)
     })
   }
 }
