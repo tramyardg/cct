@@ -101,7 +101,7 @@ let Templates = {
             <button id="submit-quiz" class="btn btn-success btn-sm mb-sm-2">Submit</button>`;
   },
   navigateItemsWithButton (length) {
-    let h = `<div class="row">`;
+    let h = `<div class="row navigation-by-id">`;
     for (let i = 0; i < length; i++) {
       let num = (i + 1);
       h += `<div class="col mt-2">`;

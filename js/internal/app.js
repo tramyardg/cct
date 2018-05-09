@@ -55,7 +55,7 @@ const TestOptions = {
     $(formId).submit(function (event) {
       let values = [];
       $(this).serializeArray().forEach((element) => {
-        values.push(element); // store form fields values
+        values.push(element);
       });
       // user selections
       TestOptions.setNumberOfQuestions(values[0].value);
@@ -237,12 +237,15 @@ const QuizSubmission = {
         if (userAnswers.itemsWithAnswer !== '' ||
           userAnswers.itemsWithAnswer.indexOf('=') !== -1 ||
           userAnswers.itemsWithAnswer.indexOf('&') !== -1) {
-          LoadResults.setQueryString(userAnswers);
-          LoadResults.load(function (data) {
+          LoadResults.setQueryString(userAnswers); // pass user answer
+          LoadResults.load(function (data) { // so we can determine the result
             let quizResult = $.parseJSON(data);
             let itemSubmitted = $(QuizSubmission.formId).serializeArray();
             QuizSubmission.setAnsweredItems(itemSubmitted, quizResult);
           });
+          $(QuizSubmission.formId).find('div.navigation-by-id').remove();
+          $(QuizSubmission.formId).find('div#next-prev-div').remove();
+          $(QuizSubmission.formId).find('button#submit-quiz').remove();
         }
       }
       return false;
