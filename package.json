@@ -1,17 +1,30 @@
 {
+  "name": "cct",
+  "version": "2.0.1",
+  "description": "Canada Citizenship Test (CCT) is a platform for people preparing for Canadian Citizenship test",
+  "keywords": [
+    "citizenship test",
+    "citizenship",
+    "Canada",
+    "canadian",
+    "canada citizenship test"
+  ],
+  "repository": "https://github.com/tramyardg/cct.git",
+  "homepage": "http://canadacitizenshipquiz.com/",
+  "author": "Raymart De Guzman <raymart54@gmail.com>",
   "private": true,
-  "scripts": {},
+  "scripts": {
+    "eslint": "eslint js/internal/*.js"
+  },
   "dependencies": {
-    "eslint": "^4.12.1",
-    "requirejs": "^2.3.5",
-    "xml-js": "^1.5.2"
+    "jquery": "^3.3.1"
   },
   "devDependencies": {
-    "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-node": "^5.2.1",
-    "eslint-plugin-promise": "^3.6.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "jquery": "^3.1.1"
+    "eslint": "^4.19.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.0.1"
   }
 }
