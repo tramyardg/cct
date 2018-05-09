@@ -33,9 +33,7 @@
             <p class="mb-0" id="alertBody"></p>
         </div>
         <div class="card mb-sm-2 mt-2">
-            <div class="card-header">
-                Quiz Options
-            </div>
+            <div class="card-header"><h5 class="h-m-b-0">Quiz options</h5></div>
             <div class="card-body">
                 <form id="test-options-form" action="" method="get" class="">
                     <div class="form-group row">
@@ -102,26 +100,24 @@
             <img id="question-img-src" alt="image-question">
         </div>
         <div class="card text-center test-result mt-2">
-            <div class="card-header">
-                Quiz Results
-            </div>
+            <div class="card-header"><h5 class="h-m-b-0">Quiz results</h5></div>
             <div class="card-body">
                 <ul class="list-group pb-sm-2">
                     <li class="list-group-item border-0">
-                        <div class="col-5 result-item border-0">Correct Answers:</div>
+                        <div class="col-5 result-item"><h6>Number of questions answered:</h6></div>
+                        <div class="col-5 result-item" id="total-questions-answered">{total-questions}</div>
+                    </li>
+                    <li class="list-group-item border-0">
+                        <div class="col-5 result-item border-0"><h6>Number of correct answers:</h6></div>
                         <div class="col-5 result-item" id="correct-questions">{correct-questions}</div>
                     </li>
                     <li class="list-group-item border-0">
-                        <div class="col-5 result-item">Number of Questions:</div>
-                        <div class="col-5 result-item" id="total-questions">{total-questions}</div>
+                        <div class="col-5 result-item"><h6>Accuracy:</h6></div>
+                        <div class="col-5 result-item" id="accuracy"><span>%</span></div>
                     </li>
                     <li class="list-group-item border-0">
-                        <div class="col-5 result-item">Accuracy:</div>
-                        <div class="col-5 result-item" id="accuracy">{percent}</div>
-                    </li>
-                    <li class="list-group-item border-0">
-                        <div class="col-5 result-item">Time taken:</div>
-                        <div class="col-5 result-item" id="time-taken">{time}</div>
+                        <div class="col-5 result-item"><h6>Time taken:</h6></div>
+                        <div class="col-5 result-item" id="time-taken"></div>
                     </li>
                 </ul>
                 <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#collapseAnsweredQuestions" aria-expanded="false" aria-controls="collapseAnsweredQuestions">

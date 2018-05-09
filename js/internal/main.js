@@ -16,4 +16,10 @@ $(document).ready(function () {
   TestOptions.setTestOptionsConstruct('#test-options-form');
   TestOptions.onSubmitTestOptions();
   QCatalog.setQuestionForm('#questions-form');
+  QuizResultNum.setNeededSelectors({
+    numCorrectAnswers: '#correct-questions',
+    numOfQuestionsAnswered: '#total-questions-answered',
+    accuracyPercent: '#accuracy',
+    timeTaken: '#time-taken'
+  });
 });

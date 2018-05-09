@@ -16,7 +16,7 @@ let Templates = {
       `;
   },
   questionIndexer (qIndex, totalQuestions) {
-    return `<li class="list-group-item list-group-item-dark text-center question-indexer">Question ${(qIndex + 1)} of ${totalQuestions}</li>`;
+    return `<li class="list-group-item list-group-item-dark text-center question-indexer"><h5 class="h-m-b-0">Question ${(qIndex + 1)} of ${totalQuestions}</h5></li>`;
   },
   questionItself (argsEn) {
     if (argsEn.question !== 'null') {
@@ -119,8 +119,5 @@ let Templates = {
     }
     h += `</div>`;
     return h;
-  },
-  numericalResults () {
-    // a template for scores
   }
 };

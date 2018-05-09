@@ -219,6 +219,32 @@ const ShowHideItems = {
     }
   }
 };
+const QuizResultNum = {
+  numCorrectAnswers: null,
+  numOfQuestionsAnswered: null,
+  accuracyPercent: null,
+  timeTaken: null,
+  setNeededSelectors (args) { // for displaying
+    QuizResultNum.numCorrectAnswers = args.numCorrectAnswers;
+    QuizResultNum.numOfQuestionsAnswered = args.numOfQuestionsAnswered;
+    QuizResultNum.accuracyPercent = args.accuracyPercent;
+    QuizResultNum.timeTaken = args.timeTaken;
+  },
+  calcAccuracy (correctAns, numOfQuestions) {
+    return (correctAns / numOfQuestions) * 100;
+  },
+  displayResult (quizResult) {
+    $(QuizResultNum.numOfQuestionsAnswered).empty().prepend(quizResult.length);
+    let numCorrectAns = 0;
+    quizResult.forEach((result) => {
+      if (result.isCorrect === '1') {
+        numCorrectAns++;
+      }
+    });
+    $(QuizResultNum.numCorrectAnswers).empty().prepend(numCorrectAns);
+    $(QuizResultNum.accuracyPercent).prepend(QuizResultNum.calcAccuracy(numCorrectAns, quizResult.length));
+  }
+};
 const QuizSubmission = {
   formId: null,
   quizIds: [],
@@ -242,6 +268,7 @@ const QuizSubmission = {
             let quizResult = $.parseJSON(data);
             let itemSubmitted = $(QuizSubmission.formId).serializeArray();
             QuizSubmission.setAnsweredItems(itemSubmitted, quizResult);
+            QuizResultNum.displayResult(quizResult);
           });
           $(QuizSubmission.formId).find('div.navigation-by-id').remove();
           $(QuizSubmission.formId).find('div#next-prev-div').remove();
@@ -271,35 +298,24 @@ const QuizSubmission = {
   mappingAnsweredItemsWithResult (answeredItem, quizResult) {
     answeredItem.forEach((item) => {
       quizResult.forEach((result) => {
-        let offset = 2;
+        let offset = 2; // does not include the (1) question and (2) header, i.e. 'Question 1 of 10'
         let rightAnswer = null;
         if ($(item).find('li').length === 7) {
-          offset = 3; // li image is present
+          offset = 3; // offset 3 if li image is present
         }
         $(item).find('li').removeClass('list-group-item-action'); // remove on hover effect
         if ($(item).attr('question-id') === result.quizId) {
-          rightAnswer = parseInt(result.correctAnswer) + offset;
+          rightAnswer = parseInt(result.correctAnswer) + offset; // index of correct answer from list items
+          // list item is colored with green if correct
           $(item).find('li').eq(rightAnswer).addClass('list-group-item-success');
           let selectedItemChecked = $(item).find('li input[type=radio]:checked');
           if (!$(selectedItemChecked.parentsUntil('ul')[2]).hasClass('list-group-item-success')) {
+            // list item is colored with red if incorrect
             $(selectedItemChecked.parentsUntil('ul')[2]).addClass('list-group-item-danger');
           }
         }
       });
     });
     console.log(quizResult);
-  }
-};
-const QuizResultNum = {
-  numCorrectAnswers: null,
-  numOfQuestions: null,
-  accuracyPercent: null,
-  calcAccuracy () {
-    return (QuizResultNum.numCorrectAnswers / QuizResultNum.numOfQuestions) * 100;
-  },
-  setConstruct (args) {
-    QuizResultNum.numCorrectAnswers = args.numCorrectAnswers;
-    QuizResultNum.numOfQuestions = TestOptions.numberOfQuestions;
-    QuizResultNum.accuracyPercent = QuizResultNum.calcAccuracy();
   }
 };
