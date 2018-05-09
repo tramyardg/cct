@@ -229,20 +229,22 @@ const QuizSubmission = {
   onClickSubmitButton () {
     $(QuizSubmission.formId).find('button#submit-quiz').click(function (event) {
       // prints -> {itemsWithAnswer: "AA0032=1&AA0006=1&AA0076=1"}
-      let userAnswers = {itemsWithAnswer: $(QuizSubmission.formId).serialize()};
-      if (userAnswers.itemsWithAnswer !== '' ||
-        userAnswers.itemsWithAnswer.indexOf('=') !== -1 ||
-        userAnswers.itemsWithAnswer.indexOf('&') !== -1) {
-        LoadResults.setQueryString(userAnswers);
-        LoadResults.load(function (data) {
-          let quizResult = $.parseJSON(data);
-          let itemSubmitted = $(QuizSubmission.formId).serializeArray();
-          QuizSubmission.setAnsweredItems(itemSubmitted, quizResult);
-        });
-      } else {
-        CustomAlert.displayAlert(Str.info, Str.noAnswered, Str.pleaseAnswerSome, Duration.ten);
-      }
       event.preventDefault();
+      let userAnswers = {itemsWithAnswer: $(QuizSubmission.formId).serialize()};
+      if (userAnswers.itemsWithAnswer.length === 0) {
+        $('#noQuestionsAnswered').modal('show');
+      } else {
+        if (userAnswers.itemsWithAnswer !== '' ||
+          userAnswers.itemsWithAnswer.indexOf('=') !== -1 ||
+          userAnswers.itemsWithAnswer.indexOf('&') !== -1) {
+          LoadResults.setQueryString(userAnswers);
+          LoadResults.load(function (data) {
+            let quizResult = $.parseJSON(data);
+            let itemSubmitted = $(QuizSubmission.formId).serializeArray();
+            QuizSubmission.setAnsweredItems(itemSubmitted, quizResult);
+          });
+        }
+      }
       return false;
     });
   },
