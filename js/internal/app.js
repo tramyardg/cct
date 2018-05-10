@@ -1,5 +1,36 @@
 /* eslint-disable no-undef */
 const DEFAULT_REGION_ID = 'AA';
+const GetMinutesByNumQuestions = {
+  val: null, // returns the value i.e. 15 minutes
+  set: function (num) { // num: number of questions
+    switch (parseInt(num)) {
+      case 10:
+        GetMinutesByNumQuestions.val = 15;
+        break;
+      case 20:
+        GetMinutesByNumQuestions.val = 30;
+        break;
+      case 30:
+        GetMinutesByNumQuestions.val = 45;
+        break;
+      case 40:
+        GetMinutesByNumQuestions.val = 60;
+        break;
+      case 50:
+        GetMinutesByNumQuestions.val = 75;
+        break;
+      case 60:
+        GetMinutesByNumQuestions.val = 90;
+        break;
+      case 70:
+        GetMinutesByNumQuestions.val = 105;
+        break;
+      case 80:
+        GetMinutesByNumQuestions.val = 120;
+        break;
+    }
+  }
+};
 const TestOptions = {
   isTimerSet: false,
   minutes: null,
@@ -17,34 +48,8 @@ const TestOptions = {
     }
   },
   setMinutesByNumQuestions (num) {
-    if (TestOptions.isTimerSet) {
-      switch (parseInt(num)) {
-        case 10:
-          TestOptions.minutes = 15;
-          break;
-        case 20:
-          TestOptions.minutes = 30;
-          break;
-        case 30:
-          TestOptions.minutes = 45;
-          break;
-        case 40:
-          TestOptions.minutes = 60;
-          break;
-        case 50:
-          TestOptions.minutes = 75;
-          break;
-        case 60:
-          TestOptions.minutes = 90;
-          break;
-        case 70:
-          TestOptions.minutes = 105;
-          break;
-        case 80:
-          TestOptions.minutes = 120;
-          break;
-      }
-    }
+    GetMinutesByNumQuestions.set(num);
+    TestOptions.minutes = GetMinutesByNumQuestions.val;
   },
   setNumberOfQuestions (num) {
     TestOptions.numberOfQuestions = num;
@@ -223,7 +228,7 @@ const QuizResultNum = {
   numCorrectAnswers: null,
   numOfQuestionsAnswered: null,
   accuracyPercent: null,
-  timeTaken: null,
+  timeTaken: {sel: null, minSel: null, secSel: null},
   setNeededSelectors (args) { // for displaying
     QuizResultNum.numCorrectAnswers = args.numCorrectAnswers;
     QuizResultNum.numOfQuestionsAnswered = args.numOfQuestionsAnswered;
@@ -243,6 +248,21 @@ const QuizResultNum = {
     });
     $(QuizResultNum.numCorrectAnswers).empty().prepend(numCorrectAns);
     $(QuizResultNum.accuracyPercent).prepend(QuizResultNum.calcAccuracy(numCorrectAns, quizResult.length));
+    if ($(QuizResultNum.timeTaken.minSel).text() === '') {
+      $(QuizResultNum.timeTaken.sel).empty().append('timer not selected');
+    } else {
+      let min = $(QuizResultNum.timeTaken.minSel).text();
+      let sec = $(QuizResultNum.timeTaken.secSel).text();
+      let usedSec = (parseInt(min) * 60) + parseInt(sec);
+      GetMinutesByNumQuestions.set((QCatalog.numOfMCs + QCatalog.numOfTFs));
+      let allottedSec = GetMinutesByNumQuestions.val * 60;
+      let diff = allottedSec - usedSec; // difference
+      console.log('usedSec: ' + usedSec);
+      console.log('allottedSec: ' + allottedSec);
+      console.log(diff);
+      $(QuizResultNum.timeTaken.sel).empty().append(min + ':' + sec);
+      // TODO convert back the difference (in seconds) to readable format min:sec
+    }
   }
 };
 const QuizSubmission = {

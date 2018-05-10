@@ -27,9 +27,8 @@ const Timer = {
     Timer.seconds = passedMinutes * MINUTES_CONSTANT;
   },
   startTimer () { // main
-    // let counter = Timer.seconds
-    // TODO remove hard coded seconds, use above line
-    let counter = 30;
+    let counter = Timer.seconds;
+    // let counter = 30; 30 secs for debugging purpose
     let remainingMinutes, remainingSeconds;
     setInterval(function () {
       counter--;

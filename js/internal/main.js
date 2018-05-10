@@ -20,6 +20,6 @@ $(document).ready(function () {
     numCorrectAnswers: '#correct-questions',
     numOfQuestionsAnswered: '#total-questions-answered',
     accuracyPercent: '#accuracy',
-    timeTaken: '#time-taken'
+    timeTaken: {sel: '#time-taken', minSel: Timer.minutesHTML, secSel: Timer.secondsHTML}
   });
 });
