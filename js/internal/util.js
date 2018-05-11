@@ -28,14 +28,6 @@ const CustomAlert = { // utility not dependent on other module outside this file
     );
     $(CustomAlert.id).css('display', 'block');
   },
-  getQuizSubmittedAlert () {
-    return CustomAlert.displayAlert(
-      Str.success,
-      Str.submitted,
-      Str.resultDisplayed,
-      60
-    );
-  },
   getTimeIsUpAlert () {
     return CustomAlert.displayAlert(
       Str.warning,
