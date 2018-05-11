@@ -11,6 +11,7 @@ CanadianCitizenshipTest (CCT) is an open-source web application to help people w
 ### Screenshots
 ![Home page](https://github.com/tramyardg/cct/blob/master/image/cct_home.PNG)
 ![Quiz option](https://github.com/tramyardg/cct/blob/master/image/quiz_option.PNG)
+![Multiple choice](https://github.com/tramyardg/cct/blob/master/image/multiple_choice.PNG)
 
 ### Creators
 - Raymart De Guzman @tramyardg
