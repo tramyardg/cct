@@ -225,9 +225,9 @@ const ShowHideItems = {
   }
 };
 const QuizResultNum = {
-  numCorrectAnswers: null,
-  numOfQuestionsAnswered: null,
-  accuracyPercent: null,
+  numCorrectAnswers: 0,
+  numOfQuestionsAnswered: 0,
+  accuracyPercent: 0,
   timeTaken: {sel: null, minSel: null, secSel: null},
   setNeededSelectors (args) { // for displaying
     QuizResultNum.numCorrectAnswers = args.numCorrectAnswers;
@@ -273,12 +273,25 @@ const QuizSubmission = {
   setConstruct (args) {
     QuizSubmission.formId = args.formId;
   },
+  disableButtons () {
+    $(QuizSubmission.formId).find('div.navigation-by-id').remove();
+    $(QuizSubmission.formId).find('div#next-prev-div').remove();
+    $(QuizSubmission.formId).find('button#submit-quiz').remove();
+  },
   onClickSubmitButton () {
     $(QuizSubmission.formId).find('button#submit-quiz').click(function (event) {
       // prints -> {itemsWithAnswer: "AA0032=1&AA0006=1&AA0076=1"}
       event.preventDefault();
       let userAnswers = {itemsWithAnswer: $(QuizSubmission.formId).serialize()};
-      if (userAnswers.itemsWithAnswer.length === 0) {
+      if (userAnswers.itemsWithAnswer.length === 0 && Timer.isNoMoreTime) {
+        LoadResults.setQueryString(userAnswers);
+        LoadResults.load(function (data) {
+          if (data === 'null') {
+            QuizSubmission.disableButtons();
+          }
+        });
+      }
+      if (userAnswers.itemsWithAnswer.length === 0 && !Timer.isNoMoreTime) {
         $('#noQuestionsAnswered').modal('show');
       } else {
         if (userAnswers.itemsWithAnswer !== '' ||
@@ -291,9 +304,7 @@ const QuizSubmission = {
             QuizSubmission.setAnsweredItems(itemSubmitted, quizResult);
             QuizResultNum.displayResult(quizResult);
           });
-          $(QuizSubmission.formId).find('div.navigation-by-id').remove();
-          $(QuizSubmission.formId).find('div#next-prev-div').remove();
-          $(QuizSubmission.formId).find('button#submit-quiz').remove();
+          QuizSubmission.disableButtons();
         }
       }
       return false;
