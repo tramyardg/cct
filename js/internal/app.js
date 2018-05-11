@@ -236,7 +236,7 @@ const QuizResultNum = {
     QuizResultNum.timeTaken = args.timeTaken;
   },
   calcAccuracy (correctAns, numOfQuestions) {
-    return (correctAns / numOfQuestions) * 100;
+    return Math.floor((correctAns / numOfQuestions) * 100);
   },
   displayResult (quizResult) {
     $(QuizResultNum.numOfQuestionsAnswered).empty().prepend(quizResult.length);
@@ -260,8 +260,9 @@ const QuizResultNum = {
       console.log('usedSec: ' + usedSec);
       console.log('allottedSec: ' + allottedSec);
       console.log(diff);
-      $(QuizResultNum.timeTaken.sel).empty().append(min + ':' + sec);
-      // TODO convert back the difference (in seconds) to readable format min:sec
+      let minutesUsed = Math.floor(diff / 60);
+      let secondsUsed = diff - (minutesUsed * 60);
+      $(QuizResultNum.timeTaken.sel).empty().append(minutesUsed + ':' + secondsUsed);
     }
   }
 };
