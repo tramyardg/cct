@@ -242,7 +242,7 @@ const QuizResultNum = {
     $(QuizResultNum.numOfQuestionsAnswered).empty().prepend(quizResult.length);
     let numCorrectAns = 0;
     quizResult.forEach((result) => {
-      if (result.isCorrect === '1') {
+      if (result.correctAnswer === result.userAnswer) {
         numCorrectAns++;
       }
     });
