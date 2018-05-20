@@ -29,7 +29,7 @@ const Timer = {
   startTimer () { // main
     let counter = Timer.seconds;
     // 30 secs for debugging purpose
-    //let counter = 10;
+    // let counter = 10;
     let remainingMinutes, remainingSeconds;
     setInterval(function () {
       counter--;

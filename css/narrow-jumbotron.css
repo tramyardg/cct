@@ -136,7 +136,7 @@ body {
     display: none;
 }
 .test-result {
-    /*display: none;*/
+    display: none;
 }
 #result-chart {
     min-width: 310px;

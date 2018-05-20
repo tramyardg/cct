@@ -307,6 +307,7 @@ const QuizSubmission = {
           QuizSubmission.disableButtons();
         }
       }
+      $('.test-result').css('display', 'block');
       return false;
     });
   },
