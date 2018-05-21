@@ -283,6 +283,11 @@ const QuizSubmission = {
           QuizResultNum.displayResult(quizResult);
         });
         QuizSubmission.disableButtons();
+      } else {
+        let reviewAnswers = $('#collapseAnsweredQuestions');
+        reviewAnswers.parent().children('button').prop('disabled', true);
+        reviewAnswers.remove();
+        $(Timer.allRadioButtons).prop('disabled', true);
       }
       $('.test-result').css('display', 'block');
       $(Timer.timerHTML).css('display', 'none');
