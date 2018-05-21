@@ -308,6 +308,7 @@ const QuizSubmission = {
         }
       }
       $('.test-result').css('display', 'block');
+      $(Timer.timerHTML).css('display', 'none');
       return false;
     });
   },
