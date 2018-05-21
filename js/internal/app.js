@@ -273,6 +273,8 @@ const QuizSubmission = {
       // prints -> {itemsWithAnswer: "AA0032=1&AA0006=1&AA0076=1"}
       event.preventDefault();
       let userAnswers = {itemsWithAnswer: $(QuizSubmission.formId).serialize()};
+      // console.log(userAnswers.itemsWithAnswer.length);
+      // console.log(Timer.isNoMoreTime);
       if (userAnswers.itemsWithAnswer !== '' ||
         userAnswers.itemsWithAnswer.indexOf('=') !== -1 ||
         userAnswers.itemsWithAnswer.indexOf('&') !== -1) {
