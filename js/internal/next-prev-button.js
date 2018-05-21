@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-
 const NextPrevDiv = {
   nextBtn: null,
   prevBtn: null,

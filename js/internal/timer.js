@@ -27,9 +27,9 @@ const Timer = {
     Timer.seconds = passedMinutes * MINUTES_CONSTANT;
   },
   startTimer () { // main
-    let counter = Timer.seconds;
+    // let counter = Timer.seconds;
     // 30 secs for debugging purpose
-    // let counter = 10;
+    let counter = 10;
     let remainingMinutes, remainingSeconds;
     setInterval(function () {
       counter--;
@@ -45,8 +45,6 @@ const Timer = {
       if (counter === 0) {
         Timer.isNoMoreTime = true;
         CustomAlert.getTimeIsUpAlert();
-        // disabled Done button
-        $(QuizSubmission.formId).find('button#finish-quiz').addClass('disabled');
         Timer.disableAllRadio();
         clearInterval(remainingSeconds);
         clearInterval(remainingMinutes);

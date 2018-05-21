@@ -78,7 +78,6 @@ const TestOptions = {
       LoadQuestionItems.setUserOptions(userOptions);
       LoadQuestionItems.load(function (output) {
         QCatalog.setCatalog(output);
-        console.log(output);
       });
       TestOptions.runTimer();
       TestOptions.hideTestOptionsForm();
@@ -86,9 +85,9 @@ const TestOptions = {
     });
   },
   customToString () { // for debugging purposes
-    console.log('is Timer set ' + TestOptions.isTimerSet);
-    console.log('number of minutes ' + TestOptions.minutes);
-    console.log('number of questions ' + TestOptions.numberOfQuestions);
+    // console.log('is Timer set ' + TestOptions.isTimerSet);
+    // console.log('number of minutes ' + TestOptions.minutes);
+    // console.log('number of questions ' + TestOptions.numberOfQuestions);
   },
   runTimer () {
     if (TestOptions.isTimerSet) {
@@ -171,11 +170,6 @@ const QCatalog = { // creates and displays the questions
     QCatalog.argsEn.referralEn = qItem[i].getElementsByTagName('REFERRAL')[0].innerHTML;
   },
   customToString () { // for debugging purpose
-    // TODO remove before release
-    console.log('num of mc ' + QCatalog.numOfMCs);
-    console.log('num of tf ' + QCatalog.numOfTFs);
-    let totalButtons = (QCatalog.numOfMCs * 4) + (QCatalog.numOfTFs * 2);
-    console.log('total radio buttons = ' + totalButtons);
   },
   catalogMapper (h, qItem) {
     h += Templates.navigateItemsWithButton(qItem.length);
@@ -183,7 +177,6 @@ const QCatalog = { // creates and displays the questions
       QCatalog.commonArgsMapper(qItem, i);
       QCatalog.argsEnMapper(qItem, i);
       let questionIDs = qItem[i].getElementsByTagName('QUIZID')[0].innerHTML;
-      console.log(questionIDs);
       QuizSubmission.quizIds.push(questionIDs);
       h += Templates.openQuestionBody((i + 1), questionIDs);
       h += Templates.questionItemBody(i, QCatalog.catalog.catalogLength, QCatalog.commonArgs, QCatalog.argsEn);
@@ -257,9 +250,6 @@ const QuizResultNum = {
       GetMinutesByNumQuestions.set((QCatalog.numOfMCs + QCatalog.numOfTFs));
       let allottedSec = GetMinutesByNumQuestions.val * 60;
       let diff = allottedSec - usedSec; // difference
-      console.log('usedSec: ' + usedSec);
-      console.log('allottedSec: ' + allottedSec);
-      console.log(diff);
       let minutesUsed = Math.floor(diff / 60);
       let secondsUsed = diff - (minutesUsed * 60);
       $(QuizResultNum.timeTaken.sel).empty().append(minutesUsed + ':' + secondsUsed);
@@ -283,29 +273,17 @@ const QuizSubmission = {
       // prints -> {itemsWithAnswer: "AA0032=1&AA0006=1&AA0076=1"}
       event.preventDefault();
       let userAnswers = {itemsWithAnswer: $(QuizSubmission.formId).serialize()};
-      if (userAnswers.itemsWithAnswer.length === 0 && Timer.isNoMoreTime) {
-        LoadResults.setQueryString(userAnswers);
-        LoadResults.load(function (data) {
-          if (data === 'null') {
-            QuizSubmission.disableButtons();
-          }
+      if (userAnswers.itemsWithAnswer !== '' ||
+        userAnswers.itemsWithAnswer.indexOf('=') !== -1 ||
+        userAnswers.itemsWithAnswer.indexOf('&') !== -1) {
+        LoadResults.setQueryString(userAnswers); // pass user answer
+        LoadResults.load(function (data) { // so we can determine the result
+          let quizResult = $.parseJSON(data);
+          let itemSubmitted = $(QuizSubmission.formId).serializeArray();
+          QuizSubmission.setAnsweredItems(itemSubmitted, quizResult);
+          QuizResultNum.displayResult(quizResult);
         });
-      }
-      if (userAnswers.itemsWithAnswer.length === 0 && !Timer.isNoMoreTime) {
-        $('#noQuestionsAnswered').modal('show');
-      } else {
-        if (userAnswers.itemsWithAnswer !== '' ||
-          userAnswers.itemsWithAnswer.indexOf('=') !== -1 ||
-          userAnswers.itemsWithAnswer.indexOf('&') !== -1) {
-          LoadResults.setQueryString(userAnswers); // pass user answer
-          LoadResults.load(function (data) { // so we can determine the result
-            let quizResult = $.parseJSON(data);
-            let itemSubmitted = $(QuizSubmission.formId).serializeArray();
-            QuizSubmission.setAnsweredItems(itemSubmitted, quizResult);
-            QuizResultNum.displayResult(quizResult);
-          });
-          QuizSubmission.disableButtons();
-        }
+        QuizSubmission.disableButtons();
       }
       $('.test-result').css('display', 'block');
       $(Timer.timerHTML).css('display', 'none');
@@ -350,6 +328,5 @@ const QuizSubmission = {
         }
       });
     });
-    console.log(quizResult);
   }
 };
