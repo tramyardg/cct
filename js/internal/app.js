@@ -274,10 +274,7 @@ const QuizSubmission = {
       event.preventDefault();
       let userAnswers = {itemsWithAnswer: $(QuizSubmission.formId).serialize()};
       // console.log(userAnswers.itemsWithAnswer.length);
-      // console.log(Timer.isNoMoreTime);
-      if (userAnswers.itemsWithAnswer !== '' ||
-        userAnswers.itemsWithAnswer.indexOf('=') !== -1 ||
-        userAnswers.itemsWithAnswer.indexOf('&') !== -1) {
+      if (userAnswers.itemsWithAnswer.length > 0) {
         LoadResults.setQueryString(userAnswers); // pass user answer
         LoadResults.load(function (data) { // so we can determine the result
           let quizResult = $.parseJSON(data);

@@ -15,7 +15,8 @@ const Timer = {
     Timer.hideTimer();
   },
   disableAllRadio () {
-    $(Timer.allRadioButtons).prop('disabled', true);
+    $(QuizSubmission.formId).find('div.navigation-by-id').remove();
+    $(QuizSubmission.formId).find('div#next-prev-div').remove();
   },
   displayTimer () {
     $(Timer.timerHTML).css('display', 'block');
@@ -44,7 +45,9 @@ const Timer = {
       Timer.changeBadgeColor(counter);
       if (counter === 0) {
         Timer.isNoMoreTime = true;
-        CustomAlert.getTimeIsUpAlert();
+        if (!$('.test-result').is(':visible')) {
+          CustomAlert.getTimeIsUpAlert();
+        }
         Timer.disableAllRadio();
         clearInterval(remainingSeconds);
         clearInterval(remainingMinutes);
