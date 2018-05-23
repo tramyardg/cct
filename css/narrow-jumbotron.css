@@ -68,12 +68,6 @@ body {
         padding-right: 0;
         padding-left: 0;
     }
-
-    /* Space out the masthead */
-    .header {
-        margin-bottom: 2rem;
-    }
-
     /* Remove the bottom border on the jumbotron for visual effect */
     .jumbotron {
         border-bottom: 0;
@@ -145,4 +139,11 @@ body {
 }
 .h-m-b-0 {
     margin-bottom: 0 !important;
+}
+.jumbotron {
+    webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+.features-card {
+    background-color: #eee;
 }
