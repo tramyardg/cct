@@ -143,6 +143,7 @@ body {
 .jumbotron {
     webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.4);
     box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+    padding: 2rem 1rem !important;
 }
 .features-card {
     background-color: #eee;
