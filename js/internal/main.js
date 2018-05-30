@@ -23,3 +23,11 @@ $(document).ready(function () {
     timeTaken: {sel: '#time-taken', minSel: Timer.minutesHTML, secSel: Timer.secondsHTML}
   });
 });
+const loaderIo = $('.loader-io');
+loaderIo.hide();
+$(document)
+  .ajaxStart(function () {
+    loaderIo.show();
+  }).ajaxStop(function () {
+    loaderIo.hide();
+  });
