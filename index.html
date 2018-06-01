@@ -1,15 +1,32 @@
 <!doctype html>
-<html lang="en">
+<html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+
+    <meta property="og:url" content="http://canadiancitizenshiptest.co.nf" />
+    <meta property="og:site_name" content="CCT" />
+    <meta property="og:title" content="Canadian Citizenship Test (CCT)" />
+    <meta property="og:description" content="Canadian Citizenship Test (CCT) is a tool for people preparing to pass the Canadian Citizenship test." />
+    <meta property="og:type" content="website" />
+    <meta property="og:author" content="https://github.com/tramyardg" />
+    <meta property="og:image" content="https://raw.githubusercontent.com/tramyardg/cct/master/image/cct_home.PNG" />
+
     <title>CCT</title>
     <link href="css/bootswatch-materia.min.css" rel="stylesheet">
     <link href="css/narrow-jumbotron.css" rel="stylesheet">
 </head>
 <body>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 <div class="container">
     <header class="header clearfix">
         <nav>
@@ -40,9 +57,12 @@
             <li>Correct answers are highlighted</li>
         </div>
     </main>
+
+    <div class="fb-share-button" data-href="http://canadiancitizenshiptest.co.nf/index.html" data-layout="button" data-size="small" data-mobile-iframe="true"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fcanadiancitizenshiptest.co.nf%2Findex.html&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+
     <footer class="footer">
         <hr>
-        <p>&copy; CCT 2018 | Developed by Raymart De Guzman and Leo Sudarma</p>
+        <p>&copy; CCT 2017 - 2018 | Developed by Raymart De Guzman and Leo Sudarma</p>
     </footer>
 </div>
 <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
