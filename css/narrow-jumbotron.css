@@ -6,8 +6,7 @@ body {
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
-.marketing,
-.footer {
+.marketing {
     padding-right: 1rem;
     padding-left: 1rem;
 }
@@ -27,7 +26,7 @@ body {
 
 /* Custom page footer */
 .footer {
-    padding-top: 1.5rem;
+    margin-top: 1em;
     color: #777;
 }
 
@@ -147,4 +146,7 @@ body {
 }
 .features-card {
     background-color: #eee;
+}
+.social-media-share {
+    margin-top: 10px;
 }
