@@ -95,10 +95,10 @@ let Templates = {
   },
   finishNextPrevButtons () {
     return `<div class="float-right" id="next-prev-div">
-                <button type="button" class="btn btn-primary btn-sm" id="prev-button">Prev</button>
-                <button type="button" class="btn btn-primary btn-sm ml-2" id="next-button">Next</button>
+                <button type="button" class="btn btn-primary btn-sm rounded-0" id="prev-button">Prev</button>
+                <button type="button" class="btn btn-primary btn-sm ml-2 rounded-0" id="next-button">Next</button>
             </div>
-            <button id="submit-quiz" class="btn btn-success btn-sm mb-sm-2">Submit</button>`;
+            <button id="submit-quiz" class="btn btn-success btn-sm mb-sm-2 rounded-0">Submit</button>`;
   },
   navigateItemsWithButton (length) {
     let h = `<div class="row navigation-by-id">`;
@@ -106,10 +106,10 @@ let Templates = {
       let num = (i + 1);
       h += `<div class="col mt-2">`;
       if (i === 0) {
-        h += `<button type="button" class="btn btn-outline-primary btn-sm btn-item active btn-navigator-${num}"
+        h += `<button type="button" class="btn btn-outline-primary btn-sm btn-item active rounded-0 btn-navigator-${num}"
         onclick="NavigateItemByIndex.onclickButtonWithIndex(${num})">`;
       } else {
-        h += `<button type="button" class="btn btn-outline-primary btn-sm btn-item btn-navigator-${num}"
+        h += `<button type="button" class="btn btn-outline-primary btn-sm btn-item rounded-0 btn-navigator-${num}"
         onclick="NavigateItemByIndex.onclickButtonWithIndex(${num})">`;
       }
       if (num < 10) {

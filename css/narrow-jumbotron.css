@@ -150,3 +150,7 @@ body {
 .social-media-share {
     margin-top: 10px;
 }
+
+.list-group .list-group-item:nth-child(1), .list-group-item:last-child {
+    border-radius: 0 !important;
+}
