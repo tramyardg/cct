@@ -117,24 +117,38 @@
         <div class="card text-center test-result mt-2 rounded-0">
             <div class="card-header"><h5 class="h-m-b-0">Quiz results</h5></div>
             <div class="card-body">
-                <ul class="list-group pb-sm-2">
-                    <li class="list-group-item border-0">
-                        <div class="col-5 result-item"><h6>Number of questions answered:</h6></div>
-                        <div class="col-5 result-item" id="total-questions-answered">0</div>
-                    </li>
-                    <li class="list-group-item border-0">
-                        <div class="col-5 result-item border-0"><h6>Number of correct answers:</h6></div>
-                        <div class="col-5 result-item" id="correct-questions">0</div>
-                    </li>
-                    <li class="list-group-item border-0">
-                        <div class="col-5 result-item"><h6>Accuracy:</h6></div>
-                        <div class="col-5 result-item" id="accuracy"><span>%</span></div>
-                    </li>
-                    <li class="list-group-item border-0">
-                        <div class="col-5 result-item"><h6>Time taken (min:sec):</h6></div>
-                        <div class="col-5 result-item" id="time-taken"></div>
-                    </li>
-                </ul>
+                <div class="result-card-container">
+                    <div class="result-item-left">
+                        <h6>Number of questions answered</h6>
+                    </div>
+                    <div class="result-item-right">
+                        <div id="total-questions-answered">0</div>
+                    </div>
+                </div>
+                <div class="result-card-container">
+                    <div class="result-item-left">
+                        <h6>Number of correct answers</h6>
+                    </div>
+                    <div class="result-item-right">
+                        <div id="correct-questions">0</div>
+                    </div>
+                </div>
+                <div class="result-card-container">
+                    <div class="result-item-left">
+                        <h6>Accuracy</h6>
+                    </div>
+                    <div class="result-item-right">
+                        <div id="accuracy"><span>%</span></div>
+                    </div>
+                </div>
+                <div class="result-card-container">
+                    <div class="result-item-left">
+                        <h6>Time taken (min:sec)</h6>
+                    </div>
+                    <div class="result-item-right">
+                        <div id="time-taken"></div>
+                    </div>
+                </div>
                 <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#collapseAnsweredQuestions" aria-expanded="false" aria-controls="collapseAnsweredQuestions">
                     Review Answers
                 </button>

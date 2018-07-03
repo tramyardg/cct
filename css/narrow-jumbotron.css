@@ -154,3 +154,18 @@ body {
 .list-group .list-group-item:nth-child(1), .list-group-item:last-child {
     border-radius: 0 !important;
 }
+/**********************/
+.result-card-container {
+    display: flex;
+    padding: 0.5em;
+    align-items: baseline;
+}
+.result-item-left {
+    width: 100%;
+    text-align: right;
+}
+.result-item-right {
+    width: 100%;
+    text-align: left;
+    margin-left: 10px;
+}
