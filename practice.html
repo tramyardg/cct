@@ -212,20 +212,18 @@
         </div>
     </main>
 
-    <div class="social-media-share">
-        <div class="fb-share-button" data-href="http://canadiancitizenshiptest.co.nf/practice.html" data-layout="button" data-size="small" data-mobile-iframe="true"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fcanadiancitizenshiptest.co.nf%2Fpractice.html&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
-        <div class="g-plus" data-action="share" data-height="15" data-href="http://canadiancitizenshiptest.co.nf/practice.html"></div>
-    </div>
-    <script type="text/javascript">
-      (function() {
-        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-        po.src = 'https://apis.google.com/js/platform.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-      })();
-    </script>
-
     <footer class="footer">
-        <hr>
+        <div class="social-media-share">
+            <div class="fb-share-button" data-href="http://canadiancitizenshiptest.co.nf/practice.html" data-layout="button" data-size="small" data-mobile-iframe="true"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fcanadiancitizenshiptest.co.nf%2Fpractice.html&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+            <div class="g-plus" data-action="share" data-height="15" data-href="http://canadiancitizenshiptest.co.nf/practice.html"></div>
+        </div>
+        <script type="text/javascript">
+          (function() {
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/platform.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+          })();
+        </script>
         <p>&copy; CCT 2017 - 2018 | Developed by Raymart De Guzman and Leo Sudarma</p>
     </footer>
 </div>
@@ -240,5 +238,12 @@
 <script src="js/internal/next-prev-button.js"></script>
 <script src="js/internal/app.js"></script>
 <script src="js/internal/main.js"></script>
+<script>
+  window.addEventListener("beforeunload", function (e) {
+    let confirmationMessage = "\o/";
+    e.returnValue = confirmationMessage;     // Gecko, Trident, Chrome 34+
+    return confirmationMessage;              // Gecko, WebKit, Chrome <34
+  });
+</script>
 </body>
 </html>
