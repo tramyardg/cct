@@ -54,7 +54,7 @@
                     <div class="form-group row">
                         <label class="col-sm-5 col-form-label">Select the number of questions</label>
                         <div class="col-sm-4 py-sm-2">
-                            <select name="number-of-questions" class="form-control form-control-sm">
+                            <select name="number-of-questions" class="form-control form-control-sm" disabled>
                                 <option value="10" selected>10</option>
                                 <option value="20">20</option>
                                 <option value="30">30</option>
@@ -81,13 +81,13 @@
                             <div class="col-sm-2 py-sm-2">
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input class="form-check-input" type="radio" name="is-set-timer" value="true">
+                                        <input class="form-check-input" type="radio" name="is-set-timer" value="true" disabled>
                                         Yes
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input class="form-check-input" type="radio" name="is-set-timer" value="false" checked>
+                                        <input class="form-check-input" type="radio" name="is-set-timer" value="false" checked disabled>
                                         No
                                     </label>
                                 </div>
@@ -96,7 +96,7 @@
                     </fieldset>
                     <div class="form-group row">
                         <div class="col-sm-10">
-                            <button type="submit" class="btn btn-success btn-sm rounded-0">Start</button>
+                            <button type="submit" class="btn btn-success btn-sm rounded-0" disabled>Start</button>
                         </div>
                     </div>
                 </form>
@@ -152,6 +152,9 @@
                 <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#collapseAnsweredQuestions" aria-expanded="false" aria-controls="collapseAnsweredQuestions">
                     Review Answers
                 </button>
+                <a class="btn btn-sm btn-outline-success rounded-0" href="#" onclick="(function() {
+                      location.reload();
+                    })(); return false;">Restart</a>
                 <div class="collapse pt-2" id="collapseAnsweredQuestions">
                     <ul class="list-group text-left py-sm-2 mt-2 mb-2 question-item-1" data-number="1">
                         <li class="list-group-item list-group-item-dark text-center question-indexer">Question 1 of 10</li>
@@ -238,6 +241,21 @@
 <script src="js/internal/next-prev-button.js"></script>
 <script src="js/internal/app.js"></script>
 <script src="js/internal/main.js"></script>
+<script>
+  let disabledFirst = [
+    $('button[type=submit]'),
+    $('select[name=number-of-questions]'),
+    $('input[type=radio][value=true]'),
+    $('input[type=radio][value=false]')
+  ]
+  $(window).on('load', function () {
+    if ($('button[type=submit]').length > 0) {
+      disabledFirst.forEach((ele) => {
+        ele.prop('disabled', false)
+      })
+    }
+  })
+</script>
 <script>
   window.addEventListener("beforeunload", function (e) {
     let confirmationMessage = "\o/";
