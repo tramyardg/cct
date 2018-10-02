@@ -49,6 +49,16 @@ body {
     padding: .75rem 1.5rem;
     font-size: 1.5rem;
 }
+.index-jumbotron {
+    background-image: url(http://www.citizenshipsupport.ca/wp-content/uploads/2016/07/Canadian-citizenship.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    color: #fff;
+}
+.index-jumbotron > h1 {
+    font-weight: 400;
+}
 
 /* Supporting marketing content */
 .marketing {
