@@ -263,10 +263,8 @@ const QuizSubmission = {
   setConstruct (args) {
     QuizSubmission.formId = args.formId;
   },
-  disableButtons () {
-    $(QuizSubmission.formId).find('div.navigation-by-id').remove();
-    $(QuizSubmission.formId).find('div#next-prev-div').remove();
-    $(QuizSubmission.formId).find('button#submit-quiz').remove();
+  hideQuestionnaire () {
+    $(QuizSubmission.formId).css('display', 'none')
   },
   onClickSubmitButton () {
     $(QuizSubmission.formId).find('button#submit-quiz').click(function (event) {
@@ -282,12 +280,13 @@ const QuizSubmission = {
           QuizSubmission.setAnsweredItems(itemSubmitted, quizResult);
           QuizResultNum.displayResult(quizResult);
         });
-        QuizSubmission.disableButtons();
+        QuizSubmission.hideQuestionnaire();
       } else {
         let reviewAnswers = $('#collapseAnsweredQuestions');
         reviewAnswers.parent().children('button').prop('disabled', true);
         reviewAnswers.remove();
         $(Timer.allRadioButtons).prop('disabled', true);
+        QuizSubmission.hideQuestionnaire();
       }
       $('.test-result').css('display', 'block');
       $(Timer.timerHTML).css('display', 'none');
