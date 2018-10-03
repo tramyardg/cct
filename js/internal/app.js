@@ -231,8 +231,10 @@ const QuizResultNum = {
   calcAccuracy (correctAns, numOfQuestions) {
     return Math.floor((correctAns / numOfQuestions) * 100);
   },
-  displayResult (quizResult) {
+  displayNumOfQuestionsAnswered (quizResult) {
     $(QuizResultNum.numOfQuestionsAnswered).empty().prepend(quizResult.length);
+  },
+  displayNumOfCorrectAnswers (quizResult) {
     let numCorrectAns = 0;
     quizResult.forEach((result) => {
       if (result.correctAnswer === result.userAnswer) {
@@ -240,20 +242,35 @@ const QuizResultNum = {
       }
     });
     $(QuizResultNum.numCorrectAnswers).empty().prepend(numCorrectAns);
-    $(QuizResultNum.accuracyPercent).prepend(QuizResultNum.calcAccuracy(numCorrectAns, quizResult.length));
+  },
+  displayAccuracy (quizResult) {
+    let accuracyDiv = $(QuizResultNum.accuracyPercent);
+    let accuracy = QuizResultNum.calcAccuracy(
+      $(QuizResultNum.numCorrectAnswers).text(),
+      quizResult.length
+    );
+    accuracyDiv.prepend(accuracy);
+  },
+  displayMinSecUsed () {
     if ($(QuizResultNum.timeTaken.minSel).text() === '') {
       $(QuizResultNum.timeTaken.sel).empty().append('timer not selected');
-    } else {
-      let min = $(QuizResultNum.timeTaken.minSel).text();
-      let sec = $(QuizResultNum.timeTaken.secSel).text();
-      let usedSec = (parseInt(min) * 60) + parseInt(sec);
-      GetMinutesByNumQuestions.set((QCatalog.numOfMCs + QCatalog.numOfTFs));
-      let allottedSec = GetMinutesByNumQuestions.val * 60;
-      let diff = allottedSec - usedSec; // difference
-      let minutesUsed = Math.floor(diff / 60);
-      let secondsUsed = diff - (minutesUsed * 60);
-      $(QuizResultNum.timeTaken.sel).empty().append(minutesUsed + ':' + secondsUsed);
+      return;
     }
+    let min = $(QuizResultNum.timeTaken.minSel).text();
+    let sec = $(QuizResultNum.timeTaken.secSel).text();
+    let usedSec = (parseInt(min) * 60) + parseInt(sec);
+    GetMinutesByNumQuestions.set((QCatalog.numOfMCs + QCatalog.numOfTFs));
+    let allottedSec = GetMinutesByNumQuestions.val * 60;
+    let diff = allottedSec - usedSec; // difference
+    let minutesUsed = Math.floor(diff / 60);
+    let secondsUsed = diff - (minutesUsed * 60);
+    $(QuizResultNum.timeTaken.sel).empty().append(minutesUsed + ':' + secondsUsed);
+  },
+  displayResult (quizResult) {
+    QuizResultNum.displayNumOfQuestionsAnswered(quizResult);
+    QuizResultNum.displayNumOfCorrectAnswers(quizResult);
+    QuizResultNum.displayAccuracy(quizResult);
+    QuizResultNum.displayMinSecUsed();
   }
 };
 const QuizSubmission = {
