@@ -3,7 +3,11 @@ body {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
 }
-
+@media print {
+    html, body {
+       display: none;  /* hide whole page */
+    }
+}
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing {
