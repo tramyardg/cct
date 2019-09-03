@@ -7,10 +7,12 @@
     "citizenship",
     "Canada",
     "canadian",
-    "canada citizenship test"
+    "canada citizenship test",
+    "Raymart De Guzman",
+    "raymart de guzman"
   ],
   "repository": "https://github.com/tramyardg/cct.git",
-  "homepage": "http://canadacitizenshipquiz.com/",
+  "homepage": "http://canadiancitizenshiptest.c1.biz/index.html/",
   "author": "Raymart De Guzman <raymart54@gmail.com>",
   "private": true,
   "scripts": {
