@@ -281,7 +281,7 @@ const QuizSubmission = {
     QuizSubmission.formId = args.formId;
   },
   hideQuestionnaire () {
-    $(QuizSubmission.formId).css('display', 'none')
+    $(QuizSubmission.formId).css('display', 'none');
   },
   onClickSubmitButton () {
     $(QuizSubmission.formId).find('button#submit-quiz').click(function (event) {
